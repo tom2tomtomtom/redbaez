@@ -546,6 +546,12 @@
             pointer-events: none;
         }
 
+        #footer-canvas-front {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; opacity: 0.35; pointer-events: none;
+        }
+
         .cta-buttons {
             display: flex;
             gap: 2rem;
@@ -570,9 +576,11 @@
         }
 
         /* Footer brand logo */
-        .footer-brand { margin-top: 2rem; }
-        .footer-logo { height: clamp(72px, 12vw, 140px); display: block; margin: 0 auto; }
+        .footer-brand { margin-top: 3.5rem; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; min-height: 320px; }
+        .footer-logo { height: clamp(74px, 11vw, 144px); display: block; }
         .footer-tagline { margin-top: 1rem; font-size: 1.5rem; font-weight: 700; }
+        .footer-bottom { position: relative; z-index: 1; margin-top: 2rem; display: grid; gap: 1rem; }
+        .footer-bottom h2 { margin: 0; }
 
         /* Animations */
         @keyframes fadeInUp {
@@ -997,17 +1005,15 @@
     <!-- Footer CTA -->
     <section class="footer-cta" id="contact">
         <canvas id="footer-canvas"></canvas>
-        <h2>Ready to remove the grind from your daily?</h2>
-        <p>Let's talk. Or don't. Keep typing the same report 47 times. Your fingers will forgive you eventually.</p>
-        <div class="cta-buttons">
-            <a href="mailto:tomh@redbaez.com" class="cta-primary">Get Started</a>
-        </div>
-        <p style="margin-top: 4rem; opacity: 0.8;">
-            <em>Currently making agencies work better in New York, London, and wherever else fingers are tired.</em>
-        </p>
         <div class="footer-brand">
             <img class="footer-logo" src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez"/>
-            <p class="footer-tagline">Remove the grind from your daily.</p>
+        </div>
+        <canvas id="footer-canvas-front"></canvas>
+        <div class="footer-bottom">
+            <h2>Ready to remove the grind from your daily?</h2>
+            <div class="cta-buttons">
+                <a href="mailto:tomh@redbaez.com" class="cta-primary">Get Started</a>
+            </div>
         </div>
     </section>
 
@@ -1310,19 +1316,35 @@
         // Footer particle animation (separate instance)
         (function() {
             const footerCanvas = document.getElementById('footer-canvas');
+            const footerCanvasFront = document.getElementById('footer-canvas-front');
             if (!footerCanvas) return;
             const footerCtx = footerCanvas.getContext('2d');
+            const footerCtxFront = footerCanvasFront ? footerCanvasFront.getContext('2d') : null;
             const footerSection = document.querySelector('.footer-cta');
 
             function sizeFooterCanvas() {
                 footerCanvas.width = window.innerWidth;
                 footerCanvas.height = footerSection.offsetHeight;
-                footerCenterX = footerCanvas.width / 2;
-                footerCenterY = footerCanvas.height / 2;
+                if (footerCanvasFront) { footerCanvasFront.width = footerCanvas.width; footerCanvasFront.height = footerCanvas.height; }
+                // Center globe around the logo position
+                const secRect = footerSection.getBoundingClientRect();
+                const logoEl = footerSection.querySelector('.footer-logo');
+                if (logoEl) {
+                    const lr = logoEl.getBoundingClientRect();
+                    footerProjX = (lr.left - secRect.left) + lr.width / 2;
+                    footerProjY = (lr.top - secRect.top) + lr.height / 2;
+                    footerCenterX = footerProjX;
+                    footerCenterY = footerProjY;
+                    footerInnerHole = Math.max(lr.width, lr.height) * 0.65; // keep space around logo
+                } else {
+                    footerCenterX = footerCanvas.width / 2;
+                    footerCenterY = footerCanvas.height / 2;
+                    footerProjX = footerCenterX;
+                    footerProjY = footerCenterY;
+                    footerInnerHole = Math.min(footerCanvas.width, footerCanvas.height) * 0.12;
+                }
                 footerGlobeRadius = Math.min(footerCanvas.width, footerCanvas.height) * 0.44; // doubled size
                 footerGlobeCenterZ = -footerGlobeRadius;
-                footerProjX = footerCanvas.width / 2;
-                footerProjY = footerCanvas.height / 2;
                 footerFov = footerCanvas.width * 0.8;
             }
 
@@ -1339,6 +1361,7 @@
             let footerProjY = 0;
             let footerRotation = 0;
             let footerExplosionForce = 0;
+            let footerInnerHole = 0; // radius of inner void around logo
 
             class FooterParticle {
                 constructor(x, y) {
@@ -1442,11 +1465,24 @@
                 draw() {
                     footerCtx.save();
                     footerCtx.globalAlpha = this.opacityMul;
-                    footerCtx.fillStyle = this.color;
-                    footerCtx.beginPath();
-                    footerCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    footerCtx.fill();
+                    // Skip drawing inside the inner hole so logo feels centered within globe
+                    const dx = this.x - footerProjX; const dy = this.y - footerProjY;
+                    if (Math.hypot(dx, dy) > footerInnerHole) {
+                        footerCtx.fillStyle = this.color;
+                        footerCtx.beginPath();
+                        footerCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        footerCtx.fill();
+                    }
                     footerCtx.restore();
+                    if (footerCtxFront) {
+                        footerCtxFront.save();
+                        footerCtxFront.globalAlpha = this.opacityMul * 0.85;
+                        footerCtxFront.fillStyle = this.color;
+                        footerCtxFront.beginPath();
+                        footerCtxFront.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        footerCtxFront.fill();
+                        footerCtxFront.restore();
+                    }
                 }
             }
 
@@ -1472,7 +1508,8 @@
 
             function animateFooter(ts) {
                 footerCtx.clearRect(0, 0, footerCanvas.width, footerCanvas.height);
-
+                if (footerCtxFront) footerCtxFront.clearRect(0, 0, footerCanvasFront.width, footerCanvasFront.height);
+                
                 const elapsed = ts - footerTimer;
                 let progress = 0;
                 footerRotation = ts * 0.0006;
@@ -1515,7 +1552,23 @@
                         break;
                 }
                 footerParticles.sort((a, b) => b.z - a.z);
-                for (let p of footerParticles) { p.update(progress); p.draw(); }
+                const frontPick = 0.12; // ~12% of particles drawn above logo
+                for (let idx = 0; idx < footerParticles.length; idx++) {
+                    const p = footerParticles[idx];
+                    p.update(progress);
+                    // Draw back layer
+                    p.draw();
+                    // Occasionally draw a duplicate on the front canvas to appear above logo
+                    if (footerCtxFront && Math.random() < frontPick) {
+                        footerCtxFront.save();
+                        footerCtxFront.globalAlpha = p.opacityMul * 0.85;
+                        footerCtxFront.fillStyle = p.color;
+                        footerCtxFront.beginPath();
+                        footerCtxFront.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        footerCtxFront.fill();
+                        footerCtxFront.restore();
+                    }
+                }
                 requestAnimationFrame(animateFooter);
             }
 
