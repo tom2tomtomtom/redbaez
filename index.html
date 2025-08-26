@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redbaez - Your Fingers Deserve Better</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #FF3333;
+            --black: #0A0A0A;
+            --white: #FFFFFF;
+            --gray: #F5F5F5;
+            --dark-gray: #2A2A2A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            color: var(--black);
+            background: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Hero Section with Particle Animation */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(42, 42, 42, 0.9));
+            color: var(--white);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero .subhead {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-primary {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--red);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.4s forwards;
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+            position: relative;
+            z-index: 3;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: clamp(4rem, 10vw, 8rem) clamp(2rem, 5vw, 4rem);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Truth Section */
+        .truth {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .truth-stat {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .truth-stat strong {
+            color: var(--red);
+            font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+        }
+
+        .truth-conclusion {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-top: 4rem;
+        }
+
+        /* What We Do */
+        .what-we-do {
+            background: var(--gray);
+        }
+
+        .intro-text {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 3rem;
+        }
+
+        .intro-text span {
+            color: var(--red);
+        }
+
+        .process-grid {
+            display: grid;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .process-item h3 {
+            color: var(--red);
+            margin-bottom: 1rem;
+        }
+
+        /* Choice Section */
+        .choice {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .choice {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .choice-option {
+            padding: 3rem;
+            border-radius: 10px;
+        }
+
+        .choice-grind {
+            background: var(--dark-gray);
+            color: var(--white);
+        }
+
+        .choice-wave {
+            background: linear-gradient(135deg, var(--red), #FF6666);
+            color: var(--white);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: var(--white);
+        }
+
+        .timeline {
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            padding: 2rem 0;
+            border-left: 3px solid var(--red);
+            padding-left: 2rem;
+            margin-left: 1rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: var(--red);
+            border-radius: 50%;
+        }
+
+        /* Real Talk */
+        .real-talk {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .real-talk p {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, var(--dark-gray), var(--black));
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid var(--white);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .timeline-item {
+                margin-left: 0;
+                border-left: none;
+                border-top: 3px solid var(--red);
+                padding-left: 0;
+                padding-top: 2rem;
+            }
+
+            .timeline-item::before {
+                left: 2rem;
+                top: -8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="canvas"></canvas>
+        <div class="hero-content">
+            <h1>We teach agencies how to give every team member god-like abilities.</h1>
+            <p class="subhead">Your team stays. The grunt work goes. Take the grind out of your daily.</p>
+            <a href="#contact" class="cta-primary">See how →</a>
+        </div>
+    </section>
+
+    <!-- Truth Section -->
+    <section class="truth">
+        <div class="truth-stat fade-in">
+            <p><strong>Rachel's typed that brief <span class="counter" data-target="47">47</span> times</strong> this quarter.</p>
+        </div>
+        <div class="truth-stat fade-in">
+            <p><strong>Tom's made <span class="counter" data-target="1247">1,247</span> minor revisions</strong> today.</p>
+        </div>
+        <div class="truth-stat fade-in">
+            <p><strong>Sarah's reformatted <span class="counter" data-target="93">93</span> decks</strong> this month.</p>
+        </div>
+        <div class="truth-stat fade-in">
+            <p><strong>Mike's copied and pasted <span class="counter" data-target="2341">2,341</span> times</strong> this week.</p>
+        </div>
+        <div class="truth-stat fade-in">
+            <p><strong>Emma's resized <span class="counter" data-target="567">567</span> images</strong> manually.</p>
+        </div>
+        <div class="truth-stat fade-in">
+            <p><strong>Your creative team is using AI like it's 2019.</strong></p>
+        </div>
+        <p class="truth-conclusion fade-in">
+            Meanwhile, agencies that get it are producing 10x the output with half the effort.<br>
+            They're not surviving the AI revolution. They're surfing it.
+        </p>
+    </section>
+
+    <!-- What We Do -->
+    <section class="what-we-do">
+        <div class="intro-text fade-in">
+            We're <span>Redbaez</span>.
+        </div>
+        <p class="fade-in">We teach agencies how to turn every designer into a creative army. Every copywriter into a content machine. Every strategist into an insight generator.</p>
+        <p class="fade-in">Think Neo from The Matrix, but instead of dodging bullets, you're dodging burnout.</p>
+        
+        <h3 class="fade-in">Our process is simple:</h3>
+        <div class="process-grid">
+            <div class="process-item fade-in">
+                <h3>We audit your grind</h3>
+                <p>Those soul-crushing, repetitive tasks that make your team update their LinkedIn? Gone. Automated. Dead. Your people do the brilliant stuff instead.</p>
+            </div>
+            <div class="process-item fade-in">
+                <h3>We amplify your creativity</h3>
+                <p>The brilliant stuff your team does when they're not reformatting decks? We 10x it. More ideas. Better execution. Actual time to think.</p>
+            </div>
+            <div class="process-item fade-in">
+                <h3>We multiply your mastery</h3>
+                <p>One great concept becomes hundreds of perfect executions. Each tailored, on-brand, and ready to ship. Your best work, everywhere, instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who's Riding the Wave -->
+    <section class="credentials">
+        <h2 class="fade-in">Who's Riding the Wave</h2>
+        <p class="fade-in">Currently teaching god-mode to:</p>
+        <ul class="fade-in" style="list-style: none; padding: 2rem 0;">
+            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>The largest independent brand agency in the US</strong></li>
+            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>The UK's hottest creative agency</strong></li>
+            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>Teams who've discovered their fingers deserve better</strong></li>
+        </ul>
+        <div class="fade-in" style="margin-top: 3rem; padding-top: 3rem; border-top: 2px solid #f0f0f0;">
+            <h3 style="margin-bottom: 2rem; color: var(--red);">Imagine if you could:</h3>
+            <ul style="list-style: none; padding: 0; font-size: 1.3rem; line-height: 2;">
+                <li style="margin-bottom: 1.5rem;">• Save <strong style="color: var(--red);">40+ hours</strong> per week on reports</li>
+                <li style="margin-bottom: 1.5rem;">• Turn <strong style="color: var(--red);">one idea</strong> into 100 perfect executions instantly</li>
+                <li style="margin-bottom: 1.5rem;">• Ship <strong style="color: var(--red);">5 campaigns</strong> in the time it takes to build one</li>
+                <li style="margin-bottom: 1.5rem;">• Never reformat another <strong style="color: var(--red);">deck</strong> again</li>
+                <li style="margin-bottom: 1.5rem;">• Actually leave the office <strong style="color: var(--red);">before sunset</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- The Choice -->
+    <section class="choice">
+        <div class="choice-option choice-grind fade-in">
+            <h3>Option 1: The Grind</h3>
+            <p>Keep doing what you're doing. Watch your best people burn out. Lose pitches to agencies who've figured this out. Update your own LinkedIn eventually.</p>
+        </div>
+        <div class="choice-option choice-wave fade-in">
+            <h3>Option 2: The Wave</h3>
+            <p>Let us show you how AI actually works for creative teams. Not replacing humans. Amplifying them. Turning your current team into the agency you've always wanted to be.</p>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2 class="fade-in">How It Works</h2>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <h3>Week 1: The Audit</h3>
+                <p>We grill your team. Find every moment of grind. Every repeated task. Every "why do we still do it this way?" process.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <h3>Week 2: The Blueprint</h3>
+                <p>Here's exactly how to fix it. Which tools. Which workflows. Which quick wins will make your team believe in magic again.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <h3>Week 3: The Transformation</h3>
+                <p>We teach. Your team learns. Suddenly that 3-day project takes 3 hours. That impossible client request becomes Tuesday's coffee break task.</p>
+            </div>
+            <div class="timeline-item fade-in">
+                <h3>Forever: The Evolution</h3>
+                <p>AI changes. We keep you ahead. Monthly check-ins. New tools. New techniques. You're not just current—you're next.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Talk -->
+    <section class="real-talk">
+        <h2 class="fade-in">The Real Talk</h2>
+        <p class="fade-in">We're not selling you another platform subscription. We're not adding complexity to your stack. We're not here to replace your people.</p>
+        <p class="fade-in">We're here to make your current team feel like they have superpowers. Because they should. And they can.</p>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta" id="contact">
+        <h2>Ready to take the grind out of your daily?</h2>
+        <p>Let's talk. Or don't. Keep typing the same report 47 times. Your fingers will forgive you eventually.</p>
+        <div class="cta-buttons">
+            <a href="mailto:tomh@redbaez.com" class="cta-primary">Get Started</a>
+        </div>
+        <p style="margin-top: 4rem; opacity: 0.8;">
+            <em>Currently making agencies better in New York, London, and wherever else fingers are tired.</em>
+        </p>
+        <p style="margin-top: 2rem; font-size: 1.5rem; font-weight: 700;">
+            <span style="color: var(--red);">Redbaez</span><br>
+            Take the grind out of your daily.
+        </p>
+    </section>
+
+    <script>
+        // Particle Animation for Hero
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = document.querySelector('.hero').offsetHeight;
+
+        const particles = [];
+        const particleCount = 500; // Reduced for better performance
+        let animationState = 'randomMotion';
+        let stateTimer = 0;
+        let centerX = canvas.width / 2;
+        let centerY = canvas.height / 2;
+        let explosionForce = 0;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.z = Math.random() * 200 - 100;
+                this.baseSize = Math.random() * 3 + 1;
+                this.size = this.baseSize;
+                this.baseSpeed = Math.random() * 0.5 - 0.25;
+                this.speedX = this.baseSpeed;
+                this.speedY = this.baseSpeed;
+                this.speedZ = this.baseSpeed;
+                this.color = this.getRandomRedShade();
+            }
+            
+            getRandomRedShade() {
+                const r = 255;
+                const g = Math.floor(Math.random() * 51) + 51; // Matching brand red
+                const b = Math.floor(Math.random() * 51) + 51;
+                const alpha = Math.random() * 0.5 + 0.3;
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+
+            update(progress) {
+                switch(animationState) {
+                    case 'randomMotion':
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        this.z += this.speedZ;
+                        if (Math.random() < 0.05) {
+                            this.speedX = this.baseSpeed * (Math.random() * 2 - 1);
+                            this.speedY = this.baseSpeed * (Math.random() * 2 - 1);
+                            this.speedZ = this.baseSpeed * (Math.random() * 2 - 1);
+                        }
+                        break;
+                    case 'gravityCollapse':
+                        const dx = centerX - this.x;
+                        const dy = centerY - this.y;
+                        const dz = -this.z;
+                        const distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                        const force = 0.5 / (distance + 1);
+                        this.speedX += dx * force * 0.01 * (1 + progress * 2);
+                        this.speedY += dy * force * 0.01 * (1 + progress * 2);
+                        this.speedZ += dz * force * 0.01 * (1 + progress * 2);
+                        
+                        this.speedX += (Math.random() - 0.5) * 0.2;
+                        this.speedY += (Math.random() - 0.5) * 0.2;
+                        this.speedZ += (Math.random() - 0.5) * 0.2;
+                        
+                        const speed = Math.sqrt(this.speedX*this.speedX + this.speedY*this.speedY + this.speedZ*this.speedZ);
+                        const maxSpeed = 3;
+                        if (speed > maxSpeed) {
+                            this.speedX = (this.speedX / speed) * maxSpeed;
+                            this.speedY = (this.speedY / speed) * maxSpeed;
+                            this.speedZ = (this.speedZ / speed) * maxSpeed;
+                        }
+
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        this.z += this.speedZ;
+                        break;
+                    case 'stableStar':
+                        this.x += (Math.random() - 0.5) * 0.5;
+                        this.y += (Math.random() - 0.5) * 0.5;
+                        this.z += (Math.random() - 0.5) * 0.5;
+                        break;
+                    case 'explode':
+                        const explodeDx = this.x - centerX;
+                        const explodeDy = this.y - centerY;
+                        const explodeDz = this.z;
+                        const explodeDistance = Math.sqrt(explodeDx*explodeDx + explodeDy*explodeDy + explodeDz*explodeDz);
+                        const explodeForce = explosionForce / (explodeDistance + 1);
+                        this.speedX += explodeDx * explodeForce;
+                        this.speedY += explodeDy * explodeForce;
+                        this.speedZ += explodeDz * explodeForce;
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        this.z += this.speedZ;
+                        break;
+                }
+
+                // Adjust size and color based on z-position
+                const depthFactor = (this.z + 100) / 200;
+                this.size = this.baseSize * (0.5 + depthFactor);
+
+                // Wrap around screen edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.z < -100) this.z = 100;
+                if (this.z > 100) this.z = -100;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function calculateCenterOfMass() {
+            let totalX = 0, totalY = 0, totalZ = 0;
+            particles.forEach(p => {
+                totalX += p.x;
+                totalY += p.y;
+                totalZ += p.z;
+            });
+            centerX = totalX / particles.length;
+            centerY = totalY / particles.length;
+        }
+
+        function animateParticles(timestamp) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const timeElapsed = timestamp - stateTimer;
+            let progress = 0;
+            
+            // Faster animation cycle - 15 seconds total
+            switch(animationState) {
+                case 'randomMotion':
+                    if (timeElapsed > 3000) {
+                        animationState = 'gravityCollapse';
+                        stateTimer = timestamp;
+                    }
+                    break;
+                case 'gravityCollapse':
+                    progress = Math.min(1, timeElapsed / 5000);
+                    calculateCenterOfMass();
+                    if (timeElapsed >= 5000) {
+                        animationState = 'stableStar';
+                        stateTimer = timestamp;
+                    }
+                    break;
+                case 'stableStar':
+                    if (timeElapsed > 2000) {
+                        animationState = 'explode';
+                        stateTimer = timestamp;
+                        explosionForce = 0;
+                    }
+                    break;
+                case 'explode':
+                    explosionForce = Math.min(3, timeElapsed / 300);
+                    if (timeElapsed > 2000) {
+                        animationState = 'randomMotion';
+                        stateTimer = timestamp;
+                        explosionForce = 0;
+                    }
+                    break;
+            }
+
+            particles.sort((a, b) => b.z - a.z);
+            for (let particle of particles) {
+                particle.update(progress);
+                particle.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Initialize and start particle animation
+        initParticles();
+        animateParticles(0);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = document.querySelector('.hero').offsetHeight;
+            centerX = canvas.width / 2;
+            centerY = canvas.height / 2;
+        });
+
+        // Original scroll animations for other sections
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for truth stats
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger counter animations when in view
+        const truthSection = document.querySelector('.truth');
+        const truthObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    
+                    // Animate the numbers
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        counter.textContent = '0';
+                        animateValue(counter, 0, target, 2000);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        truthObserver.observe(truthSection);
+
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Removed parallax to prevent overlap issues
+    </script>
+</body>
+</html>
