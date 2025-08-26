@@ -579,7 +579,8 @@
 
         /* Footer brand logo */
         .footer-brand { margin-top: 3.5rem; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; min-height: 320px; }
-        .footer-logo { height: clamp(36px, 5.5vw, 72px); display: block; filter: brightness(0.6) contrast(1.05) saturate(0.9); }
+        .footer-logo { height: clamp(36px, 5.5vw, 72px); display: block; filter: brightness(0.6) contrast(1.05) saturate(0.9); transition: transform .6s ease, filter .6s ease; will-change: transform, filter; }
+        .footer-logo.burst { transform: scale(1.25); filter: brightness(1.15) contrast(1.1) saturate(1.0); }
         .footer-tagline { margin-top: 1rem; font-size: 1.5rem; font-weight: 700; }
         .footer-bottom { position: relative; z-index: 1; margin-top: 2rem; display: grid; gap: 1rem; }
         .footer-bottom h2 { margin: 0; }
@@ -1324,6 +1325,8 @@
             const footerCtxFront = footerCanvasFront ? footerCanvasFront.getContext('2d') : null;
             if (footerCtxFront) { footerCtxFront.globalCompositeOperation = 'lighter'; }
             const footerSection = document.querySelector('.footer-cta');
+            const footerLogoEl = footerSection ? footerSection.querySelector('.footer-logo') : null;
+            let logoBurstTimeout = null;
 
             function sizeFooterCanvas() {
                 footerCanvas.width = window.innerWidth;
@@ -1543,11 +1546,27 @@
                             footerState = 'explode';
                             footerTimer = ts;
                             footerExplosionForce = 6; // stronger push
+                            // Logo burst effect in sync with explosion
+                            if (footerLogoEl) {
+                                footerLogoEl.classList.add('burst');
+                                if (logoBurstTimeout) { clearTimeout(logoBurstTimeout); }
+                                // Remove burst shortly after explosion peak
+                                logoBurstTimeout = setTimeout(() => {
+                                    footerLogoEl.classList.remove('burst');
+                                }, 1100);
+                            }
                         }
                         break;
                     case 'explode':
                         progress = Math.min(1, elapsed / 900);
-                        if (elapsed >= 900) { footerState = 'globeDissipate'; footerTimer = ts; footerExplosionForce = 0; }
+                        if (elapsed >= 900) {
+                            footerState = 'globeDissipate';
+                            footerTimer = ts;
+                            footerExplosionForce = 0;
+                            // Safety: ensure logo returns if still bursting
+                            if (footerLogoEl) { footerLogoEl.classList.remove('burst'); }
+                            if (logoBurstTimeout) { clearTimeout(logoBurstTimeout); logoBurstTimeout = null; }
+                        }
                         break;
                     case 'globeDissipate':
                         progress = Math.min(1, elapsed / 5000);
@@ -1556,6 +1575,8 @@
                             for (const p of footerParticles) p.opacityMul = 1;
                             footerState = 'globeForm';
                             footerTimer = ts;
+                            if (footerLogoEl) { footerLogoEl.classList.remove('burst'); }
+                            if (logoBurstTimeout) { clearTimeout(logoBurstTimeout); logoBurstTimeout = null; }
                         }
                         break;
                 }
