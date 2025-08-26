@@ -93,16 +93,17 @@
         }
 
         .hero h1 {
-            margin-bottom: 2rem;
+            margin-bottom: 40px; /* spacing per brief */
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
+            font-size: clamp(3.6rem, 9.6vw, 7.2rem); /* +20% size */
         }
 
         .hero .subhead {
             font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-            max-width: 600px;
-            margin: 0 auto 3rem auto;
+            max-width: 740px;
+            margin: 0 auto 60px auto; /* spacing per brief */
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease 0.2s forwards;
@@ -131,6 +132,7 @@
             transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4);
         }
+        .cta-subtext { margin-top: 0.75rem; color: rgba(255,255,255,0.85); font-size: 0.95rem; }
 
         /* Sections (full-bleed backgrounds, centered content) */
         section {
@@ -527,6 +529,21 @@
             margin: 0 auto 2rem;
         }
 
+        /* Buying, Pricing, FAQ sections */
+        .buying, .pricing, .faq { position: relative; }
+        .buying h2, .pricing h2, .faq h2 { color: #fff; }
+        .benefits { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
+        .benefit { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.25rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); }
+        .benefit h3 { margin-bottom: .25rem; color: var(--red); font-size: clamp(1rem, 2.2vw, 1.25rem); }
+        .wins { list-style: none; padding: 0; margin-top: .75rem; display:grid; gap:.4rem; }
+        .wins li { position: relative; padding-left: 1.25rem; color: rgba(255,255,255,0.95); }
+        .wins li::before { content: ''; position: absolute; left: 0; top: .65em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); transform: translateY(-50%); }
+        .pricing .card { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.5rem; }
+        .faq-list { display:grid; gap: .75rem; margin-top: 1rem; }
+        .faq-list details { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding: 1rem 1.25rem; }
+        .faq-list summary { cursor: pointer; font-weight: 700; color: #fff; }
+        .faq-list p { margin-top: .5rem; color: rgba(255,255,255,0.95); }
+
         /* Footer CTA */
         .footer-cta {
             background: var(--burgundy);
@@ -837,7 +854,7 @@
             <nav>
                 <a href="#what">What we do</a>
                 <a href="#how">How it works</a>
-                <a href="#contact" class="cta-primary cta-small">Get Started</a>
+                <a href="#contact" class="cta-primary cta-small">See It In Action</a>
             </nav>
         </div>
     </header>
@@ -846,8 +863,9 @@
         <canvas id="canvas"></canvas>
         <div class="hero-content">
             <h1>We'll teach your team<br>god-like abilities.</h1>
-            <p class="subhead">Your team thrives. The grunt work dies.<br>Learn how to use AI to remove the grind from your daily.</p>
-            <a href="#contact" class="cta-primary">Let's go!</a>
+            <p class="subhead">The grunt work dies. Your team thrives.</p>
+            <a href="#contact" class="cta-primary">Book Your Diagnostic Call</a>
+            <p class="cta-subtext">30 minutes. We'll show you exactly where to start.</p>
         </div>
     </section>
 
@@ -906,25 +924,34 @@
         </div>
     </section>
 
-    <!-- Who's Riding the Wave -->
-    <section class="credentials credentials-hero">
-        <div class="credentials-content align-right">
-            <h2 class="fade-in">Who's Rewiring?</h2>
-            <p class="fade-in">Currently teaching god-mode to:</p>
-            <ul class="fade-in credentials-list">
-                <li><strong>The largest independent brand agency in the US</strong></li>
-                <li><strong>The UK's hottest creative agency</strong></li>
-                <li><strong>Teams who've discovered their fingers deserve better</strong></li>
-            </ul>
-            <div class="fade-in credentials-divider credentials-ideas">
-                <h3>Imagine if you could:</h3>
-                <ul>
-                    <li>Save <strong style="color: var(--red);">40+ hours</strong> per week on reports</li>
-                    <li>Turn <strong style="color: var(--red);">one idea</strong> into 100 perfect executions instantly</li>
-                    <li>Ship <strong style="color: var(--red);">5 campaigns</strong> in the time it takes to build one</li>
-                    <li>Never reformat another <strong style="color: var(--red);">deck</strong> again</li>
-                    <li>Actually leave the office <strong style="color: var(--red);">before sunset</strong></li>
-                </ul>
+    <!-- What You're Really Buying (new) -->
+    <section class="buying">
+        <div>
+            <h2 class="fade-in">What You're Really Buying</h2>
+            <div class="benefits">
+                <div class="benefit fade-in">
+                    <h3>Time Back</h3>
+                    <p>40% reduction in production time, measured and proven. Your team goes home at 6pm again.</p>
+                </div>
+                <div class="benefit fade-in">
+                    <h3>Capability Explosion</h3>
+                    <p>Every designer becomes a developer. Every writer becomes a data analyst. Every strategist becomes a designer. Not replacing skills — multiplying them.</p>
+                </div>
+                <div class="benefit fade-in">
+                    <h3>Talent Retention</h3>
+                    <p>Stop losing your best people to burnout or “better work-life balance.” Give them superpowers instead of overtime.</p>
+                </div>
+                <div class="benefit fade-in">
+                    <h3>Pitch Velocity</h3>
+                    <p>Respond to RFPs in days, not weeks. Iterate concepts in hours, not days. Win more because you can show more.</p>
+                    <ul class="wins">
+                        <li>Brand guidelines: 3 days → 3 hours</li>
+                        <li>Social campaigns: 50 variants by tomorrow? Done by lunch</li>
+                        <li>Persona development: 2 weeks → 2 hours</li>
+                        <li>Competitive audits: Manual slog → Automated intelligence</li>
+                        <li>Presentation decks: Half-day formatting → 30-minute polish</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -955,6 +982,18 @@
         </div>
     </section>
 
+    <!-- Pricing Anchor (new, before process) -->
+    <section class="pricing">
+        <div class="card">
+            <h2 class="fade-in">Investment Reality Check</h2>
+            <p class="fade-in"><strong>Cost of god-mode training:</strong> Less than one junior hire</p>
+            <p class="fade-in"><strong>Value delivered:</strong> More than ten seniors</p>
+            <p class="fade-in"><strong>Payback period:</strong> Week one</p>
+            <p class="fade-in"><strong>Risk:</strong> Zero — if you don't see results in week 1, you pay nothing</p>
+            <p class="fade-in">Do the math: 40 hours saved per person, per week × your hourly rate × your team size = Stop thinking about it.</p>
+        </div>
+    </section>
+
     <!-- How It Works -->
     <section class="how-it-works hiw-bg" id="how">
         <canvas id="how-canvas-3d"></canvas>
@@ -981,7 +1020,7 @@
                     <div class="hiw-num">03</div>
                     <div class="hiw-node"></div>
                     <h3>Week 3: The Transformation</h3>
-                    <p>We teach. Your team learns. Suddenly that 3‑day project takes 3 hours. That impossible client request becomes Tuesday.</p>
+                    <p>We teach. Your team learns. Brand guidelines: 3 days → 3 hours. 50 social variations by tomorrow? Done by lunch.</p>
                     <p style="opacity:.8">Outcome: +3× output on your first pilot lane.</p>
                 </div>
                 <div class="hiw-card right fade-in">
@@ -995,6 +1034,39 @@
         </div>
         <div class="hiw-cta">
             <a href="#contact" class="cta-primary">Start your audit →</a>
+        </div>
+    </section>
+
+    <!-- FAQ (new, after process) -->
+    <section class="faq">
+        <div>
+            <h2 class="fade-in">The Questions You're Already Thinking</h2>
+            <div class="faq-list">
+                <details class="fade-in">
+                    <summary>Will this replace our people?</summary>
+                    <p>No. This replaces their worst Tuesday. And Wednesday. And that soul-crushing Thursday reformatting decks. Your people do the brilliant stuff. AI does the grind.</p>
+                </details>
+                <details class="fade-in">
+                    <summary>Is this just ChatGPT training?</summary>
+                    <p>If ChatGPT could do this, you'd have done it already. We teach the full stack: tool selection, workflow design, prompt engineering, quality control, and custom automation. ChatGPT is maybe 10% of it.</p>
+                </details>
+                <details class="fade-in">
+                    <summary>What if we're not technical?</summary>
+                    <p>Perfect. We teach humans, not engineers. If you can use Google, you can do this. Our least technical client is now our most advanced user.</p>
+                </details>
+                <details class="fade-in">
+                    <summary>How is this different from other AI training?</summary>
+                    <p>Others teach tools. We transform workflows. Others show features. We deliver outcomes. Others leave you with videos. We leave you with superpowers.</p>
+                </details>
+                <details class="fade-in">
+                    <summary>What if AI changes next month?</summary>
+                    <p>It will. That's why we include ongoing support. New tools, new techniques, new capabilities. You don't just get current — you stay ahead.</p>
+                </details>
+                <details class="fade-in">
+                    <summary>Can we really see results in week one?</summary>
+                    <p>Our slowest client saved 15 hours in week one. Our fastest saved 60. You'll measure it yourself.</p>
+                </details>
+            </div>
         </div>
     </section>
 
@@ -1013,10 +1085,19 @@
         </div>
         <canvas id="footer-canvas-front"></canvas>
         <div class="footer-bottom">
-            <h2>Ready to remove the grind from your daily?</h2>
+            <h2>Ready for god-mode?</h2>
             <div class="cta-buttons">
-                <a href="mailto:tomh@redbaez.com" class="cta-primary">Get Started</a>
+                <a href="#contact" class="cta-primary">Start Your 4-Week Transformation</a>
             </div>
+            <p class="cta-subtext">Next cohort starts Monday. Limited spots.</p>
+            <!-- Calendly/embed placeholder: Replace href with your Calendly URL -->
+            <p style="margin-top:1rem; opacity:.85">Prefer to talk? <a href="mailto:tomh@redbaez.com" style="color:#fff; text-decoration:underline">Email us</a>.</p>
+        </div>
+        <div style="margin-top:2.5rem; text-align:left; max-width:900px; margin-left:auto; margin-right:auto;">
+            <h3 style="color:var(--red); margin-bottom:.5rem;">The Fine Print</h3>
+            <p style="margin-bottom:.5rem; color: rgba(255,255,255,0.95);">We work with 5 agencies at a time, max. This isn't mass-market training — it's transformation. If you're not ready to change how you work, we're not the right fit. If you are, let's talk.</p>
+            <p style="color: rgba(255,255,255,0.9);"><strong>Contact:</strong> tomh@redbaez.com<br/>
+            <strong>Based:</strong> Melbourne (training globally)</p>
         </div>
     </section>
 
