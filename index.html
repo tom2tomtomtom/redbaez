@@ -456,10 +456,8 @@
         /* Three.js ribbon canvas (behind content) */
         #how-canvas-3d {
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100vw;
+            inset: 0;
+            width: 100%;
             height: 100%;
             z-index: 1; /* above contour lines, below content */
             pointer-events: none;
@@ -1726,10 +1724,12 @@
                 const isSmall = rect.width < 640;
                 const segX = isSmall ? 120 : 240;
                 const segY = isSmall ? 14 : 28;
-                const geometry = new THREE.PlaneGeometry(20, 4, segX, segY);
+                // Enlarge plane to cover full section vertically behind all cards
+                const geometry = new THREE.PlaneGeometry(30, 12, segX, segY);
                 const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.22 : 0.42 });
                 ribbon = new THREE.Mesh(geometry, material);
                 ribbon.position.z = -2;
+                ribbon.position.y = 0;
                 ribbon.rotation.x = -0.25;
                 ribbon.rotation.y = 0.35;
                 scene.add(ribbon);
