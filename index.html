@@ -190,7 +190,7 @@
             transform: translateX(-50%);
             width: 100vw;
             height: 100%;
-            background: linear-gradient(90deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.45) 40%, rgba(10,10,10,0.15) 65%, rgba(10,10,10,0) 85%);
+            background: linear-gradient(90deg, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.52) 42%, rgba(10,10,10,0.18) 66%, rgba(10,10,10,0) 85%);
             z-index: 1;
         }
         .truth-hero > * { position: relative; z-index: 2; }
@@ -425,6 +425,7 @@
             backdrop-filter: blur(2px);
         }
         @media (min-width: 768px) { .choice::after { display: flex; } }
+        @media (min-width: 1024px) { .choice::after { display: flex; } }
 
         /* Choice CTA */
         .choice-cta { margin-top: 1rem; }
@@ -608,6 +609,12 @@
         @media (max-width: 768px) {
             section { padding: 3rem 0; }
             section > * { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+            .hero .subhead { font-size: clamp(1rem, 4.5vw, 1.15rem); }
+            .intro-text { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+            .process-grid { gap: 1.5rem; }
+            .process-item { padding: 1.4rem; }
+            .cta-primary { padding: 0.9rem 2rem; }
 
             .timeline-item {
                 margin-left: 0;
@@ -1049,7 +1056,7 @@
         canvas.height = document.querySelector('.hero').offsetHeight;
 
         const particles = [];
-        const particleCount = 500; // Reduced for better performance
+        const particleCount = Math.max(250, Math.floor((window.innerWidth * window.innerHeight) / 6000));
         let animationState = 'randomMotion';
         let stateTimer = 0;
         let centerX = canvas.width / 2;
@@ -1322,7 +1329,7 @@
             }
 
             const footerParticles = [];
-            const footerParticleCount = 350;
+            const footerParticleCount = Math.max(180, Math.floor((window.innerWidth * footerSection.offsetHeight) / 12000));
             let footerState = 'randomMotion';
             let footerTimer = 0;
             let footerCenterX = 0;
@@ -1604,12 +1611,14 @@
             }
 
             let lastTs = 0;
+            let running = true;
             function animate(ts) {
                 if (!lastTs) lastTs = ts;
                 const dt = Math.min(0.033, (ts - lastTs) / 1000);
                 lastTs = ts;
                 const cw = wc.width / dpr;
                 const ch = wc.height / dpr;
+                if (!running) { requestAnimationFrame(animate); return; }
                 wctx.clearRect(0, 0, cw, ch);
 
                 // Integrate
@@ -1630,6 +1639,14 @@
                 requestAnimationFrame(animate);
             }
             requestAnimationFrame(animate);
+
+            // Pause when offscreen
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    running = entry.isIntersecting;
+                });
+            }, { threshold: 0.05 });
+            io.observe(section);
         })();
 
         // Subtle Three.js wireframe ribbon behind How It Works
@@ -1705,7 +1722,11 @@
                 renderer.setPixelRatio(dpr);
                 renderer.setClearColor(0x000000, 0);
 
-                const geometry = new THREE.PlaneGeometry(20, 4, 240, 28);
+                const rect = section.getBoundingClientRect();
+                const isSmall = rect.width < 640;
+                const segX = isSmall ? 120 : 240;
+                const segY = isSmall ? 14 : 28;
+                const geometry = new THREE.PlaneGeometry(20, 4, segX, segY);
                 const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.22 : 0.42 });
                 ribbon = new THREE.Mesh(geometry, material);
                 ribbon.position.z = -2;
