@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redbaez - Your Fingers Deserve Better</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
     <style>
         * {
             margin: 0;
@@ -17,16 +18,18 @@
             --white: #FFFFFF;
             --gray: #F5F5F5;
             --dark-gray: #2A2A2A;
+            --burgundy: #140205;
         }
 
         html {
             scroll-behavior: smooth;
+            font-size: 90%;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            color: var(--black);
-            background: var(--white);
+            color: var(--white);
+            background: var(--burgundy);
             overflow-x: hidden;
             line-height: 1.6;
         }
@@ -68,7 +71,7 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(42, 42, 42, 0.9));
+            background: var(--burgundy);
             color: var(--white);
             text-align: center;
             overflow: hidden;
@@ -129,17 +132,125 @@
             box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4);
         }
 
-        /* Sections */
+        /* Sections (full-bleed backgrounds, centered content) */
         section {
-            padding: clamp(4rem, 10vw, 8rem) clamp(2rem, 5vw, 4rem);
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: clamp(4rem, 10vw, 8rem) 0;
+            scroll-margin-top: 72px;
         }
+        /* Center and constrain direct children (content) */
+        section > * {
+            max-width: 1400px;
+            padding: 0 clamp(2rem, 5vw, 4rem);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Ensure canvases/absolute overlays are not constrained */
+        section > canvas { max-width: none; padding: 0; }
 
         /* Truth Section */
         .truth {
-            background: var(--white);
+            background: transparent;
             text-align: center;
+        }
+        .truth-two-col {
+            display: grid;
+            gap: 2rem;
+            align-items: start;
+            text-align: left;
+        }
+        @media (min-width: 900px) {
+            .truth-two-col { grid-template-columns: 1.2fr 1fr; }
+        }
+        .truth .media-block { margin: 0; }
+        .truth-right .truth-stat { margin-bottom: 1.25rem; }
+        .truth-right .truth-conclusion { margin-top: 2rem; }
+
+        /* Truth as image background with overlayed stats (full-bleed) */
+        .truth-hero {
+            position: relative;
+            color: var(--white);
+            text-align: left;
+        }
+        .truth-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: url('https://res.cloudinary.com/dkl8kiemy/image/upload/standout_wbxsly.png') center/cover no-repeat;
+            z-index: 0;
+        }
+        .truth-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.45) 40%, rgba(10,10,10,0.15) 65%, rgba(10,10,10,0) 85%);
+            z-index: 1;
+        }
+        .truth-hero > * { position: relative; z-index: 2; }
+        .truth-hero .truth-overlay {
+            max-width: 1200px;
+        }
+        .truth-hero .truth-stat strong { color: #fff; }
+        .truth-hero .truth-stat .counter { color: var(--red); }
+        .truth-hero .truth-conclusion { max-width: 1100px; font-size: clamp(1.2rem, 3vw, 2.6rem); line-height: 1.2; }
+        /* Prevent single-word orphans on the last line */
+        .no-orphan { text-wrap: balance; }
+        @supports not (text-wrap: balance) {
+            .no-orphan { word-break: normal; }
+        }
+
+        /* Reduce Truth section typography by 20% (responsive-aware) */
+        .truth p { font-size: calc(0.8 * clamp(1.1rem, 2vw, 1.25rem)); }
+        .truth h2 { font-size: calc(0.8 * clamp(2rem, 5vw, 3.5rem)); }
+        .truth h3 { font-size: calc(0.8 * clamp(1.5rem, 3vw, 2rem)); }
+        .truth .truth-stat .counter { font-size: calc(0.8 * clamp(2rem, 6vw, 3.5rem)); }
+
+        /* Credentials full-bleed background image */
+        .credentials-hero { position: relative; color: #fff; }
+        .credentials-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: url('https://res.cloudinary.com/dkl8kiemy/image/upload/colaboration_e8adsi.png') center/cover no-repeat;
+            background-position: 30% 50%;
+            z-index: 0;
+        }
+        .credentials-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.35) 40%, rgba(10,10,10,0.35) 100%);
+            z-index: 1;
+        }
+        .credentials-hero > * { position: relative; z-index: 2; }
+        .credentials-content.align-right { max-width: 760px; margin-left: auto; margin-right: 0; text-align: left; }
+        @media (max-width: 900px) { .credentials-content.align-right { margin: 0 auto; } }
+
+        /* Red translucent square behind credentials text */
+        .credentials-content.align-right { position: relative; }
+        .credentials-content.align-right::before {
+            content: '';
+            position: absolute;
+            top: -16px; right: -16px; bottom: -16px; left: -16px;
+            background: rgba(255, 70, 70, 0.16);
+            border-radius: 14px;
+            backdrop-filter: blur(2px);
+            z-index: 0;
         }
 
         .truth-stat {
@@ -161,8 +272,23 @@
 
         /* What We Do */
         .what-we-do {
-            background: var(--gray);
+            background: transparent;
+            position: relative;
+            overflow: hidden;
         }
+
+        #what-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 1;
+        }
+
+        .what-we-do > * { position: relative; z-index: 1; }
 
         .intro-text {
             font-size: clamp(1.8rem, 3.5vw, 2.5rem);
@@ -185,12 +311,62 @@
             margin-bottom: 1rem;
         }
 
+        /* Micro movements: cards and buttons */
+        @keyframes cardFloat {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2px) scale(1.002); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        /* Apply to common cards */
+        :is(.process-item, .hiw-card, .choice-option) {
+            will-change: transform, box-shadow;
+            animation: cardFloat 8s ease-in-out infinite;
+            animation-delay: var(--float-delay, 0s);
+        }
+        /* Stagger delays */
+        .process-grid .process-item:nth-child(1) { --float-delay: .1s; }
+        .process-grid .process-item:nth-child(2) { --float-delay: .4s; }
+        .process-grid .process-item:nth-child(3) { --float-delay: .7s; }
+        .hiw-steps .hiw-card:nth-child(1) { --float-delay: .15s; }
+        .hiw-steps .hiw-card:nth-child(2) { --float-delay: .45s; }
+        .hiw-steps .hiw-card:nth-child(3) { --float-delay: .75s; }
+        .hiw-steps .hiw-card:nth-child(4) { --float-delay: 1.05s; }
+        .choice .choice-option:nth-child(1) { --float-delay: .2s; }
+        .choice .choice-option:nth-child(2) { --float-delay: .6s; }
+        /* Buttons */
+        .cta-secondary { will-change: transform, box-shadow; }
+        .cta-primary:hover, .cta-secondary:hover { transform: translateY(-2px); }
+        @media (prefers-reduced-motion: reduce) {
+            :is(.process-item, .hiw-card, .choice-option), .cta-secondary { animation: none !important; }
+            .cta-primary { animation: none !important; opacity: 1 !important; transform: none !important; }
+        }
+
         /* Choice Section */
         .choice {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
+            position: relative;
+            background: #140205; /* base burgundy */
         }
+        .choice::before {
+            content: '';
+            position: absolute;
+            inset: -3rem 0 -3rem 0;
+            background: linear-gradient(110deg, #0d0305 0%, #1a070a 48%, #4d0a11 52%, #7a0f16 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .choice::after {
+            content: '';
+            position: absolute; inset: -3rem 0 -3rem 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(80% 60% at 22% 50%, rgba(0,0,0,0.28), rgba(0,0,0,0) 60%),
+                radial-gradient(80% 60% at 78% 50%, rgba(122,15,22,0.18), rgba(122,15,22,0) 60%);
+            opacity: .28;
+        }
+        
 
         @media (min-width: 768px) {
             .choice {
@@ -200,45 +376,141 @@
 
         .choice-option {
             padding: 3rem;
-            border-radius: 10px;
+            border-radius: 14px;
+            position: relative;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
         }
+        .choice-option:hover { transform: translateY(-4px); }
+        .choice:hover .choice-option { opacity: 0.9; filter: saturate(0.95); }
+        .choice .choice-option:hover { opacity: 1; filter: none; }
 
         .choice-grind {
-            background: var(--dark-gray);
-            color: var(--white);
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.95);
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
         }
+        .choice-grind::after { content:''; position:absolute; inset:0; border-radius:14px; background:
+            radial-gradient(120% 80% at 20% 10%, rgba(255,255,255,0.04), rgba(255,255,255,0) 60%),
+            repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 6px, rgba(255,255,255,0.02) 6px 12px);
+            pointer-events:none; }
 
         .choice-wave {
-            background: linear-gradient(135deg, var(--red), #FF6666);
-            color: var(--white);
+            background:
+                linear-gradient(to bottom right, rgba(255,70,70,0.10), rgba(255,70,70,0.05)),
+                rgba(255,255,255,0.06);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
         }
+        .choice-wave::after { content:''; position:absolute; inset:-30%; transform: skewX(-16deg) translateX(-120%); background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%); filter: blur(8px); pointer-events:none; opacity:.0; transition: opacity .3s ease, transform .8s ease; }
+        .choice-wave:hover::after { opacity:.3; transform: skewX(-16deg) translateX(60%); }
+
+        /* VS badge */
+        .choice::after {
+            content: 'VS';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.85);
+            display: none; /* hidden on mobile */
+            align-items: center; justify-content: center;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            z-index: 1;
+            backdrop-filter: blur(2px);
+        }
+        @media (min-width: 768px) { .choice::after { display: flex; } }
+
+        /* Choice CTA */
+        .choice-cta { margin-top: 1rem; }
+        .choice-cta .cta-primary { box-shadow: 0 10px 30px rgba(255,51,51,0.35); }
+
+        /* Choice lists */
+        .choice-list { list-style: none; padding: 0; margin-top: .5rem; display: grid; gap: .6rem; }
+        .choice-list li { position: relative; padding-left: 1.7rem; }
+        .choice-list.good li::before,
+        .choice-list.bad  li::before {
+            content: '';
+            position: absolute; left: 0; top: 0.9em; width: 0.9rem; height: 0.9rem; border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .choice-list.good li::before { background: rgba(255,255,255,0.2); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7); }
+        .choice-list.bad  li::before { background: rgba(255,255,255,0.1); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5); }
+        .choice-list.good li { color: #fff; }
+        .choice-list.bad  li { color: rgba(255,255,255,0.9); }
+
+        /* Pop-in scroll animation for option cards */
+        .fade-in.pop-in { transform: translateY(30px) scale(0.96); }
+        .fade-in.pop-in.visible { transform: translateY(0) scale(1); }
 
         /* How It Works */
-        .how-it-works {
-            background: var(--white);
+        .how-it-works { background: #1a0000; position: relative; }
+        .how-it-works > * { position: relative; z-index: 2; }
+        .how-it-works h2, .how-it-works .hiw-lede { color: #fff; }
+        /* Three.js ribbon canvas (behind content) */
+        #how-canvas-3d {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            z-index: 1; /* above contour lines, below content */
+            pointer-events: none;
+            opacity: 0.9;
         }
-
-        .timeline {
-            margin-top: 3rem;
+        @media (prefers-reduced-motion: reduce) {
+            /* Keep visible but tone it down; animation will be gentler via JS */
+            #how-canvas-3d { opacity: 0.7; }
         }
-
-        .timeline-item {
-            padding: 2rem 0;
-            border-left: 3px solid var(--red);
-            padding-left: 2rem;
-            margin-left: 1rem;
+        /* How It Works background container */
+        .hiw-bg { position: relative; overflow: hidden; }
+        .hiw-lede { max-width: 900px; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
+        .hiw-grid { position: relative; }
+        .hiw-connector {
+            position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(to bottom, rgba(255,51,51,0.35), rgba(255,51,51,0.15));
+            transform: translateX(-50%);
+        }
+        .hiw-steps { display: grid; gap: 2rem; }
+        .hiw-card {
+            display: grid; grid-template-columns: 1fr; gap: 1rem;
+            background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.95);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 14px; padding: 2rem;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
             position: relative;
         }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 2rem;
-            width: 12px;
-            height: 12px;
-            background: var(--red);
-            border-radius: 50%;
+        .hiw-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+        .hiw-card h3 { color: #fff; }
+        .hiw-card p { color: rgba(255,255,255,0.95); }
+        .hiw-num {
+            position: absolute; font-weight: 900; color: #fff;
+            opacity: 0.12; font-size: clamp(4rem, 16vw, 9rem); line-height: 1;
+            top: -10px; left: -10px; pointer-events: none;
+        }
+        .hiw-node { position: absolute; top: 50%; width: 14px; height: 14px; background: var(--red); border-radius: 50%; transform: translateY(-50%); }
+        .hiw-node::after { content:''; position:absolute; inset:-6px; border:2px solid rgba(255,51,51,0.5); border-radius:50%; opacity:.6; animation: hiwPulse 2.4s ease-out infinite; }
+        @keyframes hiwPulse { 0%{ transform: scale(0.8); opacity:.6 } 70%{ transform: scale(1.4); opacity:0 } 100%{ transform: scale(1.4); opacity:0 } }
+        .hiw-steps .hiw-card:nth-child(1) .hiw-node::after { animation-delay: .0s }
+        .hiw-steps .hiw-card:nth-child(2) .hiw-node::after { animation-delay: .4s }
+        .hiw-steps .hiw-card:nth-child(3) .hiw-node::after { animation-delay: .8s }
+        .hiw-steps .hiw-card:nth-child(4) .hiw-node::after { animation-delay: 1.2s }
+        .hiw-card.left  { margin-right: 52%; }
+        .hiw-card.right { margin-left: 52%; }
+        .hiw-card.left  .hiw-node { right: -7px; }
+        .hiw-card.right .hiw-node { left: -7px; }
+        .hiw-cta { margin-top: 2rem; }
+        @media (max-width: 900px) {
+            .hiw-connector { display: none; }
+            .hiw-card, .hiw-card.left, .hiw-card.right { margin: 0; }
+            .hiw-node { display: none; }
         }
 
         /* Real Talk */
@@ -256,10 +528,23 @@
 
         /* Footer CTA */
         .footer-cta {
-            background: linear-gradient(135deg, var(--dark-gray), var(--black));
+            background: var(--burgundy);
             color: var(--white);
             text-align: center;
             padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #footer-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.55;
+            pointer-events: none;
         }
 
         .cta-buttons {
@@ -284,6 +569,11 @@
             background: var(--white);
             color: var(--black);
         }
+
+        /* Footer brand logo */
+        .footer-brand { margin-top: 2rem; }
+        .footer-logo { height: clamp(72px, 12vw, 140px); display: block; margin: 0 auto; }
+        .footer-tagline { margin-top: 1rem; font-size: 1.5rem; font-weight: 700; }
 
         /* Animations */
         @keyframes fadeInUp {
@@ -316,9 +606,8 @@
 
         /* Mobile optimizations */
         @media (max-width: 768px) {
-            section {
-                padding: 3rem 1.5rem;
-            }
+            section { padding: 3rem 0; }
+            section > * { padding-left: 1.5rem; padding-right: 1.5rem; }
 
             .timeline-item {
                 margin-left: 0;
@@ -333,52 +622,256 @@
                 top: -8px;
             }
         }
+
+        /* Sticky Navigation */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            background: rgba(10, 10, 10, 0.35);
+            backdrop-filter: saturate(120%) blur(8px);
+        }
+        .site-nav.scrolled {
+            background: rgba(10, 10, 10, 0.85);
+        }
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            color: #fff;
+        }
+        .site-nav .brand {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .site-nav nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-weight: 600;
+        }
+        .cta-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* Process cards and Truth grid */
+        @media (min-width: 900px) {
+            .process-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .process-item {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            color: rgba(255,255,255,0.95);
+        }
+        .process-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.16);
+        }
+        .truth-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 700px) {
+            .truth-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1000px) {
+            .truth-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .truth-stat .counter {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: var(--red);
+            display: inline-block;
+        }
+
+        /* Credentials cleanup */
+        .credentials-list {
+            list-style: none;
+            padding: 2rem 0;
+        }
+        .credentials-list li {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .credentials-divider {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid #f0f0f0;
+        }
+        .credentials-ideas h3 { color: var(--red); margin-bottom: 2rem; }
+        .credentials-ideas ul { list-style: none; padding: 0; font-size: 1.3rem; line-height: 2; }
+        .credentials-ideas li { position: relative; padding-left: 1.25rem; margin-bottom: 1.1rem; }
+        .credentials-ideas li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.9em;
+            width: 6px;
+            height: 6px;
+            background: var(--red);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Accent dot (CSS-only) */
+        .accent-dot { position: relative; overflow: hidden; }
+        .accent-dot::before {
+            content: '';
+            position: absolute;
+            width: clamp(260px, 42vw, 560px);
+            height: clamp(260px, 42vw, 560px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 70, 70, 0.18), rgba(255, 70, 70, 0) 65%);
+            top: 6%;
+            right: 6%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Giant orb for one section (Choice) */
+        .giant-orb { position: relative; overflow: hidden; }
+        .giant-orb > * { position: relative; z-index: 1; }
+        .giant-orb::before {
+            content: '';
+            position: absolute;
+            width: clamp(520px, 82vw, 1200px);
+            height: clamp(520px, 82vw, 1200px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 70, 70, 0.24), rgba(255, 70, 70, 0) 52%);
+            top: -10%;
+            left: -8%;
+            z-index: 0;
+            pointer-events: none;
+            animation: orbDrift 18s ease-in-out infinite alternate;
+            transform: translate3d(0,0,0);
+        }
+        /* Darken option section: remove bright orb overlay */
+        .choice.giant-orb::before { display: none; }
+        @keyframes orbDrift {
+            0% { transform: translate3d(0px, 0px, 0) scale(1); }
+            100% { transform: translate3d(12px, 8px, 0) scale(1.03); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .giant-orb::before { animation: none; }
+        }
+
+        /* Truth media block */
+        .media-block {
+            max-width: 980px;
+            margin: 2rem auto 3rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        }
+        .media-block iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: transparent;
+        }
+        .media-block video {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000;
+        }
+
+        /* Gradient mesh background (replaces floating blurs) */
+        .bg-mesh { position: relative; overflow: hidden; }
+        .bg-mesh::before {
+            content: '';
+            position: absolute; inset: 0; pointer-events: none; z-index: 0;
+            background:
+                radial-gradient(800px at 85% 8%, rgba(255,70,70,0.14), rgba(255,70,70,0) 60%),
+                radial-gradient(700px at 10% 92%, rgba(255,120,120,0.10), rgba(255,120,120,0) 60%);
+        }
+        .bg-mesh > * { position: relative; z-index: 1; }
+
+        /* Focus states */
+        .cta-primary:focus-visible, .cta-secondary:focus-visible, .site-nav a:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,51,51,.4), 0 10px 30px rgba(255, 51, 51, 0.3);
+            border-radius: 999px;
+        }
     </style>
 </head>
 <body>
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="#top" class="brand" aria-label="Redbaez home">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
+            </a>
+            <nav>
+                <a href="#what">What we do</a>
+                <a href="#how">How it works</a>
+                <a href="#contact" class="cta-primary cta-small">Get Started</a>
+            </nav>
+        </div>
+    </header>
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="top">
         <canvas id="canvas"></canvas>
         <div class="hero-content">
-            <h1>We teach agencies how to give every team member god-like abilities.</h1>
-            <p class="subhead">Your team stays. The grunt work goes. Take the grind out of your daily.</p>
-            <a href="#contact" class="cta-primary">See how →</a>
+            <h1>We'll teach your team<br>god-like abilities.</h1>
+            <p class="subhead">Your team thrives. The grunt work dies.<br>Learn how to use AI to remove the grind from your daily.</p>
+            <a href="#contact" class="cta-primary">Let's go!</a>
         </div>
     </section>
 
     <!-- Truth Section -->
-    <section class="truth">
-        <div class="truth-stat fade-in">
-            <p><strong>Rachel's typed that brief <span class="counter" data-target="47">47</span> times</strong> this quarter.</p>
-        </div>
-        <div class="truth-stat fade-in">
-            <p><strong>Tom's made <span class="counter" data-target="1247">1,247</span> minor revisions</strong> today.</p>
-        </div>
-        <div class="truth-stat fade-in">
-            <p><strong>Sarah's reformatted <span class="counter" data-target="93">93</span> decks</strong> this month.</p>
-        </div>
-        <div class="truth-stat fade-in">
-            <p><strong>Mike's copied and pasted <span class="counter" data-target="2341">2,341</span> times</strong> this week.</p>
-        </div>
-        <div class="truth-stat fade-in">
-            <p><strong>Emma's resized <span class="counter" data-target="567">567</span> images</strong> manually.</p>
-        </div>
-        <div class="truth-stat fade-in">
+    <section class="truth truth-hero">
+        <div class="truth-overlay">
+            <h3 class="fade-in" style="margin-bottom: 0.5rem;">A typical team:</h3>
+            <div class="truth-stat fade-in">
+            <p><strong><span class="counter" data-target="47">47</span> briefs retyped</strong> this quarter.</p>
+            </div>
+            <div class="truth-stat fade-in">
+            <p><strong><span class="counter" data-target="1247">1,247</span> minor revisions</strong> today.</p>
+            </div>
+            <div class="truth-stat fade-in">
+            <p><strong><span class="counter" data-target="93">93</span> decks reformatted</strong> this month.</p>
+            </div>
+            <div class="truth-stat fade-in">
+            <p><strong><span class="counter" data-target="2341">2,341</span> copy‑paste actions</strong> this week.</p>
+            </div>
+            <div class="truth-stat fade-in">
+            <p><strong><span class="counter" data-target="567">567</span> images resized</strong> manually.</p>
+            </div>
+            
+            <div class="truth-stat fade-in">
             <p><strong>Your creative team is using AI like it's 2019.</strong></p>
+            </div>
+            <p class="truth-conclusion fade-in no-orphan">
+            Smart businesses are not surviving the AI revolution. They're wearing it with style.
+            </p>
         </div>
-        <p class="truth-conclusion fade-in">
-            Meanwhile, agencies that get it are producing 10x the output with half the effort.<br>
-            They're not surviving the AI revolution. They're surfing it.
-        </p>
     </section>
 
     <!-- What We Do -->
-    <section class="what-we-do">
+    <section class="what-we-do" id="what">
+        <canvas id="what-canvas"></canvas>
         <div class="intro-text fade-in">
-            We're <span>Redbaez</span>.
+            We're <span>redbaez</span>.
         </div>
         <p class="fade-in">We teach agencies how to turn every designer into a creative army. Every copywriter into a content machine. Every strategist into an insight generator.</p>
-        <p class="fade-in">Think Neo from The Matrix, but instead of dodging bullets, you're dodging burnout.</p>
+        <p class="fade-in">Think Neo from The Matrix learning jung fu in seconds, but instead of dodging bullets, you're an expert, coder, designer, analyst, strategist, animator... take your pick.</p>
         
         <h3 class="fade-in">Our process is simple:</h3>
         <div class="process-grid">
@@ -398,85 +891,157 @@
     </section>
 
     <!-- Who's Riding the Wave -->
-    <section class="credentials">
-        <h2 class="fade-in">Who's Riding the Wave</h2>
-        <p class="fade-in">Currently teaching god-mode to:</p>
-        <ul class="fade-in" style="list-style: none; padding: 2rem 0;">
-            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>The largest independent brand agency in the US</strong></li>
-            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>The UK's hottest creative agency</strong></li>
-            <li style="margin-bottom: 1rem; font-size: 1.2rem;"><strong>Teams who've discovered their fingers deserve better</strong></li>
-        </ul>
-        <div class="fade-in" style="margin-top: 3rem; padding-top: 3rem; border-top: 2px solid #f0f0f0;">
-            <h3 style="margin-bottom: 2rem; color: var(--red);">Imagine if you could:</h3>
-            <ul style="list-style: none; padding: 0; font-size: 1.3rem; line-height: 2;">
-                <li style="margin-bottom: 1.5rem;">• Save <strong style="color: var(--red);">40+ hours</strong> per week on reports</li>
-                <li style="margin-bottom: 1.5rem;">• Turn <strong style="color: var(--red);">one idea</strong> into 100 perfect executions instantly</li>
-                <li style="margin-bottom: 1.5rem;">• Ship <strong style="color: var(--red);">5 campaigns</strong> in the time it takes to build one</li>
-                <li style="margin-bottom: 1.5rem;">• Never reformat another <strong style="color: var(--red);">deck</strong> again</li>
-                <li style="margin-bottom: 1.5rem;">• Actually leave the office <strong style="color: var(--red);">before sunset</strong></li>
+    <section class="credentials credentials-hero">
+        <div class="credentials-content align-right">
+            <h2 class="fade-in">Who's Rewiring?</h2>
+            <p class="fade-in">Currently teaching god-mode to:</p>
+            <ul class="fade-in credentials-list">
+                <li><strong>The largest independent brand agency in the US</strong></li>
+                <li><strong>The UK's hottest creative agency</strong></li>
+                <li><strong>Teams who've discovered their fingers deserve better</strong></li>
             </ul>
+            <div class="fade-in credentials-divider credentials-ideas">
+                <h3>Imagine if you could:</h3>
+                <ul>
+                    <li>Save <strong style="color: var(--red);">40+ hours</strong> per week on reports</li>
+                    <li>Turn <strong style="color: var(--red);">one idea</strong> into 100 perfect executions instantly</li>
+                    <li>Ship <strong style="color: var(--red);">5 campaigns</strong> in the time it takes to build one</li>
+                    <li>Never reformat another <strong style="color: var(--red);">deck</strong> again</li>
+                    <li>Actually leave the office <strong style="color: var(--red);">before sunset</strong></li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <!-- The Choice -->
-    <section class="choice">
-        <div class="choice-option choice-grind fade-in">
+    <section class="choice giant-orb">
+        
+        <div class="choice-option choice-grind fade-in pop-in">
             <h3>Option 1: The Grind</h3>
             <p>Keep doing what you're doing. Watch your best people burn out. Lose pitches to agencies who've figured this out. Update your own LinkedIn eventually.</p>
+            <ul class="choice-list bad">
+                <li>Manual reports, manual formatting, manual everything</li>
+                <li>Slow turnarounds and slower morale</li>
+                <li>Great ideas trapped in busywork</li>
+            </ul>
         </div>
-        <div class="choice-option choice-wave fade-in">
+        <div class="choice-option choice-wave fade-in pop-in">
             <h3>Option 2: The Wave</h3>
             <p>Let us show you how AI actually works for creative teams. Not replacing humans. Amplifying them. Turning your current team into the agency you've always wanted to be.</p>
+            <ul class="choice-list good">
+                <li>Automated grunt work, human brilliance</li>
+                <li>Ideas scaled across formats instantly</li>
+                <li>Faster pitches, happier teams</li>
+            </ul>
+            <div class="choice-cta">
+                <a href="#contact" class="cta-primary">Start your audit →</a>
+            </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section class="how-it-works">
-        <h2 class="fade-in">How It Works</h2>
-        <div class="timeline">
-            <div class="timeline-item fade-in">
-                <h3>Week 1: The Audit</h3>
-                <p>We grill your team. Find every moment of grind. Every repeated task. Every "why do we still do it this way?" process.</p>
+    <section class="how-it-works hiw-bg" id="how">
+        <canvas id="how-canvas-3d"></canvas>
+        <h2 class="fade-in">How It Flows</h2>
+        <p class="hiw-lede fade-in">Four weeks to god‑mode. No headcount. No chaos. Measurable gains from week one.</p>
+        <div class="hiw-grid">
+            <div class="hiw-connector"></div>
+            <div class="hiw-steps">
+                <div class="hiw-card left fade-in">
+                    <div class="hiw-num">01</div>
+                    <div class="hiw-node"></div>
+                    <h3>Week 1: The Audit</h3>
+                    <p>We grill your team. Find every moment of grind. Every repeated task. Every "why do we still do it this way?" process.</p>
+                    <p style="opacity:.8">Outcome: Clear map of time sinks and automation wins.</p>
+                </div>
+                <div class="hiw-card right fade-in">
+                    <div class="hiw-num">02</div>
+                    <div class="hiw-node"></div>
+                    <h3>Week 2: The Blueprint</h3>
+                    <p>Exactly how to fix it. Which tools. Which workflows. Which quick wins make your team believe again.</p>
+                    <p style="opacity:.8">Outcome: Playbook with owners, SLAs, and guardrails.</p>
+                </div>
+                <div class="hiw-card left fade-in">
+                    <div class="hiw-num">03</div>
+                    <div class="hiw-node"></div>
+                    <h3>Week 3: The Transformation</h3>
+                    <p>We teach. Your team learns. Suddenly that 3‑day project takes 3 hours. That impossible client request becomes Tuesday.</p>
+                    <p style="opacity:.8">Outcome: +3× output on your first pilot lane.</p>
+                </div>
+                <div class="hiw-card right fade-in">
+                    <div class="hiw-num">04</div>
+                    <div class="hiw-node"></div>
+                    <h3>Forever: The Evolution</h3>
+                    <p>AI changes. We keep you ahead. Monthly check‑ins. New tools. New techniques. You're not just current—you're next.</p>
+                    <p style="opacity:.8">Outcome: Ongoing compounding gains.</p>
+                </div>
             </div>
-            <div class="timeline-item fade-in">
-                <h3>Week 2: The Blueprint</h3>
-                <p>Here's exactly how to fix it. Which tools. Which workflows. Which quick wins will make your team believe in magic again.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <h3>Week 3: The Transformation</h3>
-                <p>We teach. Your team learns. Suddenly that 3-day project takes 3 hours. That impossible client request becomes Tuesday's coffee break task.</p>
-            </div>
-            <div class="timeline-item fade-in">
-                <h3>Forever: The Evolution</h3>
-                <p>AI changes. We keep you ahead. Monthly check-ins. New tools. New techniques. You're not just current—you're next.</p>
-            </div>
+        </div>
+        <div class="hiw-cta">
+            <a href="#contact" class="cta-primary">Start your audit →</a>
         </div>
     </section>
 
     <!-- Real Talk -->
     <section class="real-talk">
-        <h2 class="fade-in">The Real Talk</h2>
+        <h2 class="fade-in">The Straight Talk</h2>
         <p class="fade-in">We're not selling you another platform subscription. We're not adding complexity to your stack. We're not here to replace your people.</p>
         <p class="fade-in">We're here to make your current team feel like they have superpowers. Because they should. And they can.</p>
     </section>
 
     <!-- Footer CTA -->
     <section class="footer-cta" id="contact">
-        <h2>Ready to take the grind out of your daily?</h2>
+        <canvas id="footer-canvas"></canvas>
+        <h2>Ready to remove the grind from your daily?</h2>
         <p>Let's talk. Or don't. Keep typing the same report 47 times. Your fingers will forgive you eventually.</p>
         <div class="cta-buttons">
             <a href="mailto:tomh@redbaez.com" class="cta-primary">Get Started</a>
         </div>
         <p style="margin-top: 4rem; opacity: 0.8;">
-            <em>Currently making agencies better in New York, London, and wherever else fingers are tired.</em>
+            <em>Currently making agencies work better in New York, London, and wherever else fingers are tired.</em>
         </p>
-        <p style="margin-top: 2rem; font-size: 1.5rem; font-weight: 700;">
-            <span style="color: var(--red);">Redbaez</span><br>
-            Take the grind out of your daily.
-        </p>
+        <div class="footer-brand">
+            <img class="footer-logo" src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez"/>
+            <p class="footer-tagline">Remove the grind from your daily.</p>
+        </div>
     </section>
 
     <script>
+        // Pointer-based tilt for cards
+        (function() {
+            const cards = document.querySelectorAll('.tilt');
+            if (!cards.length) return;
+            const maxTilt = 6; // degrees
+            function setTilt(e, card) {
+                const rect = card.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dx = (e.clientX - cx) / (rect.width / 2);
+                const dy = (e.clientY - cy) / (rect.height / 2);
+                const ry = Math.max(-1, Math.min(1, dx)) * maxTilt;
+                const rx = Math.max(-1, Math.min(1, -dy)) * maxTilt;
+                card.style.setProperty('--rx', rx + 'deg');
+                card.style.setProperty('--ry', ry + 'deg');
+            }
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => setTilt(e, card));
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--rx', '0deg');
+                    card.style.setProperty('--ry', '0deg');
+                });
+            });
+        })();
+        // Sticky nav background on scroll
+        (function() {
+            const nav = document.querySelector('.site-nav');
+            function updateNav() {
+                if (!nav) return;
+                if (window.scrollY > 10) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+            }
+            document.addEventListener('scroll', updateNav);
+            updateNav();
+        })();
+
         // Particle Animation for Hero
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
@@ -701,20 +1266,20 @@
             window.requestAnimationFrame(step);
         }
 
-        // Trigger counter animations when in view
+        // Trigger counter animations each time Truth section enters view
         const truthSection = document.querySelector('.truth');
         const truthObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.dataset.animated) {
-                    entry.target.dataset.animated = 'true';
-                    
-                    // Animate the numbers
-                    const counters = entry.target.querySelectorAll('.counter');
+                const counters = entry.target.querySelectorAll('.counter');
+                if (entry.isIntersecting) {
                     counters.forEach(counter => {
                         const target = parseInt(counter.dataset.target);
                         counter.textContent = '0';
                         animateValue(counter, 0, target, 2000);
                     });
+                } else {
+                    // Reset when leaving so it can restart next time
+                    counters.forEach(counter => { counter.textContent = '0'; });
                 }
             });
         }, { threshold: 0.3 });
@@ -736,6 +1301,472 @@
         });
 
         // Removed parallax to prevent overlap issues
+
+        // Footer particle animation (separate instance)
+        (function() {
+            const footerCanvas = document.getElementById('footer-canvas');
+            if (!footerCanvas) return;
+            const footerCtx = footerCanvas.getContext('2d');
+            const footerSection = document.querySelector('.footer-cta');
+
+            function sizeFooterCanvas() {
+                footerCanvas.width = window.innerWidth;
+                footerCanvas.height = footerSection.offsetHeight;
+                footerCenterX = footerCanvas.width / 2;
+                footerCenterY = footerCanvas.height / 2;
+                footerGlobeRadius = Math.min(footerCanvas.width, footerCanvas.height) * 0.44; // doubled size
+                footerGlobeCenterZ = -footerGlobeRadius;
+                footerProjX = footerCanvas.width / 2;
+                footerProjY = footerCanvas.height / 2;
+                footerFov = footerCanvas.width * 0.8;
+            }
+
+            const footerParticles = [];
+            const footerParticleCount = 350;
+            let footerState = 'randomMotion';
+            let footerTimer = 0;
+            let footerCenterX = 0;
+            let footerCenterY = 0;
+            let footerGlobeRadius = 0;
+            let footerGlobeCenterZ = 0;
+            let footerFov = 0;
+            let footerProjX = 0;
+            let footerProjY = 0;
+            let footerRotation = 0;
+            let footerExplosionForce = 0;
+
+            class FooterParticle {
+                constructor(x, y) {
+                    this.x = x || Math.random() * footerCanvas.width;
+                    this.y = y || Math.random() * footerCanvas.height;
+                    this.z = Math.random() * 200 - 100;
+                    this.baseSize = Math.random() * 3 + 1;
+                    this.size = this.baseSize;
+                    this.baseSpeed = Math.random() * 0.5 - 0.25;
+                    this.speedX = this.baseSpeed;
+                    this.speedY = this.baseSpeed;
+                    this.speedZ = this.baseSpeed;
+                    this.color = this.getRandomRedShade();
+                    this.theta = 0; // azimuth on sphere
+                    this.phi = 0;   // polar on sphere
+                    this.sx = 0; this.sy = 0; this.sz = 0; // 3D sphere coords
+                    this.globeJitter = Math.random() * 0.18 + 0.91; // radius jitter
+                    this.opacityMul = 1;
+                }
+                getRandomRedShade() {
+                    const r = 255;
+                    const g = Math.floor(Math.random() * 51) + 51;
+                    const b = Math.floor(Math.random() * 51) + 51;
+                    const alpha = Math.random() * 0.5 + 0.3;
+                    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                }
+                update(progress) {
+                    switch(footerState) {
+                        case 'randomMotion':
+                            this.opacityMul = 1;
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+                            this.z += this.speedZ;
+                            if (Math.random() < 0.05) {
+                                this.speedX = this.baseSpeed * (Math.random() * 2 - 1);
+                                this.speedY = this.baseSpeed * (Math.random() * 2 - 1);
+                                this.speedZ = this.baseSpeed * (Math.random() * 2 - 1);
+                            }
+                            break;
+                        case 'globeForm': {
+                            this.opacityMul = 1;
+                            // Project rotating 3D sphere to 2D
+                            const sinR = Math.sin(footerRotation);
+                            const cosR = Math.cos(footerRotation);
+                            const rotX = cosR * this.sx + sinR * (this.sz - footerGlobeCenterZ);
+                            const rotZ = -sinR * this.sx + cosR * (this.sz - footerGlobeCenterZ) + footerGlobeCenterZ;
+                            const sizeProj = footerFov / Math.max(1, (footerFov - rotZ));
+                            const tx = rotX * sizeProj + footerProjX;
+                            const ty = this.sy * sizeProj + footerProjY;
+                            // Ease towards target
+                            this.x += (tx - this.x) * 0.08 * (0.6 + 0.4 * progress);
+                            this.y += (ty - this.y) * 0.08 * (0.6 + 0.4 * progress);
+                            this.size = this.baseSize * (0.7 * sizeProj);
+                            break; }
+                        case 'globeHold': {
+                            this.opacityMul = 1;
+                            const sinR = Math.sin(footerRotation);
+                            const cosR = Math.cos(footerRotation);
+                            const rotX = cosR * this.sx + sinR * (this.sz - footerGlobeCenterZ);
+                            const rotZ = -sinR * this.sx + cosR * (this.sz - footerGlobeCenterZ) + footerGlobeCenterZ;
+                            const sizeProj = footerFov / Math.max(1, (footerFov - rotZ));
+                            const tx = rotX * sizeProj + footerProjX;
+                            const ty = this.sy * sizeProj + footerProjY;
+                            this.x += (tx - this.x) * 0.25;
+                            this.y += (ty - this.y) * 0.25;
+                            this.size = this.baseSize * (0.7 * sizeProj);
+                            break; }
+                        case 'globeDissipate':
+                            // Continue with current velocities, fade out then in (managed via progress)
+                            this.opacityMul = 1 - 0.6 * progress;
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+                            this.z += this.speedZ;
+                            // Gentle drag
+                            this.speedX *= 0.995; this.speedY *= 0.995; this.speedZ *= 0.995;
+                            break;
+                        case 'explode': {
+                            // strong outward push
+                            const dx = this.x - footerCenterX;
+                            const dy = this.y - footerCenterY;
+                            const dist = Math.max(1, Math.hypot(dx, dy));
+                            const ef = footerExplosionForce / dist;
+                            this.speedX += (dx / dist) * ef;
+                            this.speedY += (dy / dist) * ef;
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+                            this.z += this.speedZ;
+                            break; }
+                    }
+                    if (footerState !== 'globeForm' && footerState !== 'globeHold') {
+                        const depthFactor = (this.z + 100) / 200;
+                        this.size = this.baseSize * (0.5 + depthFactor);
+                    }
+                    if (this.x < 0) this.x = footerCanvas.width;
+                    if (this.x > footerCanvas.width) this.x = 0;
+                    if (this.y < 0) this.y = footerCanvas.height;
+                    if (this.y > footerCanvas.height) this.y = 0;
+                    if (this.z < -100) this.z = 100;
+                    if (this.z > 100) this.z = -100;
+                }
+                draw() {
+                    footerCtx.save();
+                    footerCtx.globalAlpha = this.opacityMul;
+                    footerCtx.fillStyle = this.color;
+                    footerCtx.beginPath();
+                    footerCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    footerCtx.fill();
+                    footerCtx.restore();
+                }
+            }
+
+            function initFooterParticles() {
+                footerParticles.length = 0;
+                for (let i = 0; i < footerParticleCount; i++) {
+                    footerParticles.push(new FooterParticle());
+                }
+                // Assign random points on a sphere for globe formation
+                const n = footerParticles.length;
+                for (let i = 0; i < n; i++) {
+                    const p = footerParticles[i];
+                    const u = Math.random();
+                    const v = Math.random();
+                    p.theta = 2 * Math.PI * u;
+                    p.phi = Math.acos(2 * v - 1);
+                    const r = footerGlobeRadius * p.globeJitter;
+                    p.sx = r * Math.sin(p.phi) * Math.cos(p.theta);
+                    p.sy = r * Math.sin(p.phi) * Math.sin(p.theta);
+                    p.sz = r * Math.cos(p.phi) + footerGlobeCenterZ;
+                }
+            }
+
+            function animateFooter(ts) {
+                footerCtx.clearRect(0, 0, footerCanvas.width, footerCanvas.height);
+
+                const elapsed = ts - footerTimer;
+                let progress = 0;
+                footerRotation = ts * 0.0006;
+                switch(footerState) {
+                    case 'randomMotion':
+                        if (elapsed > 2500) { footerState = 'globeForm'; footerTimer = ts; }
+                        break;
+                    case 'globeForm':
+                        progress = Math.min(1, elapsed / 4000);
+                        if (elapsed >= 4000) { footerState = 'globeHold'; footerTimer = ts; }
+                        break;
+                    case 'globeHold':
+                        if (elapsed >= 5000) {
+                            // Kick outward impulse once when leaving hold
+                            for (const p of footerParticles) {
+                                const dx = p.x - footerCenterX;
+                                const dy = p.y - footerCenterY;
+                                const len = Math.max(1, Math.hypot(dx, dy));
+                                const k = 0.035;
+                                p.speedX += (dx / len) * k * (0.6 + Math.random() * 0.6);
+                                p.speedY += (dy / len) * k * (0.6 + Math.random() * 0.6);
+                            }
+                            footerState = 'explode';
+                            footerTimer = ts;
+                            footerExplosionForce = 6; // stronger push
+                        }
+                        break;
+                    case 'explode':
+                        progress = Math.min(1, elapsed / 900);
+                        if (elapsed >= 900) { footerState = 'globeDissipate'; footerTimer = ts; footerExplosionForce = 0; }
+                        break;
+                    case 'globeDissipate':
+                        progress = Math.min(1, elapsed / 5000);
+                        if (elapsed >= 5000) {
+                            // Restore full opacity then back to formation cycle
+                            for (const p of footerParticles) p.opacityMul = 1;
+                            footerState = 'globeForm';
+                            footerTimer = ts;
+                        }
+                        break;
+                }
+                footerParticles.sort((a, b) => b.z - a.z);
+                for (let p of footerParticles) { p.update(progress); p.draw(); }
+                requestAnimationFrame(animateFooter);
+            }
+
+            sizeFooterCanvas();
+            initFooterParticles();
+            animateFooter(0);
+            window.addEventListener('resize', sizeFooterCanvas);
+        })();
+
+        // Three bouncing dots behind "What We Do" (elastic collisions)
+        (function() {
+            const wc = document.getElementById('what-canvas');
+            if (!wc) return;
+            const wctx = wc.getContext('2d');
+            const section = document.getElementById('what');
+
+            let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+            function size() {
+                dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+                wc.style.width = '100%';
+                wc.style.height = section.offsetHeight + 'px';
+                wc.width = Math.floor(window.innerWidth * dpr);
+                wc.height = Math.floor(section.offsetHeight * dpr);
+                wctx.setTransform(1, 0, 0, 1, 0, 0);
+                wctx.scale(dpr, dpr);
+            }
+            size();
+            window.addEventListener('resize', size);
+
+            function makeBall(cw, ch, seedOffset) {
+                const r = Math.min(cw, ch) * 0.09;
+                const x = cw * (0.22 + 0.18 * seedOffset);
+                const y = ch * (0.26 + 0.12 * seedOffset);
+                const vx = (Math.random() * 0.6 + 0.35) * (Math.random() < 0.5 ? -1 : 1);
+                const vy = (Math.random() * 0.6 + 0.35) * (Math.random() < 0.5 ? -1 : 1);
+                return { x, y, vx, vy, r };
+            }
+
+            let balls = [];
+            function resetBalls() {
+                const cw = wc.width / dpr;
+                const ch = wc.height / dpr;
+                balls = [];
+                for (let i = 0; i < 9; i++) {
+                    balls.push(makeBall(cw, ch, i * 0.5));
+                }
+            }
+            resetBalls();
+
+            function drawBall(b) {
+                const grd = wctx.createRadialGradient(b.x, b.y, b.r * 0.12, b.x, b.y, b.r);
+                grd.addColorStop(0.0, 'rgba(255,70,70,0.55)');
+                grd.addColorStop(0.35, 'rgba(255,70,70,0.35)');
+                grd.addColorStop(0.75, 'rgba(255,70,70,0.08)');
+                grd.addColorStop(1.0, 'rgba(255,70,70,0)');
+                wctx.fillStyle = grd;
+                wctx.beginPath();
+                wctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                wctx.fill();
+                wctx.strokeStyle = 'rgba(255,70,70,0.18)';
+                wctx.lineWidth = Math.max(1, b.r * 0.04);
+                wctx.stroke();
+            }
+
+            function handleWalls(b, cw, ch) {
+                if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx); }
+                if (b.x + b.r > cw) { b.x = cw - b.r; b.vx = -Math.abs(b.vx); }
+                if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy); }
+                if (b.y + b.r > ch) { b.y = ch - b.r; b.vy = -Math.abs(b.vy); }
+            }
+
+            function collide(b1, b2) {
+                const dx = b2.x - b1.x;
+                const dy = b2.y - b1.y;
+                const dist = Math.hypot(dx, dy);
+                const minDist = b1.r + b2.r;
+                if (dist === 0 || dist >= minDist) return;
+                // Separate overlap
+                const overlap = (minDist - dist) / 2;
+                const nx = dx / dist; const ny = dy / dist;
+                b1.x -= nx * overlap; b1.y -= ny * overlap;
+                b2.x += nx * overlap; b2.y += ny * overlap;
+                // Elastic collision (equal mass)
+                const kx = b1.vx - b2.vx;
+                const ky = b1.vy - b2.vy;
+                const p = 2 * (kx * nx + ky * ny) / 2; // m1=m2=1
+                b1.vx -= p * nx;
+                b1.vy -= p * ny;
+                b2.vx += p * nx;
+                b2.vy += p * ny;
+            }
+
+            let lastTs = 0;
+            function animate(ts) {
+                if (!lastTs) lastTs = ts;
+                const dt = Math.min(0.033, (ts - lastTs) / 1000);
+                lastTs = ts;
+                const cw = wc.width / dpr;
+                const ch = wc.height / dpr;
+                wctx.clearRect(0, 0, cw, ch);
+
+                // Integrate
+                for (const b of balls) {
+                    b.x += b.vx * 60 * dt; // speed normalized
+                    b.y += b.vy * 60 * dt;
+                    handleWalls(b, cw, ch);
+                }
+                // Pairwise collisions (all pairs)
+                for (let i = 0; i < balls.length; i++) {
+                    for (let j = i + 1; j < balls.length; j++) {
+                        collide(balls[i], balls[j]);
+                    }
+                }
+
+                // Draw back-to-front for depth feel (bigger first)
+                balls.slice().sort((a,b)=>b.r-a.r).forEach(drawBall);
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        })();
+
+        // Subtle Three.js wireframe ribbon behind How It Works
+        (function() {
+            const section = document.getElementById('how');
+            const canvas = document.getElementById('how-canvas-3d');
+            if (!section || !canvas) return;
+
+            const motionOverride = (localStorage.getItem('motionOverride') || '').toLowerCase() === 'on';
+            const prefersReducedSystem = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const prefersReduced = prefersReducedSystem && !motionOverride;
+            const gentleMotion = prefersReduced;
+            if (motionOverride) { canvas.style.display = 'block'; }
+
+            let THREERef = null;
+            let renderer = null;
+            let scene = null;
+            let camera = null;
+            let ribbon = null;
+            let running = false;
+            let rafId = null;
+            let lastTs = 0;
+
+            const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+
+            function resize() {
+                if (!renderer || !camera) return;
+                const rect = section.getBoundingClientRect();
+                const width = Math.max(1, Math.ceil(rect.width));
+                const height = Math.max(1, Math.ceil(rect.height));
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            function animate(ts) {
+                if (!running) return;
+                if (!lastTs) lastTs = ts;
+                const dt = ts - lastTs;
+                // Throttle for GPU load (gentler if user prefers reduced motion)
+                const frameInterval = gentleMotion ? 100 : 33; // ~10fps vs ~30fps
+                if (dt >= frameInterval) {
+                    lastTs = ts;
+                    const time = ts * 0.001;
+                    if (ribbon && ribbon.geometry && ribbon.geometry.attributes && ribbon.geometry.attributes.position) {
+                        const pos = ribbon.geometry.attributes.position;
+                        const AMP1 = gentleMotion ? 0.22 : 0.60; // stronger when full motion
+                        const AMP2 = gentleMotion ? 0.12 : 0.30;
+                        for (let i = 0; i < pos.count; i++) {
+                            const x = pos.getX(i);
+                            const y = pos.getY(i);
+                            const z = Math.sin(x * 0.7 + time * 0.7) * AMP1 + Math.sin((x + y) * 1.2 - time * 1.1) * AMP2;
+                            pos.setZ(i, z);
+                        }
+                        pos.needsUpdate = true;
+                    }
+                    if (ribbon) {
+                        ribbon.rotation.y = 0.35 + Math.sin(time * 0.15) * 0.05;
+                        ribbon.rotation.x = -0.25 + Math.cos(time * 0.12) * 0.03;
+                    }
+                    renderer.render(scene, camera);
+                }
+                rafId = requestAnimationFrame(animate);
+            }
+
+            function initScene(THREE) {
+                THREERef = THREE;
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+                camera.position.set(0, 0, 8);
+
+                renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
+                renderer.setPixelRatio(dpr);
+                renderer.setClearColor(0x000000, 0);
+
+                const geometry = new THREE.PlaneGeometry(20, 4, 240, 28);
+                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.22 : 0.42 });
+                ribbon = new THREE.Mesh(geometry, material);
+                ribbon.position.z = -2;
+                ribbon.rotation.x = -0.25;
+                ribbon.rotation.y = 0.35;
+                scene.add(ribbon);
+
+                resize();
+            }
+
+            const ro = new ResizeObserver(resize);
+            ro.observe(section);
+
+            function loadThree() {
+                // Try ESM first
+                return import('https://unpkg.com/three@0.160.0/build/three.module.js')
+                    .catch(() => new Promise(resolve => {
+                        // Fallback to UMD build on window.THREE
+                        const existing = window.THREE;
+                        if (existing) { resolve(existing); return; }
+                        const s = document.createElement('script');
+                        s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+                        s.crossOrigin = 'anonymous';
+                        s.onload = () => resolve(window.THREE || null);
+                        s.onerror = () => resolve(null);
+                        document.head.appendChild(s);
+                    }));
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!renderer) {
+                            loadThree().then(mod => { if (mod) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+                        } else {
+                            running = true; lastTs = 0; rafId = requestAnimationFrame(animate);
+                        }
+                    } else {
+                        running = false;
+                        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                    }
+                });
+            }, { threshold: 0.05 });
+            io.observe(section);
+
+            // If already in view on load, kick it off immediately
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                loadThree().then(mod => { if (mod && !renderer) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    running = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                } else if (renderer) {
+                    const rect = section.getBoundingClientRect();
+                    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                    if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
+                }
+            });
+        })();
     </script>
 </body>
 </html>
