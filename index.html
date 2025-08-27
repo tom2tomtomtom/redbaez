@@ -323,7 +323,7 @@
         }
         
         /* Apply to common cards */
-        :is(.process-item, .hiw-card, .choice-option) {
+        :is(.process-item, .hiw-card, .choice-option, .benefit, .pricing .card, .faq-list details) {
             will-change: transform, box-shadow;
             animation: cardFloat 8s ease-in-out infinite;
             animation-delay: var(--float-delay, 0s);
@@ -338,6 +338,10 @@
         .hiw-steps .hiw-card:nth-child(4) { --float-delay: 1.05s; }
         .choice .choice-option:nth-child(1) { --float-delay: .2s; }
         .choice .choice-option:nth-child(2) { --float-delay: .6s; }
+        .benefits .benefit:nth-child(1) { --float-delay: .1s; }
+        .benefits .benefit:nth-child(2) { --float-delay: .35s; }
+        .benefits .benefit:nth-child(3) { --float-delay: .6s; }
+        .benefits .benefit:nth-child(4) { --float-delay: .85s; }
         /* Buttons */
         .cta-secondary { will-change: transform, box-shadow; }
         .cta-primary:hover, .cta-secondary:hover { transform: translateY(-2px); }
@@ -384,6 +388,7 @@
             position: relative;
             transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
         }
+        
         .choice-option:hover { transform: translateY(-4px); }
         .choice:hover .choice-option { opacity: 0.9; filter: saturate(0.95); }
         .choice .choice-option:hover { opacity: 1; filter: none; }
@@ -532,16 +537,42 @@
         /* Buying, Pricing, FAQ sections */
         .buying, .pricing, .faq { position: relative; }
         .buying h2, .pricing h2, .faq h2 { color: #fff; }
+        .buying h2::after, .pricing h2::after, .faq h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
         .benefits { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
-        .benefit { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.25rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); }
+        @media (min-width: 900px) { .benefits { grid-template-columns: repeat(2, 1fr); } }
+        .benefit { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.5rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+        .benefit:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
         .benefit h3 { margin-bottom: .25rem; color: var(--red); font-size: clamp(1rem, 2.2vw, 1.25rem); }
-        .wins { list-style: none; padding: 0; margin-top: .75rem; display:grid; gap:.4rem; }
-        .wins li { position: relative; padding-left: 1.25rem; color: rgba(255,255,255,0.95); }
+        .wins { list-style: none; padding: 0; margin-top: .9rem; display:grid; gap:.5rem; }
+        .wins li { position: relative; padding-left: 1.25rem; color: #fff; }
         .wins li::before { content: ''; position: absolute; left: 0; top: .65em; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); transform: translateY(-50%); }
-        .pricing .card { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.5rem; }
+        .pricing::before { content:''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); z-index: 0; }
+        .pricing > * { position: relative; z-index: 1; }
+        .pricing .card { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1.75rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); }
+        .pricing .badge { display:inline-block; margin:.25rem 0 1rem; padding:.25rem .6rem; border-radius:999px; background: rgba(255,70,70,0.15); color:#fff; font-weight:700; font-size:.9rem; border:1px solid rgba(255,255,255,0.12); }
+        .pricing .card h2 { margin-bottom: .25rem; }
+        .pricing .card-inner { display: grid; gap: 1.25rem; align-items: start; }
+        @media (min-width: 900px) { .pricing .card-inner { grid-template-columns: 1.5fr 1fr; gap: 1.5rem; } }
+        .pricing-copy p { margin-bottom: .75rem; }
+        .roi { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1rem 1.25rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); }
+        .roi-tasks { display:flex; align-items:center; gap:.5rem; margin-bottom:.35rem; min-height: 1.3em; }
+        .roi-tasks .dot { width:.5rem; height:.5rem; border-radius:50%; background: var(--red); box-shadow: 0 0 8px rgba(255,70,70,0.45); }
+        .roi-tasks .roi-task { color:#fff; font-weight:800; letter-spacing:.01em; opacity:1; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
+        .roi-tasks .roi-task.out { opacity:.25; transform: translateY(6px); }
+        .roi-row { display:flex; align-items:baseline; justify-content: space-between; gap: .75rem; padding: .25rem 0; }
+        .roi-label { color: rgba(255,255,255,0.85); font-weight: 700; font-size: .95rem; }
+        .roi-value { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-weight: 800; color: #fff; }
+        .roi-x { margin: 0 .25rem; opacity: .6; }
+        .roi-total { margin-top: .5rem; padding-top: .5rem; border-top: 1px solid rgba(255,255,255,0.1); display:flex; align-items: baseline; justify-content: space-between; }
+        .roi-total .roi-label { color: var(--red); letter-spacing: .02em; }
+        .roi-total .roi-value { font-size: 1.4rem; }
         .faq-list { display:grid; gap: .75rem; margin-top: 1rem; }
-        .faq-list details { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding: 1rem 1.25rem; }
-        .faq-list summary { cursor: pointer; font-weight: 700; color: #fff; }
+        .faq-list details { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding: 1rem 1.25rem; transition: border-color .2s ease, box-shadow .2s ease; }
+        .faq-list details[open] { border-color: rgba(255,255,255,0.16); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+        .faq-list summary { cursor: pointer; font-weight: 700; color: #fff; list-style: none; }
+        .faq-list summary::-webkit-details-marker { display: none; }
+        .faq-list summary::after { content: '▾'; float: right; transition: transform .2s ease; opacity: .85; }
+        .faq-list details[open] > summary::after { transform: rotate(-180deg); }
         .faq-list p { margin-top: .5rem; color: rgba(255,255,255,0.95); }
 
         /* Footer CTA */
@@ -955,41 +986,32 @@
         </div>
     </section>
 
-    <!-- The Choice -->
-    <section class="choice giant-orb">
-        
-        <div class="choice-option choice-grind fade-in pop-in">
-            <h3>Option 1: The Grind</h3>
-            <p>Keep doing what you're doing. Watch your best people burn out. Lose pitches to agencies who've figured this out. Update your own LinkedIn eventually.</p>
-            <ul class="choice-list bad">
-                <li>Manual reports, manual formatting, manual everything</li>
-                <li>Slow turnarounds and slower morale</li>
-                <li>Great ideas trapped in busywork</li>
-            </ul>
-        </div>
-        <div class="choice-option choice-wave fade-in pop-in">
-            <h3>Option 2: God Mode</h3>
-            <p>Let us show you how AI actually works for your people. Not replacing humans. Amplifying them. Turning your current team into the company you've always knew it could be.</p>
-            <ul class="choice-list good">
-                <li>Automated grunt work, human brilliance</li>
-                <li>Ideas scaled across formats instantly</li>
-                <li>Faster pitches, happier teams</li>
-            </ul>
-            <div class="choice-cta">
-                <a href="#contact" class="cta-primary">Start your audit →</a>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Pricing Anchor (new, before process) -->
     <section class="pricing">
         <div class="card">
             <h2 class="fade-in">Investment Reality Check</h2>
-            <p class="fade-in"><strong>Cost of god-mode training:</strong> Less than one junior hire</p>
-            <p class="fade-in"><strong>Value delivered:</strong> More than ten seniors</p>
-            <p class="fade-in"><strong>Payback period:</strong> Month one</p>
-            <p class="fade-in"><strong>Risk:</strong> Zero — if you don't see results in month 1, you pay nothing</p>
-            <p class="fade-in">Do the math: 40 hours saved per person, per month × your hourly rate × your team size = Stop thinking about it.</p>
+            <div class="badge">Month 1 payback</div>
+            <div class="card-inner">
+                <div class="pricing-copy">
+                    <p class="fade-in"><strong>Cost of god-mode training:</strong> Less than one junior hire</p>
+                    <p class="fade-in"><strong>Value delivered:</strong> More than ten seniors</p>
+                    <p class="fade-in"><strong>Payback period:</strong> Month one</p>
+                    <p class="fade-in"><strong>Risk:</strong> Zero — if you don't see results in month 1, you pay nothing</p>
+                    <p class="fade-in">Do the math: 40 hours saved per person, per month × your hourly rate × your team size = Stop thinking about it.</p>
+                    <div class="choice-cta" style="margin-top:1rem;">
+                        <a href="#contact" class="cta-primary">See it in action</a>
+                    </div>
+                </div>
+                <div class="roi fade-in" id="roi-box" aria-label="ROI odometer">
+                    <div class="roi-tasks"><span class="dot" aria-hidden="true"></span><span class="roi-task" id="roi-task">Competitor analysis</span></div>
+                    <div class="roi-row"><span class="roi-label">Hours saved</span><span class="roi-value" id="roi-hours">0</span></div>
+                    <div class="roi-row"><span class="roi-label">Hourly rate</span><span class="roi-value" id="roi-rate">$0</span></div>
+                    <div class="roi-row"><span class="roi-label">Team size</span><span class="roi-value" id="roi-team">0</span></div>
+                    <div class="roi-total"><span class="roi-label">Projected monthly value</span><span class="roi-value" id="roi-total">$0</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1802,6 +1824,7 @@
             io.observe(section);
         })();
 
+        // Choice charts removed by request
         // Subtle Three.js wireframe ribbon behind How It Works
         (function() {
             const section = document.getElementById('how');
@@ -1942,6 +1965,85 @@
                     if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
                 }
             });
+        })();
+
+        // Pricing "mad science" math animation → resolves to MAKE MORE
+        (function(){
+            const box = document.getElementById('roi-box');
+            if (!box) return;
+            const hoursEl = document.getElementById('roi-hours');
+            const rateEl = document.getElementById('roi-rate');
+            const teamEl = document.getElementById('roi-team');
+            const totalEl = document.getElementById('roi-total');
+
+            function animateNumber(el, from, to, duration, prefix = '', suffix = ''){
+                let start = null;
+                function step(ts){
+                    if (!start) start = ts;
+                    const p = Math.min(1, (ts - start) / duration);
+                    const val = Math.floor(from + (to - from) * p);
+                    el.textContent = prefix + val.toLocaleString() + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            const taskEl = document.getElementById('roi-task');
+
+            function runOnce(hours, rate, team){
+                animateNumber(hoursEl, 0, hours, 700, '', 'h');
+                animateNumber(rateEl, 0, rate, 900, '£');
+                animateNumber(teamEl, 0, team, 800);
+                setTimeout(() => {
+                    const total = hours * rate * team;
+                    animateNumber(totalEl, 0, total, 1200, '£');
+                }, 700);
+            }
+
+            // Pair each task heading with a scenario (hours × rate × team)
+            const scenarios = [
+                { task: 'Competitor analysis',       h: 40, r: 120, t: 8 },
+                { task: 'RFP responses',              h: 32, r: 140, t: 10 },
+                { task: 'Reformatting assets',       h: 28, r: 110, t: 12 },
+                { task: 'Tweaking decks',             h: 36, r: 130, t: 9 },
+                { task: 'Writing copy',               h: 24, r: 150, t: 11 },
+                { task: 'Merging decks',              h: 30, r: 125, t: 10 },
+                { task: 'Cleaning contact details',   h: 52, r: 95,  t: 6 },
+                { task: 'Tagging assets',             h: 26, r: 115, t: 10 },
+                { task: 'Renaming files',             h: 22, r: 100, t: 14 },
+                { task: 'Building briefs',            h: 35, r: 160, t: 8 }
+            ];
+
+            let scenarioIdx = -1;
+            let scenarioTimer = null;
+
+            function showNextScenario(){
+                scenarioIdx = (scenarioIdx + 1) % scenarios.length;
+                const s = scenarios[scenarioIdx];
+                // animate heading swap
+                taskEl.classList.add('out');
+                setTimeout(()=>{
+                    taskEl.textContent = s.task;
+                    taskEl.classList.remove('out');
+                }, 220);
+                // animate numbers for this scenario
+                runOnce(s.h, s.r, s.t);
+            }
+
+            let timers = null;
+            const io = new IntersectionObserver((entries)=>{
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!scenarioTimer) {
+                            showNextScenario();
+                            scenarioTimer = setInterval(showNextScenario, 4800);
+                        }
+                    } else {
+                        if (scenarioTimer) { clearInterval(scenarioTimer); scenarioTimer = null; }
+                    }
+                });
+            }, { threshold: 0.5 });
+            io.observe(box);
         })();
     </script>
 </body>
