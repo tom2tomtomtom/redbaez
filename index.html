@@ -149,6 +149,33 @@
         /* Ensure canvases/absolute overlays are not constrained */
         section > canvas { max-width: none; padding: 0; }
 
+        /* Clients Section */
+        .clients {
+            background: var(--black);
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+        .client-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(3rem, 8vw, 6rem);
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .client-logo {
+            height: clamp(64px, 8vw, 96px);
+            width: auto;
+            opacity: 0.5;
+            filter: grayscale(1) brightness(1.2);
+            transition: all 0.4s ease;
+        }
+        .client-logo:hover {
+            opacity: 1;
+            filter: grayscale(0) brightness(1);
+            transform: scale(1.05);
+        }
+
         /* Truth Section */
         .truth {
             background: transparent;
@@ -468,22 +495,23 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            z-index: 1; /* above contour lines, below content */
+            z-index: 0; /* clearly behind everything */
             pointer-events: none;
-            opacity: 0.9;
+            opacity: 0.35;
         }
         @media (prefers-reduced-motion: reduce) {
             /* Keep visible but tone it down; animation will be gentler via JS */
-            #how-canvas-3d { opacity: 0.7; }
+            #how-canvas-3d { opacity: 0.22; }
         }
         /* How It Works background container */
         .hiw-bg { position: relative; overflow: hidden; }
         .hiw-lede { max-width: 900px; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
-        .hiw-grid { position: relative; }
+        .hiw-grid { position: relative; z-index: 3; }
         .hiw-connector {
             position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
             background: linear-gradient(to bottom, rgba(255,51,51,0.35), rgba(255,51,51,0.15));
             transform: translateX(-50%);
+            z-index: 1;
         }
         .hiw-steps { display: grid; gap: 2rem; }
         .hiw-card {
@@ -519,6 +547,61 @@
             .hiw-connector { display: none; }
             .hiw-card, .hiw-card.left, .hiw-card.right { margin: 0; }
             .hiw-node { display: none; }
+        }
+
+        /* AIDEN Studio */
+        .aiden-studio {
+            background: transparent;
+            color: var(--white);
+            position: relative;
+        }
+        .aiden-studio h2::after {
+            content: '';
+            display: block;
+            width: 54px;
+            height: 6px;
+            margin-top: 0.4rem;
+            border-radius: 999px;
+            background: radial-gradient(circle at 6px 3px, var(--red), rgba(255, 70, 70, 0.15) 40%, rgba(255, 70, 70, 0) 70%);
+        }
+        .aiden-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+            .aiden-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .aiden-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            will-change: transform, box-shadow;
+            animation: cardFloat 8s ease-in-out infinite;
+        }
+        .aiden-card:nth-child(1) { animation-delay: 0.2s; }
+        .aiden-card:nth-child(2) { animation-delay: 0.5s; }
+        .aiden-card:nth-child(3) { animation-delay: 0.8s; }
+        .aiden-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+        .aiden-card h3 {
+            color: var(--red);
+            margin-bottom: 0.75rem;
+            font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+        }
+        .aiden-card p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            margin-bottom: 0;
         }
 
         /* Real Talk */
@@ -874,6 +957,92 @@
             box-shadow: 0 0 0 3px rgba(255,51,51,.4), 0 10px 30px rgba(255, 51, 51, 0.3);
             border-radius: 999px;
         }
+
+        /* Footer */
+        .site-footer {
+            background: var(--black);
+            color: rgba(255, 255, 255, 0.9);
+            padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(2rem, 5vw, 4rem);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        @media (min-width: 640px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            }
+        }
+        .footer-col h4 {
+            color: var(--red);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+            opacity: 0.85;
+        }
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.2s ease, opacity 0.2s ease;
+            font-size: 0.95rem;
+        }
+        .footer-col a:hover {
+            color: var(--red);
+            opacity: 1;
+        }
+        .footer-logo-img {
+            height: 48px;
+            width: auto;
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom p {
+            margin: 0;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-links a:hover {
+            color: var(--red);
+        }
     </style>
 </head>
 <body>
@@ -885,6 +1054,7 @@
             <nav>
                 <a href="#what">What we do</a>
                 <a href="#how">How it works</a>
+                <a href="https://www.aiden.services" target="_blank" rel="noopener noreferrer">AIDEN</a>
                 <a href="#contact" class="cta-primary cta-small">See It In Action</a>
             </nav>
         </div>
@@ -1058,6 +1228,38 @@
         </div>
     </section>
 
+    <!-- AIDEN Studio -->
+    <section class="aiden-studio accent-dot">
+        <div>
+            <h2 class="fade-in">AIDEN Studio: Your Strategic AI Partner</h2>
+            <p class="intro-text fade-in">Trained your team to god-mode? Brilliant. Now meet the strategist who never sleeps.</p>
+            <p class="fade-in">AIDEN Studio isn't training. It's your ongoing strategic AI partner—available 24/7 for the complex stuff your team shouldn't be grinding on:</p>
+            
+            <div class="aiden-grid">
+                <div class="aiden-card fade-in">
+                    <h3>Strategic Planning</h3>
+                    <p>Market analysis, competitive positioning, go-to-market strategy</p>
+                </div>
+                <div class="aiden-card fade-in">
+                    <h3>Executive Thinking</h3>
+                    <p>Board decks, strategic frameworks, business model innovation</p>
+                </div>
+                <div class="aiden-card fade-in">
+                    <h3>Complex Problem-Solving</h3>
+                    <p>Multi-stakeholder challenges, scenario planning, decision frameworks</p>
+                </div>
+            </div>
+
+            <p class="fade-in" style="margin-top: 2rem; font-size: clamp(1.2rem, 2.5vw, 1.4rem); max-width: 900px;">Think of it as having a senior strategist on retainer, but one that processes market data at AI speed while maintaining genuine strategic judgment.</p>
+            
+            <p class="fade-in" style="margin-top: 1.5rem; opacity: 0.9;">Not for everyone. AIDEN Studio works with clients who've already gone through transformation and need a thinking partner for high-stakes strategic work.</p>
+            
+            <div style="margin-top: 2rem;">
+                <a href="https://www.aiden.services" target="_blank" rel="noopener noreferrer" class="cta-primary fade-in">Explore AIDEN Studio →</a>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ (new, after process) -->
     <section class="faq">
         <div>
@@ -1108,11 +1310,8 @@
         <div class="footer-bottom">
             <h2>Ready for god-mode?</h2>
             <div class="cta-buttons">
-                <a href="#contact" class="cta-primary">Start Your 4-Month Transformation</a>
+                <a href="mailto:tomh@redbaez.com?subject=Let's%20Start%20My%204-Month%20Transformation" class="cta-primary">Start Your 4-Month Transformation</a>
             </div>
-            <p class="cta-subtext">Next cohort starts Monday. Limited spots.</p>
-            <!-- Calendly/embed placeholder: Replace href with your Calendly URL -->
-            <p style="margin-top:1rem; opacity:.85">Prefer to talk? <a href="mailto:tomh@redbaez.com" style="color:#fff; text-decoration:underline">Email us</a>.</p>
         </div>
         <div style="margin-top:2.5rem; text-align:left; max-width:900px; margin-left:auto; margin-right:auto;">
             <h3 style="color:var(--red); margin-bottom:.5rem;">The Fine Print</h3>
@@ -1121,6 +1320,60 @@
             <strong>Based:</strong> Melbourne (training globally)</p>
         </div>
     </section>
+
+    <!-- Who We Work With -->
+    <section class="clients">
+        <div>
+            <h3 class="fade-in" style="text-align: center; margin-bottom: 2rem; opacity: 0.7; font-size: clamp(0.95rem, 1.8vw, 1.1rem); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Who We Work With</h3>
+            <div class="client-logos">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/v1761087932/uncommon_logo_qh16yh.png" alt="Uncommon" class="client-logo fade-in">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/v1761087932/altshift_logo_sf3fxq.png" alt="Altshift" class="client-logo fade-in">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/v1761087933/monigle_logo_qivpum.png" alt="Monigle" class="client-logo fade-in">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez" class="footer-logo-img">
+                    <p style="margin-top: 1rem; opacity: 0.8; max-width: 280px;">Teaching teams god-like AI abilities. Master AI. Kill grunt work. Stay human.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#what">AI Training</a></li>
+                        <li><a href="#how">Transformation Program</a></li>
+                        <li><a href="https://www.aiden.services" target="_blank" rel="noopener noreferrer">AIDEN Studio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#what">What We Do</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:tomh@redbaez.com">tomh@redbaez.com</a></li>
+                        <li>Melbourne, Australia</li>
+                        <li style="margin-top: 0.5rem; opacity: 0.7;">Training globally</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Redbaez. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#top">Back to Top</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Pointer-based tilt for cards
@@ -1904,7 +2157,7 @@
                 const segY = isSmall ? 14 : 28;
                 // Enlarge plane to cover full section vertically behind all cards
                 const geometry = new THREE.PlaneGeometry(30, 12, segX, segY);
-                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.22 : 0.42 });
+                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.15 : 0.25 });
                 ribbon = new THREE.Mesh(geometry, material);
                 ribbon.position.z = -2;
                 ribbon.position.y = 0;
