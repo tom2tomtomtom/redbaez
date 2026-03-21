@@ -176,6 +176,38 @@
             transform: scale(1.05);
         }
 
+        /* What's New Section */
+        .whats-new {
+            background: var(--black);
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .whats-new h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 0.3rem;
+        }
+        .whats-new .wn-date {
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 2rem;
+        }
+        .whats-new ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 1rem;
+        }
+        .whats-new li {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--red);
+            border-radius: 0 8px 8px 0;
+        }
+
         /* Truth Section */
         .truth {
             background: transparent;
@@ -1078,6 +1110,20 @@
         </div>
     </section>
 
+    <!-- What's New -->
+    <section class="whats-new">
+        <div>
+            <h2 class="fade-in">What's New</h2>
+            <p class="wn-date fade-in">March 2026</p>
+            <ul>
+                <li class="fade-in"><strong>Uncommon Creative Studio:</strong> Company-wide Claude rollout launching across 223 staff</li>
+                <li class="fade-in"><strong>Mother London:</strong> 28 workstreams identified, 5 tools deployed across 8 departments</li>
+                <li class="fade-in"><strong>110+ custom Claude skills</strong> built and deployed across client teams</li>
+                <li class="fade-in"><strong>AIDEN Studio:</strong> Non-sycophantic strategic AI now live at aiden.services</li>
+            </ul>
+        </div>
+    </section>
+
     <!-- Truth Section -->
     <section class="truth truth-hero">
         <div class="truth-overlay">
@@ -1115,7 +1161,7 @@
         </div>
         <p class="fade-in">Learn how AI eliminates soul-crushing grunt work while amplifying human creativity.</p>
         <p class="fade-in">We teach agencies how AI breaks the specialization trap. Your designer can now write. Your writer can now code. Your strategist can now design. Everyone becomes dangerous.</p>
-        <p class="fade-in">Think Neo from The Matrix learning Kung Fu in seconds, but instead of dodging bullets, you're mastering AI tools, automating workflows, building custom GPTs, generating assets, analyzing data... while keeping the human magic that makes great work.</p>
+        <p class="fade-in">Think Neo from The Matrix learning Kung Fu in seconds, but instead of dodging bullets, you're mastering AI tools, automating workflows, building custom AI skills, generating assets, automating workflows... while keeping the human magic that makes great work.</p>
         
         <h3 class="fade-in">Our process is simple:</h3>
         <div class="process-grid">
@@ -1160,6 +1206,7 @@
                         <li>Persona development: 2 weeks → 2 hours</li>
                         <li>Competitive audits: Manual slog → Automated intelligence</li>
                         <li>Presentation decks: Half-day formatting → 30-minute polish</li>
+                        <li>Custom Claude skills: repeatable, branded AI workflows your team runs daily</li>
                     </ul>
                 </div>
             </div>
@@ -1221,7 +1268,7 @@
                     <div class="hiw-num">03</div>
                     <div class="hiw-node"></div>
                     <h3>Phase 3: The Transformation</h3>
-                    <p>We teach. Your team learns. Brand guidelines: 3 days → 3 hours. 50 social variations by tomorrow? Done by lunch.</p>
+                    <p>We build custom Claude skills your team uses daily. Brand guidelines: 3 days → 3 hours. 50 social variations by tomorrow? Done by lunch.</p>
                     <p style="opacity:.8">Outcome: +3× output on your first pilot lane.</p>
                 </div>
                 <div class="hiw-card right fade-in">
@@ -1243,7 +1290,7 @@
         <div>
             <h2 class="fade-in">AIDEN Studio: Your Strategic AI Partner</h2>
             <p class="intro-text fade-in">Trained your team to god-mode? Brilliant. Now meet the strategist who never sleeps.</p>
-            <p class="fade-in">AIDEN Studio isn't training. It's your ongoing strategic AI partner—available 24/7 for the complex stuff your team shouldn't be grinding on:</p>
+            <p class="fade-in">AIDEN Studio isn't training. It's your ongoing strategic AI partner, built on Claude—available 24/7 for the complex stuff your team shouldn't be grinding on:</p>
             
             <div class="aiden-grid">
                 <div class="aiden-card fade-in">
@@ -1281,7 +1328,7 @@
                 </details>
                 <details class="fade-in">
                     <summary>Is this just ChatGPT training?</summary>
-                    <p>If ChatGPT could do this, you'd have done it already. We teach the full stack: tool selection, workflow design, prompt engineering, quality control, and custom automation. ChatGPT is maybe 10% of it.</p>
+                    <p>No. We build on Claude, the most capable AI for enterprise work. We teach the full stack: custom Claude skills that run identically every time, workflow automation, MCP integrations, and deployment architecture. Not a workshop with slides. A transformation with working tools.</p>
                 </details>
                 <details class="fade-in">
                     <summary>What if we're not technical?</summary>
@@ -1289,7 +1336,7 @@
                 </details>
                 <details class="fade-in">
                     <summary>How is this different from other AI training?</summary>
-                    <p>Others teach tools. We transform workflows. Others show features. We deliver outcomes. Others leave you with videos. We leave you with superpowers.</p>
+                    <p>Others run a workshop and leave you with videos. We deploy custom Claude skills, workflow automations, and MCP integrations that your team uses every day. We leave you with a system, not a slideshow.</p>
                 </details>
                 <details class="fade-in">
                     <summary>What if AI changes next month?</summary>
@@ -1365,7 +1412,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Redbaez. All rights reserved.</p>
+                <p>&copy; 2026 Redbaez. All rights reserved.</p>
                 <div class="footer-links">
                     <a href="#top">Back to Top</a>
                 </div>
