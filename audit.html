@@ -277,9 +277,8 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
   <div class="screen active" id="intro">
     <h3>Agency AI Readiness Audit</h3>
     <h1>See where your agency really sits on AI.</h1>
-    <p class="lede">Twelve questions. Three minutes. A score, a weak-point diagnosis, and a recommended next step grounded in five live agency engagements.</p>
+    <p class="lede">Twelve questions. Three minutes. Your score and a diagnosis on the next screen. No email required to see it.</p>
     <button class="btn" onclick="show('quiz')">Start the audit →</button>
-    <p style="margin-top: 3rem; font-size: 0.9rem; color: var(--muted);">We'll ask for your email at the end so we can send you the detailed diagnostic. No marketing list. No spam.</p>
   </div>
 
   <!-- QUIZ -->
@@ -291,38 +290,6 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
       <button class="btn btn-ghost" onclick="prevQ()" id="prev-btn" style="visibility: hidden;">← Back</button>
       <button class="btn" onclick="nextQ()" id="next-btn" disabled>Next →</button>
     </div>
-  </div>
-
-  <!-- CAPTURE -->
-  <div class="screen" id="capture">
-    <h3>One more step</h3>
-    <h1>Where should we send your full diagnostic?</h1>
-    <p class="lede">You'll see your score on the next screen. We'll send the written diagnostic with your weak-point commentary and next-step recommendation to your email.</p>
-    <form id="capture-form">
-      <div class="form-group">
-        <label for="name">Your name</label>
-        <input type="text" id="name" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Work email</label>
-        <input type="email" id="email" required>
-      </div>
-      <div class="form-group">
-        <label for="agency">Agency name</label>
-        <input type="text" id="agency" required>
-      </div>
-      <div class="form-group">
-        <label for="size">Team size</label>
-        <select id="size" required>
-          <option value="">Select...</option>
-          <option value="5-15">5-15 people</option>
-          <option value="15-50">15-50 people</option>
-          <option value="50-150">50-150 people</option>
-          <option value="150+">150+ people</option>
-        </select>
-      </div>
-      <button type="submit" class="btn">See my score →</button>
-    </form>
   </div>
 
   <!-- RESULT -->
@@ -339,11 +306,42 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
       <h3>Your next step</h3>
       <p id="result-rec">-</p>
     </div>
+
+    <!-- Share -->
+    <div style="margin-top: 2.5rem; padding: 1.5rem; background: white; border: 1px solid var(--gray); border-radius: 2px;">
+      <h3 style="color: var(--red); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Share your score</h3>
+      <p style="font-size: 0.95rem; margin-bottom: 1rem;">Send it to a colleague or post it publicly. Useful when making the case for AI transformation internally.</p>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-ghost" id="share-linkedin" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Share on LinkedIn</button>
+        <button class="btn btn-ghost" id="share-copy" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Copy link</button>
+        <button class="btn btn-ghost" id="share-email" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Email a colleague</button>
+      </div>
+    </div>
+
+    <!-- Optional follow-up: written diagnostic -->
+    <div style="margin-top: 2.5rem; padding: 1.5rem; background: var(--burgundy); color: white; border-radius: 2px;">
+      <h3 style="color: var(--red); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Want Tom's written diagnostic?</h3>
+      <p style="font-size: 0.95rem; margin-bottom: 1rem; color: rgba(255,255,255,0.85);">A personalised written breakdown of your score and next step, with a direct reply from Tom. Optional, and only if you want it.</p>
+      <form id="capture-form" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <input type="text" id="name" placeholder="Your name" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
+        <input type="email" id="email" placeholder="Work email" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
+        <input type="text" id="agency" placeholder="Agency name" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
+        <select id="size" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
+          <option value="" style="color: var(--ink);">Team size...</option>
+          <option value="5-15" style="color: var(--ink);">5-15 people</option>
+          <option value="15-50" style="color: var(--ink);">15-50 people</option>
+          <option value="50-150" style="color: var(--ink);">50-150 people</option>
+          <option value="150+" style="color: var(--ink);">150+ people</option>
+        </select>
+        <button type="submit" class="btn" style="background: var(--red); margin-top: 0.5rem;">Send me the written diagnostic</button>
+        <p id="capture-confirm" style="font-size: 0.85rem; color: rgba(255,255,255,0.7); display: none; margin-top: 0.5rem;">Sent. Tom will reply within 24 hours.</p>
+      </form>
+    </div>
+
     <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="mailto:tom@redbaez.com?subject=AI%20Readiness%20Audit%20follow-up" class="btn">Book a 30-min call with Tom</a>
+      <a href="mailto:tomh@redbaez.com?subject=AI%20Readiness%20Audit%20follow-up%20-%20book%20a%20call" class="btn">Book a 30-min call with Tom</a>
       <a href="/" class="btn btn-ghost">Back to redbaez.com</a>
     </div>
-    <p style="margin-top: 3rem; font-size: 0.85rem; color: var(--muted);">Want a written version of this emailed to you, plus a direct reply from Tom? <a href="mailto:tomh@redbaez.com?subject=Audit%20follow-up%20%E2%80%94%20written%20diagnostic%20please" style="color: var(--red);">Reply to this page</a>. Otherwise your score is above, shareable and ready.</p>
   </div>
 
 </div>
@@ -513,11 +511,28 @@ function selectOpt(qid, score) {
 
 function nextQ() {
   if (currentQ === questions.length - 1) {
-    show('capture');
+    renderResult();
+    show('result');
   } else {
     currentQ++;
     renderQ();
   }
+}
+
+function renderResult() {
+  const r = computeResult();
+  document.getElementById('score-big').textContent = r.overall;
+  document.getElementById('score-name').textContent = r.level.name;
+  document.getElementById('result-headline').textContent = r.level.headline;
+  const commentary = r.lowest.score < 3
+    ? dimCommentary[r.lowest.dim].low
+    : r.lowest.score < 5 ? dimCommentary[r.lowest.dim].mid : dimCommentary[r.lowest.dim].high;
+  document.getElementById('result-body').innerHTML = `${r.level.body}<br><br><strong>Your weakest dimension: ${r.lowest.dim} at ${r.lowest.score}.</strong> ${commentary}`;
+  document.getElementById('dim-table').innerHTML = r.dimScores.map(d =>
+    `<div class="dim-row"><span class="dim-name">${d.dim}</span><span class="dim-score">${d.score} / 5</span></div>`
+  ).join('');
+  document.getElementById('result-rec').textContent = r.level.rec;
+  window._auditResult = r;
 }
 
 function prevQ() {
@@ -551,7 +566,7 @@ document.getElementById('capture-form').addEventListener('submit', (e) => {
   const email = document.getElementById('email').value;
   const agency = document.getElementById('agency').value;
   const size = document.getElementById('size').value;
-  const r = computeResult();
+  const r = window._auditResult || computeResult();
   // Submit lead to Netlify Forms (emails tomh@redbaez.com and chrism@redbaez.com)
   const leadData = {
     'form-name': 'audit-lead',
@@ -576,23 +591,38 @@ document.getElementById('capture-form').addEventListener('submit', (e) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: encoded,
-  }).catch(() => {});
+  }).then(() => {
+    document.getElementById('capture-confirm').style.display = 'block';
+    document.querySelector('#capture-form button[type="submit"]').textContent = 'Sent ✓';
+    document.querySelector('#capture-form button[type="submit"]').disabled = true;
+  }).catch(() => {
+    document.getElementById('capture-confirm').textContent = 'Something went wrong. Please email tomh@redbaez.com directly.';
+    document.getElementById('capture-confirm').style.display = 'block';
+  });
 
-  // Show result
-  document.getElementById('score-big').textContent = r.overall;
-  document.getElementById('score-name').textContent = r.level.name;
-  document.getElementById('result-headline').textContent = r.level.headline;
-  const commentary = r.lowest.score < 3
-    ? dimCommentary[r.lowest.dim].low
-    : r.lowest.score < 5 ? dimCommentary[r.lowest.dim].mid : dimCommentary[r.lowest.dim].high;
-  document.getElementById('result-body').innerHTML = `${r.level.body}<br><br><strong>Your weakest dimension: ${r.lowest.dim} at ${r.lowest.score}.</strong> ${commentary}`;
-  document.getElementById('dim-table').innerHTML = r.dimScores.map(d =>
-    `<div class="dim-row"><span class="dim-name">${d.dim}</span><span class="dim-score">${d.score} / 5</span></div>`
-  ).join('');
-  document.getElementById('result-rec').textContent = r.level.rec;
-  document.getElementById('result-email').textContent = email;
+});
 
-  show('result');
+// Share handlers
+const shareText = () => {
+  const r = window._auditResult;
+  if (!r) return '';
+  return `I scored ${r.overall}/5 (${r.level.name}) on the Redbaez Agency AI Readiness Audit. Weakest dimension: ${r.lowest.dim}. Take it: https://redbaez.com/audit`;
+};
+document.getElementById('share-linkedin').addEventListener('click', () => {
+  const url = 'https://redbaez.com/audit';
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent(shareText())}`, '_blank', 'width=600,height=600');
+});
+document.getElementById('share-copy').addEventListener('click', (e) => {
+  navigator.clipboard.writeText(shareText()).then(() => {
+    e.target.textContent = 'Copied ✓';
+    setTimeout(() => { e.target.textContent = 'Copy link'; }, 2000);
+  });
+});
+document.getElementById('share-email').addEventListener('click', () => {
+  const r = window._auditResult;
+  const subject = encodeURIComponent(`Redbaez AI Readiness Audit — I scored ${r.overall}/5`);
+  const body = encodeURIComponent(`Thought you might find this useful.\n\n${shareText()}\n\n—`);
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
 });
 </script>
 
