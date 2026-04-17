@@ -250,8 +250,9 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
 </head>
 <body>
 
-<!-- Netlify detects this hidden form at build time. Real submissions go via fetch() below. -->
-<form name="audit-lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<!-- Netlify detects this form at build time. Real submissions go via fetch() below. -->
+<form name="audit-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="position:absolute; left:-9999px; top:-9999px;">
+  <input type="hidden" name="form-name" value="audit-lead">
   <input type="text" name="bot-field">
   <input type="text" name="name">
   <input type="email" name="email">
