@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency AI Readiness Audit — Redbaez</title>
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
+<meta name="description" content="3-minute audit. See where your agency sits on AI readiness. Get a personalised next-step recommendation from Redbaez.">
+<style>
+:root {
+  --red: #FF3333;
+  --burgundy: #140205;
+  --black: #0A0A0A;
+  --ink: #111;
+  --bg: #FAF7F2;
+  --gray: #E8E3DB;
+  --muted: #6B665E;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+.brand {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 3rem;
+}
+.brand:after {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--red);
+  margin-left: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.brand a { color: inherit; text-decoration: none; }
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+h2 {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+h3 {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+p { font-size: 1.05rem; margin-bottom: 1rem; }
+.lede { font-size: 1.25rem; color: var(--muted); margin-bottom: 2rem; max-width: 620px; }
+
+.btn {
+  display: inline-block;
+  background: var(--burgundy);
+  color: white;
+  padding: 0.9rem 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  border-radius: 2px;
+}
+.btn:hover { background: var(--red); }
+.btn-ghost {
+  background: transparent;
+  color: var(--burgundy);
+  border: 1px solid var(--burgundy);
+}
+.btn-ghost:hover { background: var(--burgundy); color: white; }
+
+.progress-bar {
+  background: var(--gray);
+  height: 3px;
+  margin: 1.5rem 0 2.5rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  background: var(--red);
+  height: 100%;
+  transition: width 0.35s ease;
+  width: 0%;
+}
+.progress-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.question {
+  padding: 1.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--gray);
+}
+.question:last-child { border-bottom: none; }
+.q-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+.q-dim {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.5rem;
+}
+.options { display: flex; flex-direction: column; gap: 0.5rem; }
+.option {
+  display: block;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--gray);
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  border-radius: 2px;
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink);
+}
+.option:hover { border-color: var(--burgundy); background: #FFF9F5; }
+.option.selected {
+  border-color: var(--red);
+  background: #FFF0F0;
+  font-weight: 500;
+}
+.option input { display: none; }
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--ink);
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--gray);
+  background: white;
+  border-radius: 2px;
+  font-family: inherit;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+.score-display {
+  text-align: center;
+  padding: 2rem 0;
+  background: var(--burgundy);
+  color: white;
+  margin: 0 -1.5rem 2rem;
+  border-radius: 2px;
+}
+.score-big {
+  font-size: clamp(4rem, 9vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--red);
+  margin: 0;
+}
+.score-label {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.5rem;
+}
+.score-name {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-top: 1rem;
+}
+.dim-table {
+  margin: 2rem 0;
+  border: 1px solid var(--gray);
+  background: white;
+}
+.dim-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--gray);
+  font-size: 0.95rem;
+}
+.dim-row:last-child { border-bottom: none; }
+.dim-row .dim-name { font-weight: 500; }
+.dim-row .dim-score {
+  font-weight: 700;
+  color: var(--red);
+  min-width: 40px;
+  text-align: right;
+}
+
+.rec-box {
+  padding: 1.5rem;
+  background: white;
+  border-left: 3px solid var(--red);
+  margin: 2rem 0;
+}
+.rec-box h3 { color: var(--red); margin-bottom: 0.75rem; }
+.rec-box p { margin-bottom: 0; font-size: 1.05rem; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="brand"><a href="/">Redbaez</a></div>
+
+  <!-- INTRO -->
+  <div class="screen active" id="intro">
+    <h3>Agency AI Readiness Audit</h3>
+    <h1>See where your agency really sits on AI.</h1>
+    <p class="lede">Twelve questions. Three minutes. A score, a weak-point diagnosis, and a recommended next step from the people who've done this with Mother, Uncommon, Alt-Shift, Monigle, and Emotive.</p>
+    <button class="btn" onclick="show('quiz')">Start the audit →</button>
+    <p style="margin-top: 3rem; font-size: 0.9rem; color: var(--muted);">We'll ask for your email at the end so we can send you the detailed diagnostic. No marketing list. No spam.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="quiz">
+    <div class="progress-label" id="progress-label">Question 1 of 12</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="q-container"></div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="prevQ()" id="prev-btn" style="visibility: hidden;">← Back</button>
+      <button class="btn" onclick="nextQ()" id="next-btn" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- CAPTURE -->
+  <div class="screen" id="capture">
+    <h3>One more step</h3>
+    <h1>Where should we send your full diagnostic?</h1>
+    <p class="lede">You'll see your score on the next screen. We'll send the written diagnostic with your weak-point commentary and next-step recommendation to your email.</p>
+    <form id="capture-form">
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Work email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="agency">Agency name</label>
+        <input type="text" id="agency" required>
+      </div>
+      <div class="form-group">
+        <label for="size">Team size</label>
+        <select id="size" required>
+          <option value="">Select...</option>
+          <option value="5-15">5-15 people</option>
+          <option value="15-50">15-50 people</option>
+          <option value="50-150">50-150 people</option>
+          <option value="150+">150+ people</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">See my score →</button>
+    </form>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="result">
+    <div class="score-display">
+      <div class="score-big" id="score-big">-</div>
+      <div class="score-label">of 5</div>
+      <div class="score-name" id="score-name">-</div>
+    </div>
+    <h2 id="result-headline">-</h2>
+    <p id="result-body">-</p>
+    <div class="dim-table" id="dim-table"></div>
+    <div class="rec-box">
+      <h3>Your next step</h3>
+      <p id="result-rec">-</p>
+    </div>
+    <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="mailto:tom@redbaez.com?subject=AI%20Readiness%20Audit%20follow-up" class="btn">Book a 30-min call with Tom</a>
+      <a href="/" class="btn btn-ghost">Back to redbaez.com</a>
+    </div>
+    <p style="margin-top: 3rem; font-size: 0.85rem; color: var(--muted);">Full written diagnostic sent to <span id="result-email">your email</span> within an hour.</p>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  { dim: 'Leadership Intent', id: 'L1', text: 'Who in your leadership team is championing AI adoption?', opts: [
+    { text: 'Nobody', score: 0 },
+    { text: 'A middle manager, no exec cover', score: 2 },
+    { text: 'One exec, without board support', score: 3 },
+    { text: 'The CEO or MD and one other exec', score: 4 },
+    { text: 'Whole leadership team, with board mandate', score: 5 },
+  ]},
+  { dim: 'Leadership Intent', id: 'L2', text: "What's your annual budget for AI tools and consulting?", opts: [
+    { text: 'Nothing allocated', score: 0 },
+    { text: 'Under £20k', score: 2 },
+    { text: '£20-75k', score: 3 },
+    { text: '£75-200k', score: 4 },
+    { text: '£200k+', score: 5 },
+  ]},
+  { dim: 'Leadership Intent', id: 'L3', text: 'If a project required changing how your teams work, what would happen?', opts: [
+    { text: 'Revolt. Change always fails here.', score: 0 },
+    { text: 'Slow. Some teams adapt, others resist for months.', score: 2 },
+    { text: 'Mixed. With clear mandate, most teams move.', score: 3 },
+    { text: "Fast. We've done process change before and it stuck.", score: 4 },
+    { text: 'Continuous. Change is how we operate.', score: 5 },
+  ]},
+  { dim: 'Team Fluency', id: 'T1', text: 'How many of your people use Claude, ChatGPT, or Copilot for real work (not just test)?', opts: [
+    { text: 'Nobody we know of', score: 0 },
+    { text: 'A few individuals, unofficially', score: 2 },
+    { text: '~25% of relevant teams, unevenly', score: 3 },
+    { text: '~50%+ across relevant teams', score: 4 },
+    { text: 'Nearly everyone, and some teach others', score: 5 },
+  ]},
+  { dim: 'Team Fluency', id: 'T2', text: 'When someone on your team says "AI can\'t do that yet," what happens?', opts: [
+    { text: "They're usually right, based on nobody trying", score: 0 },
+    { text: 'Someone may disagree, but no-one actually tests it', score: 2 },
+    { text: 'We test it before deciding', score: 3 },
+    { text: 'We expect them to prove it with a demo', score: 4 },
+    { text: "It's a known pattern. We try, fail, try differently, succeed.", score: 5 },
+  ]},
+  { dim: 'Team Fluency', id: 'T3', text: "What's your team's relationship with prompting?", opts: [
+    { text: "We don't talk about it.", score: 0 },
+    { text: 'A couple of people experiment.', score: 2 },
+    { text: "We've done a training session or two.", score: 3 },
+    { text: 'We have shared prompt libraries and standards.', score: 4 },
+    { text: 'Prompting is a craft skill we hire for and review.', score: 5 },
+  ]},
+  { dim: 'Procurement Readiness', id: 'P1', text: 'How long to add a new tool to the stack if a team wants it?', opts: [
+    { text: 'Near impossible without exec approval and quarterly review', score: 0 },
+    { text: '2-3 months with legal and security review', score: 2 },
+    { text: '3-6 weeks if it fits existing procurement', score: 3 },
+    { text: 'Under 2 weeks for most tools', score: 4 },
+    { text: 'Any team lead can pilot new tools inside budget', score: 5 },
+  ]},
+  { dim: 'Procurement Readiness', id: 'P2', text: 'Are you on Claude Pro, Team, Enterprise, or nothing?', opts: [
+    { text: 'Nothing', score: 0 },
+    { text: 'Individual Pro accounts, unmanaged', score: 2 },
+    { text: 'Claude Team (tier up to ~50 seats)', score: 3 },
+    { text: 'Claude Enterprise (org-wide)', score: 4 },
+    { text: 'Enterprise plus custom API usage', score: 5 },
+  ]},
+  { dim: 'Procurement Readiness', id: 'P3', text: 'Does your IT or legal team block AI tools?', opts: [
+    { text: 'Yes, broadly, without case-by-case review', score: 0 },
+    { text: 'Yes, unless explicitly whitelisted (slow)', score: 2 },
+    { text: 'Some blocks, most tools permitted', score: 3 },
+    { text: 'Case-by-case, usually approved in days', score: 4 },
+    { text: 'AI-first posture, blocking only when risk is material', score: 5 },
+  ]},
+  { dim: 'Workflow Opportunity', id: 'W1', text: "What share of your agency's billable work is repeatable (structurally, not in content)?", opts: [
+    { text: 'None. Every brief is one-of-one.', score: 0 },
+    { text: '10-20%. A handful of recurring formats.', score: 2 },
+    { text: '30-50%. A clear backbone of repeat work.', score: 3 },
+    { text: '50-70%. Many pipelines are templateable.', score: 4 },
+    { text: '70%+. We already productise internally.', score: 5 },
+  ]},
+  { dim: 'Workflow Opportunity', id: 'W2', text: "Where does most of your team's time go?", opts: [
+    { text: "We don't know. We don't track.", score: 0 },
+    { text: 'Creative work (no grind visible).', score: 2 },
+    { text: 'Creative work plus a lot of admin and prep.', score: 3 },
+    { text: 'Reporting, decks, brief synthesis, admin. The grind is visible.', score: 4 },
+    { text: "We've mapped the grind already and know where to cut.", score: 5 },
+  ]},
+  { dim: 'Workflow Opportunity', id: 'W3', text: "What's your posture on tools you build vs tools you buy?", opts: [
+    { text: 'Buy only. Never build.', score: 0 },
+    { text: 'Buy, but we tweak.', score: 2 },
+    { text: 'Buy by default, build for one or two things.', score: 3 },
+    { text: "Build when it's differentiating, buy for commodity.", score: 4 },
+    { text: 'We treat internal tools as competitive advantage.', score: 5 },
+  ]},
+];
+
+const levels = {
+  0: { name: 'Laggard', headline: "You're not ready yet. That's OK. It means your first step is not a tool.",
+       body: "AI investment now will stall. The blocker is institutional, not technical. Fix leadership intent or procurement friction before spending on tools, or the tools will sit unused and the teams will conclude 'AI doesn't work here.'",
+       rec: "Start with a half-day leadership workshop (£4k) to build the case and the budget. Revisit the audit in 6 months. Don't buy tools yet." },
+  1: { name: 'Laggard', headline: "You're on the edge of ready. One dimension is dragging you down.",
+       body: "You're close enough that one focused intervention could move you to Learner level. The critical weakness is visible in your scores. Fix that before investing in tools or training.",
+       rec: "Start with a half-day leadership workshop (£4k) to address your weakest dimension. Revisit the audit in 3 months." },
+  2: { name: 'Learner', headline: "You've got the early signals. Risk now is wasted spend without guidance.",
+       body: "Leadership is interested, teams are dabbling, the stack is approachable. But without a clear first target, most of the money goes to tools nobody uses and training nobody applies. The next 6 months will determine whether you move forward or stall.",
+       rec: "Run a 2-week Audit engagement (£15-22k) to identify your first 3 wins and sequence them. This gives you a defensible plan before you spend on tools." },
+  3: { name: 'Mover', headline: "You're ready. The question is sequencing, not whether.",
+       body: "Leadership, team fluency, procurement, and opportunity all align. What you need now is a 16-week transformation that turns that readiness into measurable output. Move fast. Agencies at your level who delay 12 months cede ground to competitors who act.",
+       rec: "Run the full Redbaez Delivery Method. 16 weeks, 5 phases, measurable production gains from month two. From £68k year one at your size." },
+  4: { name: 'Leader', headline: "You're ahead. Acceleration and infrastructure matter more than training.",
+       body: "Your teams are fluent. Your leadership gets it. You don't need a 'transformation.' You need platform infrastructure, better tools, and targeted engagements to unblock specific bottlenecks.",
+       rec: "AIDEN Platform subscription plus an 8-week targeted engagement on your lowest-scoring dimension. We move fast, we don't waste your time." },
+  5: { name: 'Native', headline: "You're AI-native. The conversation is about partnership, not delivery.",
+       body: "You're where we want all our clients to be in 2 years. You're probably also being asked for help by other agencies. Let's talk about what you do with that.",
+       rec: "Partnership conversation. Co-delivery to other agencies, licensing the Redbaez Delivery Method, or building on AIDEN platform together." },
+};
+
+const dimensions = ['Leadership Intent', 'Team Fluency', 'Procurement Readiness', 'Workflow Opportunity'];
+const dimCommentary = {
+  'Leadership Intent': {
+    low: "Without an exec champion and real budget, nothing ships. Build the case before buying tools.",
+    mid: "You have leadership interest. Convert it into explicit budget and a mandated champion.",
+    high: "Leadership is aligned. This isn't your blocker."
+  },
+  'Team Fluency': {
+    low: "Your teams haven't touched AI in real work. Start with hands-on training on their actual briefs, not generic courses.",
+    mid: "Pockets of fluency. Needs a shared prompt library and team-wide standards to turn individual skill into organisational capability.",
+    high: "Your teams are operating. Now give them better tools, not more training."
+  },
+  'Procurement Readiness': {
+    low: "Procurement friction will kill velocity. Fix this or any AI work takes 6x longer to ship.",
+    mid: "You can buy tools but slowly. Negotiate Claude Enterprise or Team to unlock org-wide access.",
+    high: "You can move fast on tooling. Use that advantage."
+  },
+  'Workflow Opportunity': {
+    low: "Either your work truly is bespoke (rare) or you haven't mapped the grind. Start with a time audit.",
+    mid: "You know where the grind is. Pick the three workflows with highest volume and most repeatability.",
+    high: "You've mapped the work. Now build the tools to cut it."
+  }
+};
+
+let currentQ = 0;
+let answers = {};
+
+function renderQ() {
+  const q = questions[currentQ];
+  const container = document.getElementById('q-container');
+  const selected = answers[q.id];
+  container.innerHTML = `
+    <div class="question">
+      <div class="q-dim">${q.dim}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options">
+        ${q.opts.map((o, i) => `
+          <button class="option ${selected === o.score ? 'selected' : ''}" onclick="selectOpt('${q.id}', ${o.score})">${o.text}</button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  document.getElementById('progress-label').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+  document.getElementById('prev-btn').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+  document.getElementById('next-btn').disabled = !(q.id in answers);
+  document.getElementById('next-btn').textContent = currentQ === questions.length - 1 ? 'Finish →' : 'Next →';
+}
+
+function selectOpt(qid, score) {
+  answers[qid] = score;
+  renderQ();
+}
+
+function nextQ() {
+  if (currentQ === questions.length - 1) {
+    show('capture');
+  } else {
+    currentQ++;
+    renderQ();
+  }
+}
+
+function prevQ() {
+  if (currentQ > 0) { currentQ--; renderQ(); }
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'quiz') renderQ();
+}
+
+function dimScore(dim) {
+  const qs = questions.filter(q => q.dim === dim);
+  const scores = qs.map(q => answers[q.id] || 0);
+  return Math.round(scores.reduce((a,b) => a+b, 0) / scores.length);
+}
+
+function computeResult() {
+  const dimScores = dimensions.map(d => ({ dim: d, score: dimScore(d) }));
+  const overall = Math.min(...dimScores.map(d => d.score));
+  const lowest = dimScores.reduce((a, b) => a.score < b.score ? a : b);
+  const level = levels[overall] || levels[0];
+  return { overall, dimScores, lowest, level };
+}
+
+document.getElementById('capture-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const agency = document.getElementById('agency').value;
+  const size = document.getElementById('size').value;
+  const r = computeResult();
+
+  // Compose mailto to Tom (interim capture mechanism — no backend)
+  const subject = encodeURIComponent(`AI Readiness Audit lead: ${agency} (${r.level.name}, ${r.overall}/5)`);
+  const body = encodeURIComponent(
+`New Agency AI Readiness Audit submission.
+
+Name: ${name}
+Email: ${email}
+Agency: ${agency}
+Team size: ${size}
+
+Overall score: ${r.overall} of 5 (${r.level.name})
+Weakest dimension: ${r.lowest.dim} at ${r.lowest.score}
+
+Per-dimension scores:
+${r.dimScores.map(d => `- ${d.dim}: ${d.score}`).join('\n')}
+
+Raw answers:
+${Object.entries(answers).map(([q, s]) => `  ${q}: ${s}`).join('\n')}
+
+Recommended next step: ${r.level.rec}
+`
+  );
+  // Fire-and-forget lead logging via a beacon-style request (replace with real endpoint when available)
+  try {
+    fetch('https://formspree.io/f/placeholder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, agency, size, overall: r.overall, dim: r.dimScores, answers })
+    }).catch(() => {});
+  } catch(e) {}
+
+  // Show result
+  document.getElementById('score-big').textContent = r.overall;
+  document.getElementById('score-name').textContent = r.level.name;
+  document.getElementById('result-headline').textContent = r.level.headline;
+  const commentary = r.lowest.score < 3
+    ? dimCommentary[r.lowest.dim].low
+    : r.lowest.score < 5 ? dimCommentary[r.lowest.dim].mid : dimCommentary[r.lowest.dim].high;
+  document.getElementById('result-body').innerHTML = `${r.level.body}<br><br><strong>Your weakest dimension: ${r.lowest.dim} at ${r.lowest.score}.</strong> ${commentary}`;
+  document.getElementById('dim-table').innerHTML = r.dimScores.map(d =>
+    `<div class="dim-row"><span class="dim-name">${d.dim}</span><span class="dim-score">${d.score} / 5</span></div>`
+  ).join('');
+  document.getElementById('result-rec').textContent = r.level.rec;
+  document.getElementById('result-email').textContent = email;
+
+  // Mailto fallback (opens user's email client with lead pre-filled to Tom)
+  const mailto = `mailto:tom@redbaez.com?subject=${subject}&body=${body}`;
+  const link = document.createElement('a');
+  link.href = mailto;
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  show('result');
+});
+</script>
+
+</body>
+</html>
