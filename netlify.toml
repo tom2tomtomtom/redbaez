@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/audit"
+  to = "/audit.html"
+  status = 200
+
+[[redirects]]
+  from = "/mothership"
+  to = "/mothership.html"
+  status = 200
