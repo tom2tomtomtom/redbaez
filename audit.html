@@ -276,9 +276,9 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
   <!-- INTRO -->
   <div class="screen active" id="intro">
     <h3>Agency AI Readiness Audit</h3>
-    <h1>See where your agency really sits on AI.</h1>
-    <p class="lede">Twelve questions. Three minutes. Your score and a diagnosis on the next screen. No email required to see it.</p>
-    <button class="btn" onclick="show('quiz')">Start the audit →</button>
+    <h1>Your AI readiness in 3 minutes.</h1>
+    <button class="btn" onclick="show('quiz')" style="margin-bottom: 1.5rem;">Start the audit</button>
+    <p class="lede" style="font-size: 1rem;">Twelve questions. Score and diagnosis on the next screen. No email required.</p>
   </div>
 
   <!-- QUIZ -->
@@ -310,7 +310,7 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
     <!-- Share -->
     <div style="margin-top: 2.5rem; padding: 1.5rem; background: white; border: 1px solid var(--gray); border-radius: 2px;">
       <h3 style="color: var(--red); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Share your score</h3>
-      <p style="font-size: 0.95rem; margin-bottom: 1rem;">Send it to a colleague or post it publicly. Useful when making the case for AI transformation internally.</p>
+      <p style="font-size: 0.95rem; margin-bottom: 1rem;">Send it to a colleague or post it publicly. Useful when making the case for AI investment internally.</p>
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <button class="btn btn-ghost" id="share-linkedin" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Share on LinkedIn</button>
         <button class="btn btn-ghost" id="share-copy" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Copy link</button>
@@ -445,7 +445,7 @@ const levels = {
        body: "Leadership is interested, teams are dabbling, the stack is approachable. But without a clear first target, most of the money goes to tools nobody uses and training nobody applies. The next 6 months will determine whether you move forward or stall.",
        rec: "Run a 2-week Audit engagement (£15-22k) to identify your first 3 wins and sequence them. This gives you a defensible plan before you spend on tools." },
   3: { name: 'Mover', headline: "You're ready. The question is sequencing, not whether.",
-       body: "Leadership, team fluency, procurement, and opportunity all align. What you need now is a 16-week transformation that turns that readiness into measurable output. Move fast. Agencies at your level who delay 12 months cede ground to competitors who act.",
+       body: "Leadership, team fluency, procurement, and opportunity all align. What you need now is a 16-week engagement that turns that readiness into measurable output. Agencies at your level who delay 12 months cede ground to competitors who act.",
        rec: "Run the full Redbaez Delivery Method. 16 weeks, 5 phases, measurable production gains from month two. From £68k year one at your size." },
   4: { name: 'Leader', headline: "You're ahead. Acceleration and infrastructure matter more than training.",
        body: "Your teams are fluent. Your leadership gets it. You don't need a 'transformation.' You need platform infrastructure, better tools, and targeted engagements to unblock specific bottlenecks.",
