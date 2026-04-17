@@ -250,6 +250,25 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
 </head>
 <body>
 
+<!-- Netlify detects this hidden form at build time. Real submissions go via fetch() below. -->
+<form name="audit-lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="bot-field">
+  <input type="text" name="name">
+  <input type="email" name="email">
+  <input type="text" name="agency">
+  <input type="text" name="size">
+  <input type="text" name="overall_score">
+  <input type="text" name="level">
+  <input type="text" name="weakest_dimension">
+  <input type="text" name="weakest_score">
+  <input type="text" name="leadership_intent">
+  <input type="text" name="team_fluency">
+  <input type="text" name="procurement_readiness">
+  <input type="text" name="workflow_opportunity">
+  <input type="text" name="recommendation">
+  <textarea name="raw_answers"></textarea>
+</form>
+
 <div class="container">
   <div class="brand"><a href="/">Redbaez</a></div>
 
@@ -532,37 +551,31 @@ document.getElementById('capture-form').addEventListener('submit', (e) => {
   const agency = document.getElementById('agency').value;
   const size = document.getElementById('size').value;
   const r = computeResult();
-
-  // Compose mailto to Tom (interim capture mechanism — no backend)
-  const subject = encodeURIComponent(`AI Readiness Audit lead: ${agency} (${r.level.name}, ${r.overall}/5)`);
-  const body = encodeURIComponent(
-`New Agency AI Readiness Audit submission.
-
-Name: ${name}
-Email: ${email}
-Agency: ${agency}
-Team size: ${size}
-
-Overall score: ${r.overall} of 5 (${r.level.name})
-Weakest dimension: ${r.lowest.dim} at ${r.lowest.score}
-
-Per-dimension scores:
-${r.dimScores.map(d => `- ${d.dim}: ${d.score}`).join('\n')}
-
-Raw answers:
-${Object.entries(answers).map(([q, s]) => `  ${q}: ${s}`).join('\n')}
-
-Recommended next step: ${r.level.rec}
-`
-  );
-  // Fire-and-forget lead logging via a beacon-style request (replace with real endpoint when available)
-  try {
-    fetch('https://formspree.io/f/placeholder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, email, agency, size, overall: r.overall, dim: r.dimScores, answers })
-    }).catch(() => {});
-  } catch(e) {}
+  // Submit lead to Netlify Forms (emails tomh@redbaez.com and chrism@redbaez.com)
+  const leadData = {
+    'form-name': 'audit-lead',
+    'bot-field': '',
+    'name': name,
+    'email': email,
+    'agency': agency,
+    'size': size,
+    'overall_score': String(r.overall),
+    'level': r.level.name,
+    'weakest_dimension': r.lowest.dim,
+    'weakest_score': String(r.lowest.score),
+    'leadership_intent': String(r.dimScores.find(d => d.dim === 'Leadership Intent').score),
+    'team_fluency': String(r.dimScores.find(d => d.dim === 'Team Fluency').score),
+    'procurement_readiness': String(r.dimScores.find(d => d.dim === 'Procurement Readiness').score),
+    'workflow_opportunity': String(r.dimScores.find(d => d.dim === 'Workflow Opportunity').score),
+    'recommendation': r.level.rec,
+    'raw_answers': Object.entries(answers).map(([q, s]) => `${q}: ${s}`).join('\n'),
+  };
+  const encoded = Object.keys(leadData).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(leadData[k])).join('&');
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: encoded,
+  }).catch(() => {});
 
   // Show result
   document.getElementById('score-big').textContent = r.overall;
@@ -577,15 +590,6 @@ Recommended next step: ${r.level.rec}
   ).join('');
   document.getElementById('result-rec').textContent = r.level.rec;
   document.getElementById('result-email').textContent = email;
-
-  // Mailto fallback (opens user's email client with lead pre-filled to Tom)
-  const mailto = `mailto:tom@redbaez.com?subject=${subject}&body=${body}`;
-  const link = document.createElement('a');
-  link.href = mailto;
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 
   show('result');
 });
