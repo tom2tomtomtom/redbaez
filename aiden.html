@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIDEN Platform | 6 AI Tools for Creative Agencies | Redbaez</title>
+    <meta name="description" content="AIDEN is a suite of 6 AI tools built for creative agencies. Colleague, Synthetic Research, Brand Audit, Listen, Creative Pipeline, and refrAIm. Try free with 10 tokens.">
+    <link rel="canonical" href="https://redbaez.com/aiden">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
+
+    <meta property="og:title" content="AIDEN Platform | 6 AI Tools for Creative Agencies">
+    <meta property="og:description" content="AIDEN is a suite of 6 AI tools built for creative agencies. Try free with 10 tokens. No credit card.">
+    <meta property="og:image" content="https://redbaez.com/og-image.png">
+    <meta property="og:url" content="https://redbaez.com/aiden">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AIDEN Platform | 6 AI Tools for Creative Agencies">
+    <meta name="twitter:description" content="6 AI tools built for creative agencies. Try free with 10 tokens.">
+    <meta name="twitter:image" content="https://redbaez.com/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AIDEN Platform",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Suite of 6 AI tools for creative agencies: AIDEN Colleague, Synthetic Research, Brand Audit, Listen, Creative Pipeline, and refrAIm. Built on 400+ phantom perspectives.",
+      "url": "https://aiden.services",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP",
+        "description": "Free trial with 10 tokens. No credit card required."
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Redbaez",
+        "url": "https://redbaez.com"
+      }
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --red: #FF3333; --black: #0A0A0A; --white: #FFFFFF; --gray: #F5F5F5; --dark-gray: #2A2A2A; --burgundy: #140205; }
+        html { scroll-behavior: smooth; font-size: 90%; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: var(--white); background: var(--burgundy); overflow-x: hidden; line-height: 1.6; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 0.95; }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.5rem; }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 700; margin-bottom: 1rem; }
+        p { font-size: clamp(1.05rem, 1.8vw, 1.2rem); line-height: 1.7; margin-bottom: 1.5rem; }
+
+        .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(120%) blur(8px); }
+        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: #fff; }
+        .site-nav .brand { color: #fff; text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
+        .site-nav nav a { color: #fff; text-decoration: none; margin-left: 1rem; font-weight: 600; }
+        .cta-primary { display: inline-block; padding: 1rem 3rem; background: var(--red); color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3); }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4); }
+        .cta-small { padding: 0.5rem 1rem; font-size: 0.95rem; }
+
+        /* Hero */
+        .aiden-hero { padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem); text-align: center; }
+        .aiden-hero > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .aiden-hero .label { color: var(--red); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; display: block; }
+        .aiden-hero h1 { margin-bottom: 1.5rem; }
+        .aiden-hero .sub { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(255,255,255,0.85); max-width: 720px; margin: 0 auto; }
+
+        /* Sections */
+        .aiden-section { padding: clamp(4rem, 8vw, 6rem) 0; }
+        .aiden-section > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .aiden-section h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
+        .aiden-dark { background: var(--black); }
+        .aiden-burgundy { background: var(--burgundy); }
+
+        /* Product cards */
+        .product-grid { display: grid; gap: 2rem; margin-top: 2rem; }
+        @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1000px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+        .product-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+        .product-card .icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+        .product-card h3 { color: var(--red); margin-bottom: 0.75rem; font-size: clamp(1.1rem, 2.2vw, 1.35rem); }
+        .product-card p { color: rgba(255,255,255,0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
+        .product-card .used-by { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+        .product-card .used-by a { color: var(--red); text-decoration: none; }
+        .product-card .used-by a:hover { text-decoration: underline; }
+
+        /* Phantom section */
+        .phantom-section { background: #050508; position: relative; overflow: hidden; text-align: center; }
+        .phantom-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(800px at 50% 40%, rgba(255,50,20,0.06), rgba(255,50,20,0) 60%); pointer-events: none; z-index: 0; }
+        .phantom-section > * { position: relative; z-index: 1; }
+        .phantom-section h2 { color: #fff; }
+        .phantom-section p { color: rgba(255,255,255,0.9); max-width: 800px; margin-left: auto; margin-right: auto; }
+        .phantom-highlight { display: block; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: #fff; line-height: 1.2; margin: 2.5rem auto; text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,32,32,0.2); border-bottom: 1px solid rgba(255,32,32,0.2); max-width: 800px; }
+
+        /* Pricing */
+        .pricing-section { text-align: center; }
+        .pricing-section .price-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 3rem; max-width: 640px; margin: 2rem auto; }
+        .pricing-section .price-box .badge { display: inline-block; padding: .25rem .6rem; border-radius: 999px; background: rgba(255,70,70,0.15); color: #fff; font-weight: 700; font-size: .9rem; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 1rem; }
+
+        /* CTA */
+        .aiden-cta { text-align: center; padding: clamp(4rem, 8vw, 6rem) 0; background: var(--burgundy); }
+        .aiden-cta > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+
+        /* Footer */
+        .site-footer { background: var(--black); color: rgba(255, 255, 255, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 4rem); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.9rem; opacity: 0.7; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { margin: 0; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.2s ease; }
+        .footer-links a:hover { color: var(--red); }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { .aiden-hero { padding-top: 6rem; } .site-nav nav a { margin-left: 0.5rem; font-size: 0.85rem; } }
+    </style>
+</head>
+<body>
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="brand" aria-label="Redbaez home">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
+            </a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/case-studies/mother-london">Case Studies</a>
+                <a href="/audit">Audit</a>
+                <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="cta-primary cta-small">Book a Call</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="aiden-hero">
+        <div>
+            <span class="label">The AIDEN Platform</span>
+            <h1 class="fade-in">Six AI tools for<br>creative agencies.</h1>
+            <p class="sub fade-in">One token balance. Built on 400+ phantom perspectives. Used by Mother London, Uncommon Creative, Monigle, and Alt-Shift.</p>
+        </div>
+    </section>
+
+    <section class="aiden-section aiden-dark">
+        <div>
+            <h2 class="fade-in">The Tools</h2>
+            <div class="product-grid">
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#9673;</span>
+                    <h3>AIDEN Colleague</h3>
+                    <p>Your agency's dedicated AI creative partner, trained on your culture, your documents, your ways of working. Not a generic chatbot. A colleague that understands your institution and earns its seat at the table. Cultivated from hundreds of phantom memories specific to your agency.</p>
+                    <p class="used-by">Used by: <a href="/case-studies/mother-london">Mother London</a>, <a href="/case-studies/monigle">Monigle</a></p>
+                </div>
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#9670;</span>
+                    <h3>Synthetic Research</h3>
+                    <p>Pressure-test concepts with 8 AI personas before the tissue meeting. Each persona brings a distinct perspective, demographic profile, and set of biases. Get consumer-style feedback in minutes, not weeks. Identify blind spots before they become expensive mistakes.</p>
+                    <p class="used-by">Used by: <a href="/case-studies/uncommon">Uncommon Creative</a></p>
+                </div>
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#9632;</span>
+                    <h3>Brand Audit</h3>
+                    <p>Competitive intelligence across positioning, advertising, and digital presence in 15 minutes. Analyses brand positioning, ad creative, social presence, and digital footprint. Generates a structured competitive landscape that would take a junior planner two weeks.</p>
+                    <p class="used-by">Used by: <a href="/case-studies/mother-london">Mother London</a>, <a href="/case-studies/uncommon">Uncommon Creative</a></p>
+                </div>
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#9687;</span>
+                    <h3>Listen</h3>
+                    <p>Cultural intelligence for brands. Know what is happening to your brand before the planner tells you. Real-time monitoring across ten platforms, with trend detection, sentiment analysis, and emerging signal identification. Turns noise into narrative.</p>
+                </div>
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#9654;</span>
+                    <h3>Creative Pipeline</h3>
+                    <p>Generate social ad campaigns from a brief, not a template. AIDEN takes a creative brief and produces multiple campaign concepts with copy, visual direction, and platform-specific adaptations. Gives your team a running start instead of a blank page.</p>
+                </div>
+                <div class="product-card fade-in">
+                    <span class="icon" aria-hidden="true">&#8635;</span>
+                    <h3>refrAIm</h3>
+                    <p>Reformat one video for every platform in 30 seconds. Intelligent reframing that understands composition, not just cropping. Handles aspect ratio, safe zones, and platform-specific requirements automatically. One upload, every format delivered.</p>
+                    <p class="used-by">Used by: <a href="/case-studies/alt-shift">Alt-Shift</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aiden-section phantom-section">
+        <div>
+            <h2 class="fade-in">The Phantom System</h2>
+            <p class="fade-in">AIDEN cultivates hundreds of phantom memories from an agency's own culture, documents, team interviews, and ways of working. Each time you talk to it, dozens of phantoms fire from over 400 distinct perspectives the system believes it has experienced in its long "advertising career".</p>
+            <span class="phantom-highlight fade-in">The interesting work comes from the friction, not the variety.</span>
+            <p class="fade-in">When two phantoms collide on the same brief, the system uses the tension instead of resolving it. Perspectives that stop being useful fade. New ones emerge from breakthroughs. A guardrail stops it ever becoming a yes-machine.</p>
+        </div>
+    </section>
+
+    <section class="aiden-section aiden-dark pricing-section">
+        <div>
+            <h2 class="fade-in">Pricing</h2>
+            <div class="price-box fade-in">
+                <div class="badge">Start free</div>
+                <p><strong>10 free tokens.</strong> No credit card required. Use any tool in the platform. See what AIDEN can do for your agency before you commit to anything.</p>
+                <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.7);">Token packs and agency subscriptions available at <a href="https://aiden.services/pricing" target="_blank" rel="noopener noreferrer" style="color: var(--red); text-decoration: none;">aiden.services/pricing</a></p>
+                <a href="https://aiden.services" target="_blank" rel="noopener noreferrer" class="cta-primary">Try free. 10 tokens.</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="aiden-cta">
+        <div>
+            <h2 class="fade-in">Want AIDEN configured for your agency?</h2>
+            <p class="fade-in" style="max-width: 640px; margin: 0 auto 2rem; color: rgba(255,255,255,0.85);">AIDEN works best when it is trained on your agency's culture and processes. Start with the readiness audit to see what we would prioritise first.</p>
+            <a href="/audit" class="cta-primary fade-in">Take the Readiness Audit</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Redbaez. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/case-studies/mother-london">Case Studies</a>
+                    <a href="mailto:tomh@redbaez.com">tomh@redbaez.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -7,3 +7,34 @@
   from = "/mothership"
   to = "/mothership.html"
   status = 200
+
+[[redirects]]
+  from = "/aiden"
+  to = "/aiden.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-studies/mother-london"
+  to = "/case-studies/mother-london.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-studies/uncommon"
+  to = "/case-studies/uncommon.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-studies/alt-shift"
+  to = "/case-studies/alt-shift.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-studies/monigle"
+  to = "/case-studies/monigle.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
