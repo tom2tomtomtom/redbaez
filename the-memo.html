@@ -19,7 +19,6 @@
     color: var(--white);
     background: var(--burgundy);
     line-height: 1.6;
-    padding: 0;
   }
   .container { max-width: 1100px; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem); }
   .eyebrow {
@@ -40,7 +39,7 @@
     font-size: clamp(1rem, 2vw, 1.2rem);
     color: rgba(255,255,255,0.85);
     max-width: 720px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   h2 {
     color: var(--red);
@@ -68,67 +67,65 @@
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     font-size: 0.95rem;
   }
-  .legend-item { display: flex; align-items: center; gap: 0.6rem; }
+  .legend-item { display: flex; align-items: flex-start; gap: 0.6rem; }
   .badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.2rem 0.6rem;
+    padding: 0.25rem 0.65rem;
     border-radius: 999px;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     white-space: nowrap;
   }
-  .badge-shipped { background: rgba(76,217,100,0.15); color: #6dd684; border: 1px solid rgba(76,217,100,0.3); }
-  .badge-adjacent { background: rgba(255,170,51,0.15); color: #ffbf66; border: 1px solid rgba(255,170,51,0.3); }
+  .badge-direct { background: rgba(76,217,100,0.15); color: #6dd684; border: 1px solid rgba(76,217,100,0.3); }
+  .badge-similar { background: rgba(255,170,51,0.15); color: #ffbf66; border: 1px solid rgba(255,170,51,0.3); }
   .badge-new { background: rgba(255,51,51,0.15); color: #ff7a7a; border: 1px solid rgba(255,51,51,0.3); }
   .effort {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.7);
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.75);
     background: rgba(255,255,255,0.05);
-    padding: 0.15rem 0.5rem;
+    padding: 0.18rem 0.55rem;
     border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
     white-space: nowrap;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
+  .item {
     background: rgba(255,255,255,0.03);
-    border-radius: 12px;
-    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
   }
-  th {
-    text-align: left;
-    padding: 1rem;
-    background: rgba(0,0,0,0.25);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--gold);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+  .item-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
   }
-  td {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    vertical-align: top;
+  .item-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+  .item-meta { display: flex; gap: 0.5rem; align-items: center; margin-left: auto; }
+  .item-what {
+    color: rgba(255,255,255,0.85);
     font-size: 0.95rem;
+    margin-bottom: 0.75rem;
   }
-  tr:last-child td { border-bottom: none; }
-  td.use { font-weight: 600; color: #fff; width: 22%; }
-  td.what { color: rgba(255,255,255,0.78); width: 48%; }
-  td.status { width: 13%; }
-  td.effort-cell { width: 17%; }
-  .precedent { color: rgba(255,255,255,0.55); font-size: 0.85rem; display: block; margin-top: 0.25rem; font-style: italic; }
-  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 3rem; }
+  .precedent {
+    border-left: 2px solid var(--gold);
+    padding: 0.6rem 0.9rem;
+    background: rgba(201,164,76,0.06);
+    border-radius: 0 8px 8px 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 0.88rem;
+  }
+  .precedent strong { color: var(--gold); display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; font-weight: 700; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 2rem; }
   .stat {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
@@ -156,18 +153,8 @@
     color: rgba(255,255,255,0.85);
   }
   @media (max-width: 720px) {
-    table, thead, tbody, tr, td, th { display: block; }
-    th { display: none; }
-    td { width: 100% !important; padding: 0.5rem 1rem; border-bottom: none; }
-    tr {
-      display: block;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    td.use { padding-top: 1rem; font-size: 1.05rem; }
-    td.what { padding-bottom: 0.5rem; }
-    td.status { display: inline-block; width: auto !important; padding-left: 1rem; }
-    td.effort-cell { display: inline-block; width: auto !important; padding-left: 0.5rem; }
+    .item-meta { margin-left: 0; }
+    .stat-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -176,343 +163,445 @@
 
   <div class="eyebrow">For Sophie + Sarah · Pre-read · 27 April 2026</div>
   <h1>The Memo x Redbaez</h1>
-  <p class="subtitle">AI Use Case Map. Every line in Sarah's brief mapped against work we've shipped, with honest effort estimates. Days where it's days, hours where it's hours.</p>
+  <p class="subtitle">AI Use Case Map. Every line in Sarah's brief, mapped honestly. What we've built, what's adaptation, what's new ground. Effort estimates in days where it's days, hours where it's hours.</p>
 
   <div class="stat-row">
     <div class="stat">
-      <div class="stat-num">27</div>
-      <div class="stat-label">Already shipped before</div>
+      <div class="stat-num">7</div>
+      <div class="stat-label">Direct precedent</div>
     </div>
     <div class="stat">
-      <div class="stat-num">17</div>
-      <div class="stat-label">Adjacent precedent</div>
+      <div class="stat-num">37</div>
+      <div class="stat-label">Built the same shape</div>
     </div>
     <div class="stat">
       <div class="stat-num">6</div>
-      <div class="stat-label">New territory</div>
+      <div class="stat-label">New ground</div>
     </div>
   </div>
 
   <div class="legend">
-    <div class="legend-item"><span class="badge badge-shipped">SHIPPED</span><span>Direct precedent. Live for a current client.</span></div>
-    <div class="legend-item"><span class="badge badge-adjacent">ADJACENT</span><span>Built similar shape elsewhere. Adaptation.</span></div>
-    <div class="legend-item"><span class="badge badge-new">NEW</span><span>Honest scope. Pattern is well understood.</span></div>
+    <div class="legend-item"><span class="badge badge-direct">DIRECT</span><span>Built this exact thing for this exact use case. Could ship a version of yours in days.</span></div>
+    <div class="legend-item"><span class="badge badge-similar">SIMILAR</span><span>Built the same shape in a different industry. The adaptation is straightforward and explained per item.</span></div>
+    <div class="legend-item"><span class="badge badge-new">NEW</span><span>No direct precedent. Pattern is well understood. Honest scope conversation needed.</span></div>
   </div>
 
   <div class="note">
-    Effort is build time at AUD 2,200/day rate. Skills marked in hours are genuinely that fast. Skills marked in days include iteration loops with the team, not just the build.
+    Day rate AUD 2,200. Skills marked in hours are genuinely that fast. Multi-day items include team iteration, not just construction. Most retailer-specific use cases are <strong>SIMILAR</strong> rather than <strong>DIRECT</strong>, because we've been building this stuff for creative agencies. The patterns transfer cleanly. The metric names change.
   </div>
 
   <h2>1. Finance</h2>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Data Analysis &amp; SQL</td>
-        <td class="what">Pull Shopify, CIN7, Xero into Postgres. Queryable. Dashboards on top.<span class="precedent">Live for Uncommon Creative Studio. 1,000+ projects.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">5-7 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Board Reporting &amp; Commentary</td>
-        <td class="what">Auto-generated monthly board pack from dashboard data. Variance narrative drafted in your voice.<span class="precedent">Variance reporting live on UCS dashboard. Commentary skill is an add-on.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">3-5 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Workflow Automation</td>
-        <td class="what">Daily scripts that reconcile data, generate reports, push to email or Slack.<span class="precedent">UCS runs daily. Alt-Shift recon scripts live.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days each</span></td>
-      </tr>
-      <tr>
-        <td class="use">Commercial Writing</td>
-        <td class="what">Voice-trained drafting skill. Supplier comms, credit chase, payment negotiations.<span class="precedent">Voice profiles live for Mother, Uncommon, Collinson.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">1 day voice + 2-3 hrs per skill</span></td>
-      </tr>
-      <tr>
-        <td class="use">Knowledge Base</td>
-        <td class="what">SOPs and finance processes searchable, indexed, accessible by role.<span class="precedent">Uncommon Studio Tools site (custom build) or Claude Projects native (instant).</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">Same day (Projects) — 1-2 wks (custom)</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Data Analysis &amp; SQL</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">5-7 days</span></div>
+    </div>
+    <div class="item-what">Pull Shopify, CIN7, Xero into a unified database. Queryable. Dashboards on top.</div>
+    <div class="precedent"><strong>What we built</strong>UCS Commercial Dashboard for Uncommon Creative Studio. 1,004 projects synced from Google Sheets fee data plus Float resource allocations into Postgres. Daily cron sync, integrity flags, branded dashboard with drill-down. Replace Sheets with Shopify, Float with CIN7, and the pipeline pattern is identical.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Board Reporting &amp; Commentary</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-5 days</span></div>
+    </div>
+    <div class="item-what">Auto-generated monthly board pack. Variance narrative drafted in your voice.</div>
+    <div class="precedent"><strong>What we built</strong>Variance reporting on UCS dashboard with auto-flagging of structural data issues (caught a 3,870% reconciliation gap on UCS04740 last week). Voice-trained drafting skills built for Mother, Uncommon, Collinson. Combine the two: dashboard generates the numbers, voice-trained skill drafts the commentary, Sarah signs.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Workflow Automation</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">2-3 days each</span></div>
+    </div>
+    <div class="item-what">Daily scripts that reconcile data, generate reports, push to email or Slack. Claude Code as the executor.</div>
+    <div class="precedent"><strong>What we built</strong>UCS daily sync runs at 2am on Railway cron. Float-to-Sheets reconciliation. Alt-Shift Streem-to-tracker converter. All running in production. The chassis is reusable, each automation is its own scope.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Commercial Writing</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day voice + 2-3 hrs per skill</span></div>
+    </div>
+    <div class="item-what">Supplier comms, credit chase emails, payment negotiations drafted in The Memo voice.</div>
+    <div class="precedent"><strong>What we built</strong>Voice profiles trained for Mother London, Uncommon Creative Studio, Collinson Group. Each takes brand content, calibrates a Claude prompt, produces output indistinguishable from in-house writing. We've used this for client comms and internal briefs. Same approach works for supplier-facing comms once Memo voice is locked.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Knowledge Base</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">Same day (Projects) - 1-2 wks (custom)</span></div>
+    </div>
+    <div class="item-what">SOPs and finance processes searchable, indexed, accessible by role.</div>
+    <div class="precedent"><strong>What we built</strong>Two routes. Native Claude Projects (instant, free, baked into Claude Business) for most teams. Or a custom build like the Uncommon Studio Tools site (NextAuth, Postgres, department-by-department guides) when SSO and access controls matter. Same content, different delivery.</div>
+  </div>
 
   <h2>2. Operations</h2>
   <h3>Merch &amp; Planning</h3>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Assortment &amp; Range Planning</td>
-        <td class="what">Analyse historical sales, attributes, store clusters. Recommend range optimisations.<span class="precedent">UCS role-and-department capacity planning is the analog. Maths overlaps.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">4-6 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Demand Forecasting Support</td>
-        <td class="what">Claude reads Netstock outputs and explains drivers, anomalies, trends in plain English.<span class="precedent">Augments Netstock, doesn't replace it.</span></td>
-        <td class="status"><span class="badge badge-new">NEW</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Scenario Planning</td>
-        <td class="what">Model pricing, promo, stock scenarios with trade-offs.<span class="precedent">Built scenario modelling for AIDEN strategy work. Different domain, same pattern.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Range Performance Analysis</td>
-        <td class="what">Product performance vs plan. Actionable commentary, not just numbers.<span class="precedent">UCS Variance is exactly this for projects. Adaptation to ranges/products.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">3-4 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Buy Decision Support</td>
-        <td class="what">Validate replenishment decisions against criteria you set.<span class="precedent">New build but the decision-support pattern is established.</span></td>
-        <td class="status"><span class="badge badge-new">NEW</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Vendor &amp; Product Brief Summarisation</td>
-        <td class="what">Paste a supplier deck, line sheet, or contract. Get the key terms and risks.<span class="precedent">Brief Sharpener live for Mother, Uncommon, Alt-Shift.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 hrs to tune</span></td>
-      </tr>
-      <tr>
-        <td class="use">Supplier Communication</td>
-        <td class="what">Draft POs, negotiation letters, range conversations in The Memo voice.<span class="precedent">Same pattern as Finance commercial writing.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 hrs per skill</span></td>
-      </tr>
-      <tr>
-        <td class="use">Planning Workflow Automation</td>
-        <td class="what">SQL, Python, reporting, data cleaning. Claude Code as the executor.<span class="precedent">Pattern shipped multiple times. Each automation is its own scope.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days each</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Assortment &amp; Range Planning</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">4-6 days</span></div>
+    </div>
+    <div class="item-what">Analyse historical sales, attributes, store clusters. Recommend range optimisations.</div>
+    <div class="precedent"><strong>What we built</strong>UCS dashboard's role-and-department capacity planning. Looks at how project work is split across creative, account, production, design, with rollups by office. The maths overlaps with range planning: replace department with category, role with SKU/attribute, office with store cluster.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Demand Forecasting Support</span>
+      <div class="item-meta"><span class="badge badge-new">NEW</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Claude reads Netstock outputs and explains drivers, anomalies, trends in plain English.</div>
+    <div class="precedent"><strong>What we built</strong>Honest: we haven't built a demand forecaster. But Claude with file uploads + analysis is genuinely strong at reading complex data and producing readable insight. We'd build this as a structured prompt skill that augments Netstock, not replaces it.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Scenario Planning</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Model pricing, promo, stock scenarios with clear trade-offs.</div>
+    <div class="precedent"><strong>What we built</strong>AIDEN's territory exploration and pressure-test work. We model strategic scenarios and surface trade-offs across creative directions. Different domain, same shape: define variables, generate scenarios, score against criteria, present trade-offs.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Range Performance Analysis</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-4 days</span></div>
+    </div>
+    <div class="item-what">Product performance vs plan. Actionable commentary, not just numbers.</div>
+    <div class="precedent"><strong>What we built</strong>UCS Variance feature. Per-department actual vs plan, drill-down by role, project, office. Trend lines, auto-flagging of red items. Adapt to ranges/products: same maths, different metric labels.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Buy Decision Support</span>
+      <div class="item-meta"><span class="badge badge-new">NEW</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Validate replenishment decisions against criteria you set.</div>
+    <div class="precedent"><strong>What we built</strong>Decision-support skill pattern is established (we use it in AIDEN brand audit work). New for retail buying specifically. Would scope criteria with the buying team first, then build.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Vendor &amp; Product Brief Summarisation</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">2-3 hrs to tune</span></div>
+    </div>
+    <div class="item-what">Paste a supplier deck, line sheet, or contract. Get key terms, risks, and a structured summary.</div>
+    <div class="precedent"><strong>What we built</strong>Brief Sharpener. Live for Mother, Uncommon, Alt-Shift. Paste any unstructured brief, get scored across seven dimensions, weak sections rewritten in 30 seconds. A vendor deck or contract is just a different kind of brief. Tune the rubric to retail-buying criteria and it's running.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Supplier Communication</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 hrs per skill</span></div>
+    </div>
+    <div class="item-what">Draft POs, negotiation letters, range conversations in The Memo voice.</div>
+    <div class="precedent"><strong>What we built</strong>Voice-trained drafting skills (multiple flavours per client). For client comms, internal briefs, RFP responses. Same approach pointed at supplier-facing comms once Memo voice is trained.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Planning Workflow Automation</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">2-3 days each</span></div>
+    </div>
+    <div class="item-what">SQL, Python, reporting, data cleaning. Claude Code as the executor.</div>
+    <div class="precedent"><strong>What we built</strong>Pattern shipped repeatedly. Daily syncs, scheduled reports, data-cleaning pipelines. Each automation is its own scope. The execution chassis is reusable.</div>
+  </div>
 
   <h3>Warehouse &amp; Operations</h3>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Operational Issue Diagnosis</td>
-        <td class="what">Auto-flags structural data issues across CIN7 and Peoplevox.<span class="precedent">UCS Integrity Report flagged a 3,870% reconciliation gap on UCS04740 last week.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">3-5 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Stock Reconciliation</td>
-        <td class="what">Investigate discrepancies systematically. Surface 80% of issues automatically.<span class="precedent">Built fee-sheet vs Float reconciliation for UCS. 66 unmatched job numbers identified.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">3-5 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Process Optimisation (pick/pack)</td>
-        <td class="what">Workflow analysis and recommendations.<span class="precedent">Honest: needs floor observation. Day-rate work, not productised.</span></td>
-        <td class="status"><span class="badge badge-new">NEW</span></td>
-        <td class="effort-cell"><span class="effort">Day rate, scope live</span></td>
-      </tr>
-      <tr>
-        <td class="use">Exception Management</td>
-        <td class="what">Standardise returns and transfers. Flag anomalies.<span class="precedent">Same exception flagging pattern as UCS Integrity.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Rostering Optimisation</td>
-        <td class="what">Align labour to volume.<span class="precedent">Honest: deep optimisation problem. Better as a dedicated tool with Claude on top for explanations and exceptions.</span></td>
-        <td class="status"><span class="badge badge-new">NEW</span></td>
-        <td class="effort-cell"><span class="effort">Scope conversation needed</span></td>
-      </tr>
-      <tr>
-        <td class="use">Reporting &amp; Automation</td>
-        <td class="what">Warehouse reports automated, scheduled, branded.<span class="precedent">Same pattern as Finance reporting. Different data sources.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days each</span></td>
-      </tr>
-      <tr>
-        <td class="use">SOPs &amp; Training</td>
-        <td class="what">Warehouse guides written from observed processes, kept updated.<span class="precedent">Studio Tools department guide system. JSON in, page out.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1 day per role guide</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Operational Issue Diagnosis</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-5 days</span></div>
+    </div>
+    <div class="item-what">Auto-flags structural data issues across CIN7 and Peoplevox. Faster root-cause resolution.</div>
+    <div class="precedent"><strong>What we built</strong>UCS Integrity Report. Crawls 1,000+ projects, flags structural issues automatically: currency mismatches, allocation gaps, stale data. Caught UCS04740 reconciliation issue (a 3,870% gap) and UCS04776 Float gap (£954k at risk). Same pattern: define rules, crawl data, flag violations, surface diagnosis.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Stock Reconciliation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-5 days</span></div>
+    </div>
+    <div class="item-what">Investigate discrepancies systematically. Surface most issues automatically.</div>
+    <div class="precedent"><strong>What we built</strong>UCS fee-sheet vs Float reconciliation. Identified 66 unmatched job numbers (~£230k) automatically. Same shape for stock: CIN7 expected vs Peoplevox actual. Identify discrepancies, flag for investigation, prioritise by value at risk.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Process Optimisation (pick/pack)</span>
+      <div class="item-meta"><span class="badge badge-new">NEW</span><span class="effort">Day rate, scope live</span></div>
+    </div>
+    <div class="item-what">Workflow analysis and recommendations.</div>
+    <div class="precedent"><strong>What we built</strong>Honest: process-floor work needs observation, not data alone. We'd want to walk an Armadale shift before scoping. Day-rate, scope live with the warehouse manager.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Exception Management</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Standardise returns and transfers. Flag anomalies. Route to the right person.</div>
+    <div class="precedent"><strong>What we built</strong>UCS Integrity exception flagging. Standardised severity, drill-down, archive flow. Same machinery for returns/transfers: classify, severity-tag, route.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Rostering Optimisation</span>
+      <div class="item-meta"><span class="badge badge-new">NEW</span><span class="effort">Scope conversation needed</span></div>
+    </div>
+    <div class="item-what">Align labour to volume.</div>
+    <div class="precedent"><strong>What we built</strong>Honest: rostering is a deep optimisation problem. Better solved by a dedicated tool with Claude on top for explanations, exceptions, and human-readable summaries. We'd recommend a build-vs-buy conversation before scoping.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Reporting &amp; Automation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days each</span></div>
+    </div>
+    <div class="item-what">Warehouse reports automated, scheduled, branded.</div>
+    <div class="precedent"><strong>What we built</strong>UCS daily sync plus auto-generated reports sent to the right people via Slack and email. Same automation chassis pointed at warehouse-specific data.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">SOPs &amp; Training</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day per role guide</span></div>
+    </div>
+    <div class="item-what">Warehouse guides written from observed processes, kept updated.</div>
+    <div class="precedent"><strong>What we built</strong>Uncommon Studio Tools site. Department guide JSON system: drop a JSON, get a documented page with skills, projects, and how-tos. Replace agency departments with warehouse functions. Same template, different content.</div>
+  </div>
 
   <h2>3. Retail Stores</h2>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Store Performance Analysis</td>
-        <td class="what">Per-store dashboard. Sales, conversion, AOV. Compare Armadale vs Fitzroy vs Highpoint vs Bondi.<span class="precedent">UCS dashboard rolls up by office. Same pattern, store-level not project-level.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">5-7 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Sales &amp; Conversion Insights</td>
-        <td class="what">Auto-generated weekly insights. What changed, why, what to do.<span class="precedent">KPI interpretation skills built for Uncommon. Adapted for retail context.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">1 day per skill</span></td>
-      </tr>
-      <tr>
-        <td class="use">Staff Training &amp; Scripts</td>
-        <td class="what">Sales scripts and product training generated to your voice and product mix.<span class="precedent">AI Academy work for Uncommon. Live training platform precedent.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Customer Experience Support</td>
-        <td class="what">Standardised response drafting for service team. Voice-consistent across stores.<span class="precedent">Voice-trained response drafting for Mother, Uncommon.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">1-2 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Rostering Optimisation</td>
-        <td class="what">Same as warehouse rostering.<span class="precedent">Better as a dedicated tool with Claude layer. Honest scope.</span></td>
-        <td class="status"><span class="badge badge-new">NEW</span></td>
-        <td class="effort-cell"><span class="effort">Scope conversation needed</span></td>
-      </tr>
-      <tr>
-        <td class="use">Store Playbooks</td>
-        <td class="what">Documented store processes. Searchable. Updates flow through to all stores at once.<span class="precedent">Studio Tools content system. Already proven.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1 day per playbook</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Store Performance Analysis</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">5-7 days</span></div>
+    </div>
+    <div class="item-what">Per-store dashboard. Sales, conversion, AOV. Compare Armadale vs Fitzroy vs Highpoint vs Bondi.</div>
+    <div class="precedent"><strong>What we built</strong>UCS dashboard splits revenue and resourcing by office (London, UCX, USA). Each store becomes an "office" in dashboard terms. Add Perth, Brisbane, Mosman as new offices when they open.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Sales &amp; Conversion Insights</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day per skill</span></div>
+    </div>
+    <div class="item-what">Auto-generated weekly insights. What changed, why, what to do.</div>
+    <div class="precedent"><strong>What we built</strong>KPI interpretation skills for Uncommon. Reads a dashboard view, identifies patterns, drafts insights and questions for the Finance Director. Same skill template, different KPIs.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Staff Training &amp; Scripts</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Sales scripts and product training generated to your voice and product mix.</div>
+    <div class="precedent"><strong>What we built</strong>Uncommon AI Academy. Multi-format training content (markdown lessons, video scripts, slides) generated from a single source brief. Same generation pipeline, retail-specific topics replace agency topics.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Customer Experience Support</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 days</span></div>
+    </div>
+    <div class="item-what">Standardised response drafting for service team. Voice-consistent across stores.</div>
+    <div class="precedent"><strong>What we built</strong>Response drafting skills for Mother and Uncommon (client and internal comms). Same skill template, customer-service-tuned for The Memo voice.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Rostering Optimisation</span>
+      <div class="item-meta"><span class="badge badge-new">NEW</span><span class="effort">Scope conversation needed</span></div>
+    </div>
+    <div class="item-what">Align staffing to traffic patterns.</div>
+    <div class="precedent"><strong>What we built</strong>Same as warehouse rostering. Better as a dedicated tool with Claude layer. Honest scope conversation needed.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Store Playbooks</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day per playbook</span></div>
+    </div>
+    <div class="item-what">Documented store processes. Searchable. Updates flow through to all stores at once.</div>
+    <div class="precedent"><strong>What we built</strong>Studio Tools content system. Markdown source, rendered pages, single source of truth. Apply to retail store ops: opening procedures, complaint handling, cash-up, visual merchandising standards.</div>
+  </div>
 
   <h2>4. Ecommerce / Marketing / Content / Design</h2>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Marketing Performance Analysis</td>
-        <td class="what">CAC, ROAS, channel mix synthesis. Dashboard plus narrative.<span class="precedent">Built dashboards over GA-equivalent data for several clients.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">3-4 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">ROAS &amp; Attribution</td>
-        <td class="what">Reconcile platform differences. Read GA + Meta + Google together. GST baked in.<span class="precedent">Reconciliation skill pattern.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">2 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Ad Copy &amp; Creative Briefs</td>
-        <td class="what">EDM, Meta, Google ads. Multiple messaging angles per concept. Voice-consistent.<span class="precedent">Brand Voice Enforcer, Big Idea Generator (AIDEN), Brief Sharpener. Live across multiple clients.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-4 hrs per format skill</span></td>
-      </tr>
-      <tr>
-        <td class="use">Paid Strategy Problem Solving</td>
-        <td class="what">Second opinion. Pressure-tests strategy assumptions, surfaces blind spots.<span class="precedent">Pressure Test Studio (AIDEN). Non-sycophantic critique.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1-2 days to adapt</span></td>
-      </tr>
-      <tr>
-        <td class="use">Performance Strategy Formatting</td>
-        <td class="what">Monthly plan templates that write themselves from raw data and goals.<span class="precedent">Document templating + strategy skills. Done for Mother, Uncommon.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1 day</span></td>
-      </tr>
-      <tr>
-        <td class="use">PDP Copy Creation</td>
-        <td class="what">HTML PDPs from supplier specs. Bulk. Brand voice. SEO. Multi-channel formats.<span class="precedent">The cheapest fast-launch quick win. Ships in days, runs forever.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">3-4 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Content Repurposing</td>
-        <td class="what">Convert content across channels. EDM to social to PDP to ad.<span class="precedent">Skill pattern. Per-channel mapping.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-4 hrs per channel</span></td>
-      </tr>
-      <tr>
-        <td class="use">Bulk Design Workflows</td>
-        <td class="what">High-volume creative variations via Canva + Claude.<span class="precedent">Veo 3 + Nano Banana prompt generator on Studio Tools site. Live. Canva integration via API.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Creative Feedback Loop</td>
-        <td class="what">What works in your creative, why. Patterns from GA + Meta synthesised back into briefs.<span class="precedent">Brand audit + cultural intelligence pattern (AIDEN).</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">SEO &amp; On-site Optimisation</td>
-        <td class="what">PDP performance lift. Title, meta, structured data, internal linking suggestions.<span class="precedent">SEO patterns skill, shipped multiple times.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1 day to tune</span></td>
-      </tr>
-      <tr>
-        <td class="use">Spreadsheet &amp; Data Setup</td>
-        <td class="what">Formulas, datasets, marketing reporting structure.<span class="precedent">Done constantly. Day-rate work, not a productised skill.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">Hours to days, scope-dependent</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Marketing Performance Analysis</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-4 days</span></div>
+    </div>
+    <div class="item-what">CAC, ROAS, channel mix synthesis. Dashboard plus narrative.</div>
+    <div class="precedent"><strong>What we built</strong>Multiple agency dashboards over performance data with monthly auto-narrative. AIDEN Listen also pulls cultural and channel signal. Pattern transfers cleanly: connect Meta and Google APIs, surface CAC/ROAS/mix, layer narrative skill on top.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">ROAS &amp; Attribution</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2 days</span></div>
+    </div>
+    <div class="item-what">Reconcile platform differences. Read GA + Meta + Google together. GST baked in.</div>
+    <div class="precedent"><strong>What we built</strong>Reconciliation skills. UCS reconciles fee-sheet totals with V-tab parsed totals and flags variance reasons. Same logic for Meta-vs-GA ROAS reconciliation, with GST handling as a calculation rule.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Ad Copy &amp; Creative Briefs</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">2-4 hrs per format skill</span></div>
+    </div>
+    <div class="item-what">EDM, Meta, Google ads. Multiple messaging angles per concept. Voice-consistent.</div>
+    <div class="precedent"><strong>What we built</strong>Brand Voice Enforcer, Big Idea Generator (AIDEN), Brief Sharpener. Live across Mother, Uncommon, AIDEN. Voice-trained ad copy generation in production daily. Train Memo voice once, build per-format skills as fast skills.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Paid Strategy Problem Solving</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 days to adapt</span></div>
+    </div>
+    <div class="item-what">Second opinion. Pressure-tests strategy assumptions, surfaces blind spots.</div>
+    <div class="precedent"><strong>What we built</strong>AIDEN Pressure Test Studio. Cultivated phantom personas critique brand and creative strategy work non-sycophantically. Same critique engine pointed at paid strategy: different prompts, same architecture.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Performance Strategy Formatting</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day</span></div>
+    </div>
+    <div class="item-what">Monthly plan templates that write themselves from raw data and goals.</div>
+    <div class="precedent"><strong>What we built</strong>Document templating skills. Strategy and proposal docs auto-formatted to client house style. Same approach for monthly performance plans, with structured inputs from data, outputs in The Memo's format.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">PDP Copy Creation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3-4 days</span></div>
+    </div>
+    <div class="item-what">HTML PDPs from supplier specs. Bulk. Brand voice. SEO. Multi-channel formats.</div>
+    <div class="precedent"><strong>What we built</strong>Bulk content generation pattern (used for ad copy variants and content repurposing). Adapt the input mapping (supplier spec) and output mapping (PDP HTML, EDM, social), wire to brand voice. Cheapest fast-launch quick win for retail.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Content Repurposing</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">2-4 hrs per channel</span></div>
+    </div>
+    <div class="item-what">Convert content across channels. EDM to social to PDP to ad.</div>
+    <div class="precedent"><strong>What we built</strong>Skill pattern shipped multiple times. Per-channel mapping is the only configuration. Generic skill, retail or otherwise.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Bulk Design Workflows</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">High-volume creative variations via Canva + Claude.</div>
+    <div class="precedent"><strong>What we built</strong>Veo 3 + Nano Banana prompt generator on Studio Tools site. Generates structured prompts from a brief, produces image and video assets in volume. Canva swap is API-driven.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Creative Feedback Loop</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">3 days</span></div>
+    </div>
+    <div class="item-what">What works in your creative, why. Patterns from GA + Meta synthesised back into briefs.</div>
+    <div class="precedent"><strong>What we built</strong>AIDEN brand audit functionality. Cultural intelligence skill that reads creative outputs and surfaces brand or category patterns. Point the same engine at marketing creative + GA/Meta data.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">SEO &amp; On-site Optimisation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1 day to tune</span></div>
+    </div>
+    <div class="item-what">PDP performance lift. Title, meta, structured data, internal linking suggestions.</div>
+    <div class="precedent"><strong>What we built</strong>SEO patterns skill, used for our own site and a couple of client builds. Apply to PDPs at volume. Mostly tuning, not new build.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Spreadsheet &amp; Data Setup</span>
+      <div class="item-meta"><span class="badge badge-direct">DIRECT</span><span class="effort">Hours to days, scope-dependent</span></div>
+    </div>
+    <div class="item-what">Formulas, datasets, marketing reporting structure.</div>
+    <div class="precedent"><strong>What we built</strong>Done constantly across every client. Day-rate work, not a productised skill.</div>
+  </div>
 
   <h2>5. HR / People &amp; Culture</h2>
-  <table>
-    <thead><tr><th>Use case</th><th>What it does</th><th>Status</th><th>Effort</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="use">Job Descriptions &amp; Hiring Docs</td>
-        <td class="what">Roles, scorecards, interview guides. Voice-consistent. Bias-aware.<span class="precedent">Voice-trained drafting. Day-one quick win.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 hrs per skill</span></td>
-      </tr>
-      <tr>
-        <td class="use">Policy &amp; HR Documentation</td>
-        <td class="what">Policies and procedures drafted, consistent, retrievable.<span class="precedent">Voice + RAG over existing policies pattern.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1-2 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Legislation Cross-Checking</td>
-        <td class="what">Validate HR policies against current legislation. First-pass check.<span class="precedent">Did similar work for Perplexity Enterprise IP indemnification. Useful first pass, not a replacement for HR legal review.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">HR Letter Writing</td>
-        <td class="what">Employment letters, performance letters, sensitive communications.<span class="precedent">Voice-trained drafting.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1-2 hrs per template</span></td>
-      </tr>
-      <tr>
-        <td class="use">Performance Review Support</td>
-        <td class="what">Structured feedback frameworks. Helps managers write better reviews faster.<span class="precedent">Built coaching frameworks for AIDEN training.</span></td>
-        <td class="status"><span class="badge badge-adjacent">ADJACENT</span></td>
-        <td class="effort-cell"><span class="effort">1-2 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">Training &amp; Onboarding Materials</td>
-        <td class="what">Onboarding guides per role. Updated as roles change.<span class="precedent">AI Academy precedent. Multi-format training content generation.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">2-3 days</span></td>
-      </tr>
-      <tr>
-        <td class="use">HR Process Standardisation</td>
-        <td class="what">Workflows documented, dependencies identified, redundancy reduced.<span class="precedent">Documentation system. Pattern is well-grooved.</span></td>
-        <td class="status"><span class="badge badge-shipped">SHIPPED</span></td>
-        <td class="effort-cell"><span class="effort">1-2 days</span></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Job Descriptions &amp; Hiring Docs</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 hrs per skill</span></div>
+    </div>
+    <div class="item-what">Roles, scorecards, interview guides. Voice-consistent. Bias-aware.</div>
+    <div class="precedent"><strong>What we built</strong>Voice-trained drafting skills for client comms and internal briefs across multiple agencies. Add HR-specific guardrails (bias-aware language, structured competency framework) and the skill template covers JDs cleanly.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Policy &amp; HR Documentation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 days</span></div>
+    </div>
+    <div class="item-what">Policies and procedures drafted, consistent, retrievable.</div>
+    <div class="precedent"><strong>What we built</strong>Voice-trained drafting plus RAG over existing documents pattern. Used for proposal and brief generation across clients. Same approach for HR policies, with retrieval anchored to your existing handbook.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Legislation Cross-Checking</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Validate HR policies against current legislation. First-pass check.</div>
+    <div class="precedent"><strong>What we built</strong>Did similar work on Perplexity Enterprise IP indemnification, validating contractual clauses against legal frameworks. Useful first pass to surface gaps. Not a replacement for HR legal review.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">HR Letter Writing</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 hrs per template</span></div>
+    </div>
+    <div class="item-what">Employment letters, performance letters, sensitive communications.</div>
+    <div class="precedent"><strong>What we built</strong>Voice-trained sensitive-comms drafting for client work (deal chases, declines, redirections). Same skill template with HR templates: offer, probation, performance, exit.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Performance Review Support</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 days</span></div>
+    </div>
+    <div class="item-what">Structured feedback frameworks. Helps managers write better reviews faster.</div>
+    <div class="precedent"><strong>What we built</strong>Coaching frameworks built for AIDEN training and pressure-test work. Same scaffolding for performance reviews: structure prompts, surface evidence, suggest balanced framing.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">Training &amp; Onboarding Materials</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">2-3 days</span></div>
+    </div>
+    <div class="item-what">Onboarding guides per role. Updated as roles change.</div>
+    <div class="precedent"><strong>What we built</strong>Uncommon AI Academy training content pipeline. Multi-format generation from a single brief. Apply to onboarding: new joiner welcome, role-specific guides, week-one schedules.</div>
+  </div>
+
+  <div class="item">
+    <div class="item-head">
+      <span class="item-title">HR Process Standardisation</span>
+      <div class="item-meta"><span class="badge badge-similar">SIMILAR</span><span class="effort">1-2 days</span></div>
+    </div>
+    <div class="item-what">Workflows documented, dependencies identified, redundancy reduced.</div>
+    <div class="precedent"><strong>What we built</strong>Same Studio Tools documentation system. Process maps as Markdown, rendered pages, single source of truth. Apply to HR processes: hiring, onboarding, performance, offboarding.</div>
+  </div>
 
   <div class="note" style="margin-top: 3rem;">
-    <strong style="color: var(--gold);">A note on effort.</strong><br>
-    Single-skill effort assumes voice profile already in place (Phase 1, ~1 day). Multi-day builds include team iteration, not just construction. Day rate AUD 2,200. Tool builds shipped live in your environment, you own everything.
+    <strong style="color: var(--gold);">A note on the categories.</strong><br>
+    Most of what The Memo needs sits in <strong>SIMILAR</strong>, not <strong>DIRECT</strong>. That's because we've been building this stuff for creative agencies. The dashboards, voice profiles, reconciliation logic, exception flagging, content generation patterns are all production-grade and live. The retailer-specific surface layer (metrics, tables, screens) is the adaptation. Cleaner credibility than overclaiming retail experience we don't have.
   </div>
 
   <div class="footer">
