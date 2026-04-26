@@ -33,6 +33,18 @@
   to = "/case-studies/monigle.html"
   status = 200
 
+[[redirects]]
+  from = "/the-memo"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/the-memo.html"
+  to = "/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
