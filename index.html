@@ -218,7 +218,10 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
-            font-size: clamp(3.6rem, 9.6vw, 7.2rem); /* +20% size */
+            font-size: clamp(2rem, 9.6vw, 7.2rem); /* floor sized so 'Start Collaborating' fits ≥320px wide phones */
+            text-wrap: balance;
+            overflow-wrap: break-word;
+            hyphens: none;
         }
 
         .hero .subhead {
@@ -1358,7 +1361,7 @@
     <section class="hero" id="top">
         <canvas id="canvas"></canvas>
         <div class="hero-content">
-            <h1>Stop Managing AI.<br>Start Collaborating&nbsp;With&nbsp;It.</h1>
+            <h1>Stop Managing AI.<br>Start Collaborating With&nbsp;It.</h1>
             <p class="subhead">AI partnership for creative agencies. Custom tools, workflows, and&nbsp;the&nbsp;AIDEN&nbsp;platform.</p>
             <div class="hero-cta" style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; align-items: center;">
                 <a href="/audit" class="cta-primary">Take the 3-min Readiness Audit →</a>
