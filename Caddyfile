@@ -1,0 +1,23 @@
+:{$PORT:8080} {
+	root * /srv
+	encode gzip
+
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+	}
+
+	# Netlify-style clean URLs
+	rewrite /audit /audit.html
+	rewrite /mothership /mothership.html
+	rewrite /aiden /aiden.html
+	rewrite /case-studies/mother-london /case-studies/mother-london.html
+	rewrite /case-studies/uncommon /case-studies/uncommon.html
+	rewrite /case-studies/alt-shift /case-studies/alt-shift.html
+	rewrite /case-studies/monigle /case-studies/monigle.html
+
+	redir /the-memo / permanent
+	redir /the-memo.html / permanent
+
+	file_server
+}
