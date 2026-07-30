@@ -1349,7 +1349,7 @@
     <header class="site-nav">
         <div class="nav-inner">
             <a href="#top" class="brand" aria-label="Redbaez home">
-                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/f_auto,q_auto/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
             </a>
             <nav>
                 <a href="#what">What we do</a>
@@ -1838,7 +1838,7 @@
     <section class="footer-cta" id="contact">
         <canvas id="footer-canvas"></canvas>
         <div class="footer-brand">
-            <img class="footer-logo" src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez"/>
+            <img class="footer-logo" src="https://res.cloudinary.com/dkl8kiemy/image/upload/f_auto,q_auto/redbaez_logo_rxrjfp.png" alt="Redbaez"/>
         </div>
         <canvas id="footer-canvas-front"></canvas>
         <div class="footer-bottom">
@@ -1862,7 +1862,7 @@
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png" alt="Redbaez" class="footer-logo-img">
+                    <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/f_auto,q_auto/redbaez_logo_rxrjfp.png" alt="Redbaez" class="footer-logo-img">
                     <p style="margin-top: 1rem; opacity: 0.8; max-width: 280px;">AI partnership for creative agencies. Master AI. Kill grunt work. Stay&nbsp;human.</p>
                 </div>
                 <div class="footer-col">
@@ -2666,7 +2666,7 @@
 
             function loadThree() {
                 // Try ESM first
-                return import('https://unpkg.com/three@0.160.0/build/three.module.js')
+                return import('/assets/vendor/three.module.js')
                     .catch(() => new Promise(resolve => {
                         // Fallback to UMD build on window.THREE
                         const existing = window.THREE;
@@ -3250,7 +3250,7 @@
 
             // ── Load Three.js (reuse existing loader pattern) ──
             function loadThree() {
-                return import('https://unpkg.com/three@0.160.0/build/three.module.js')
+                return import('/assets/vendor/three.module.js')
                     .catch(function() { return new Promise(function(resolve) {
                         var existing = window.THREE;
                         if (existing) { resolve(existing); return; }

@@ -15,6 +15,7 @@
 	rewrite /case-studies/uncommon /case-studies/uncommon.html
 	rewrite /case-studies/alt-shift /case-studies/alt-shift.html
 	rewrite /case-studies/monigle /case-studies/monigle.html
+	rewrite /case-studies/collinson /case-studies/collinson.html
 
 	redir /the-memo / permanent
 	redir /the-memo.html / permanent

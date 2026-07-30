@@ -34,6 +34,11 @@
   status = 200
 
 [[redirects]]
+  from = "/case-studies/collinson"
+  to = "/case-studies/collinson.html"
+  status = 200
+
+[[redirects]]
   from = "/the-memo"
   to = "/"
   status = 301
