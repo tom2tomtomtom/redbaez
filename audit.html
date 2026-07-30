@@ -8,13 +8,26 @@
 <meta name="description" content="3-minute audit. See where your team sits on AI readiness. Get a personalised next-step recommendation from Redbaez.">
 <style>
 :root {
-  --red: #FF3333;
-  --burgundy: #140205;
-  --black: #0A0A0A;
-  --ink: #111;
-  --bg: #FAF7F2;
-  --gray: #E8E3DB;
-  --muted: #6B665E;
+            /* The AIDEN palette, one source for the whole site. Taken from the
+               Colleague design system so the site and the decks match. */
+            --ink: #0C0B0D;
+            --panel: #141215;
+            --paper: #EFEAE2;
+            --muted-warm: #948C81;
+            --cold: #7FA0BE;
+            --warm: #E8912A;
+            --deck-red: #F5442E;
+            --line: rgba(239, 234, 226, 0.12);
+            --line-strong: rgba(239, 234, 226, 0.22);
+            /* The older names stay, aliased onto the palette, so every existing
+               rule inherits the scheme without being rewritten. */
+  --red: var(--deck-red);
+  --burgundy: var(--panel);
+  --black: var(--ink);
+  --ink: #17151A;
+  --bg: var(--paper);
+  --gray: #DED7CC;
+  --muted: var(--muted-warm);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }

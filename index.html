@@ -151,12 +151,12 @@
         }
 
         :root {
-            --red: #FF3333;
-            --black: #0A0A0A;
-            --white: #FFFFFF;
-            --gray: #F5F5F5;
-            --dark-gray: #2A2A2A;
-            --burgundy: #140205;
+            --red: var(--deck-red);
+            --black: var(--ink);
+            --white: var(--paper);
+            --gray: var(--paper);
+            --dark-gray: #241F26;
+            --burgundy: var(--panel);
 
             /* The Colleague design system, so the site and the decks look like
                one company. Cold and warm are the argument in colour: the page
@@ -556,6 +556,15 @@
         @media (prefers-reduced-motion: reduce) {
             :is(.process-item, .hiw-card, .choice-option), .cta-secondary { animation: none !important; }
             .cta-primary { animation: none !important; opacity: 1 !important; transform: none !important; }
+            /* The headline and subhead start at opacity 0 and rely on fadeInUp to
+               reveal themselves, so anything that stops the animation hides the
+               single most important sentence on the site. .cta-primary already
+               guarded against that; these did not. */
+            .hero h1, .hero .subhead, .hero .label {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
 
         .choice-grind {

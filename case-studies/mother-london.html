@@ -34,12 +34,25 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --red: #FF3333;
-            --black: #0A0A0A;
-            --white: #FFFFFF;
-            --gray: #F5F5F5;
-            --dark-gray: #2A2A2A;
-            --burgundy: #140205;
+            /* The AIDEN palette, one source for the whole site. Taken from the
+               Colleague design system so the site and the decks match. */
+            --ink: #0C0B0D;
+            --panel: #141215;
+            --paper: #EFEAE2;
+            --muted-warm: #948C81;
+            --cold: #7FA0BE;
+            --warm: #E8912A;
+            --deck-red: #F5442E;
+            --line: rgba(239, 234, 226, 0.12);
+            --line-strong: rgba(239, 234, 226, 0.22);
+            /* The older names stay, aliased onto the palette, so every existing
+               rule inherits the scheme without being rewritten. */
+            --red: var(--deck-red);
+            --black: var(--ink);
+            --white: var(--paper);
+            --gray: var(--paper);
+            --dark-gray: #241F26;
+            --burgundy: var(--panel);
         }
         html { scroll-behavior: smooth; font-size: 90%; }
         body {
