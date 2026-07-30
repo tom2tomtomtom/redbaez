@@ -53,7 +53,11 @@ for (const page of PAGES) {
   }
 }
 
-const index = await readFile(ROOT + 'index.html', 'utf8');
+const indexRaw = await readFile(ROOT + 'index.html', 'utf8');
+// Copy carries &nbsp; to stop word orphans, so normalise before matching a
+// locked sentence. The entity is deliberate and must not be removed to satisfy
+// a literal string compare.
+const index = indexRaw.replace(/&nbsp;/g, ' ');
 for (const line of LOCKED) {
   if (!index.includes(line)) fail(`index.html missing locked line: ${JSON.stringify(line)}`);
 }

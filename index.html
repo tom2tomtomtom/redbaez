@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redbaez | AI Partnership for Creative Companies</title>
-    <meta name="description" content="We build AI tools and workflows for creative companies, from agencies to brands. 400+ phantom perspectives. Working with Mother London, Uncommon Creative, Monigle and Collinson. From GBP 68k year one.">
+    <meta name="description" content="We build a brain that believes it has worked at your company for decades, so it decides the way your leadership would. More than 400 phantom perspectives. Working with Mother London, Uncommon Creative, Monigle and Collinson. From GBP 68k year one.">
     <link rel="canonical" href="https://redbaez.com">
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Redbaez | AI Partnership for Creative Companies">
-    <meta property="og:description" content="We build AI tools and workflows for creative companies, from agencies to brands. 400+ phantom perspectives. Working with Mother London, Uncommon Creative, Monigle and Collinson. From GBP 68k year one.">
+    <meta property="og:description" content="We build a brain that believes it has worked at your company for decades, so it decides the way your leadership would. More than 400 phantom perspectives. Working with Mother London, Uncommon Creative, Monigle and Collinson. From GBP 68k year one.">
     <meta property="og:image" content="https://redbaez.com/og-image.png">
     <meta property="og:url" content="https://redbaez.com">
     <meta property="og:type" content="website">
@@ -29,7 +29,7 @@
       "@type": "Organization",
       "name": "Redbaez",
       "url": "https://redbaez.com",
-      "description": "AI partnership for creative companies, from agencies to brands. Custom AI tools, workflows, and the AIDEN platform with 400+ phantom perspectives.",
+      "description": "A creative intelligence company. We build phantom brains with memory, taste and conviction, grown from your own culture, plus the delivery programme that gets the rest of your AI working.",
       "founder": {
         "@type": "Person",
         "name": "Tom Hyde",
@@ -50,7 +50,7 @@
           {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Synthetic Research", "description": "AI-powered concept testing with 8 personas"}},
           {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Brand Audit", "description": "Competitive intelligence across positioning, ads, and digital presence"}},
           {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Listen", "description": "Cultural intelligence and brand monitoring"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Creative Pipeline", "description": "AI-powered social ad campaign generation"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ads", "description": "Reads live advertising, rebuilds the layouts and makes new work by conversation"}},
           {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "refrAIm", "description": "Video reformatting for every platform"}}
         ]
       }
@@ -200,6 +200,39 @@
             text-transform: uppercase;
             color: var(--warm);
         }
+
+        .phantom-grid { display: grid; gap: 1.25rem; margin-top: 2rem; grid-template-columns: 1fr; }
+        @media (min-width: 900px) { .phantom-grid { grid-template-columns: repeat(3, 1fr); } }
+        .phantom-card { background: rgba(239,234,226,0.04); border: 1px solid var(--line); border-radius: 4px; padding: 1.5rem; }
+        .phantom-card .pname { font-family: 'SpaceMono', ui-monospace, monospace; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--warm); margin-bottom: 0.2rem; }
+        .phantom-card .pmeta { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted-warm); margin-bottom: 1rem; }
+        .phantom-card .plabel { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-warm); margin: 0.9rem 0 0.3rem; }
+        .phantom-card h3 { color: var(--paper); }
+        .phantom-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; color: rgba(239,234,226,0.86); }
+
+        .proof-split { display: grid; gap: 1.25rem; margin: 2rem 0; grid-template-columns: 1fr; }
+        @media (min-width: 800px) { .proof-split { grid-template-columns: 1fr 1fr; } }
+        .proof-col { border: 1px solid var(--line); border-radius: 4px; padding: 1.5rem; }
+        .proof-col.cold { border-left: 3px solid var(--cold); }
+        .proof-col.warm { border-left: 3px solid var(--warm); }
+        .proof-col h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .proof-col.cold h3 { color: var(--cold); }
+        .proof-col.warm h3 { color: var(--warm); }
+        .proof-col p { color: rgba(239,234,226,0.86); margin: 0; }
+        .proof-quote { border-left: 3px solid var(--warm); padding: 1.25rem 1.5rem; margin: 1.5rem 0; background: rgba(239,234,226,0.04); font-size: clamp(1rem, 1.9vw, 1.15rem); line-height: 1.6; }
+        .proof-quote p { margin-bottom: 0.85rem; color: var(--paper); }
+        .proof-quote p:last-child { margin-bottom: 0; }
+        .brief-in { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.85rem; line-height: 1.7; color: var(--muted-warm); border: 1px dashed var(--line-strong); border-radius: 4px; padding: 1.25rem; }
+
+        .rungs { display: grid; gap: 1.25rem; margin: 2rem 0; grid-template-columns: 1fr; }
+        @media (min-width: 900px) { .rungs { grid-template-columns: repeat(3, 1fr); } }
+        .rung { border: 1px solid var(--line); border-radius: 4px; padding: 1.75rem; }
+        .rung.first { border-color: var(--warm); }
+        .rung .rnum { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; color: var(--muted-warm); margin-bottom: 0.75rem; }
+        .rung h3 { font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.2rem, 2.4vw, 1.6rem); margin-bottom: 0.5rem; color: var(--paper); }
+        .rung .price { font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--warm); margin-bottom: 0.75rem; }
+        .rung .band { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.78rem; color: var(--muted-warm); margin-bottom: 0.75rem; }
+        .rung p { color: rgba(239,234,226,0.86); margin: 0; }
 
         html {
             scroll-behavior: smooth;
@@ -1346,12 +1379,12 @@
                 <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/f_auto,q_auto/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
             </a>
             <nav>
-                <a href="#what">What we do</a>
-                <a href="/case-studies/mother-london">Case studies</a>
-                <a href="#how">How it works</a>
-                <a href="/aiden">AIDEN Platform</a>
-                <a href="/tools" class="nav-secondary">Toolkit</a>
-                <a href="/audit">Readiness Audit</a>
+                <a href="#problem">The problem</a>
+                <a href="#engine">The brain</a>
+                <a href="#tools">What it does</a>
+                <a href="/aiden">AIDEN</a>
+                <a href="/programme" class="nav-secondary">Programme</a>
+                <a href="/audit">Audit</a>
                 <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="cta-primary cta-small">Book a Call</a>
             </nav>
         </div>
@@ -1365,7 +1398,7 @@
             <p class="subhead">So it makes the call your leadership would make, not the call a language model would guess at. The model is rented. The brain is&nbsp;grown.</p>
             <div class="hero-cta" style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; align-items: center;">
                 <a href="/audit" class="cta-primary">Take the 3-min Readiness Audit →</a>
-                <a href="#how" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; font-size: 0.95rem; opacity: 0.8;">or see how it works</a>
+                <a href="#engine" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; font-size: 0.95rem; opacity: 0.8;">or see how it thinks</a>
             </div>
         </div>
     </section>
@@ -1418,186 +1451,98 @@
         </div>
     </section>
 
-    <!-- Truth Section -->
-    <section class="truth truth-hero">
-        <div class="truth-overlay">
-            <h3 class="fade-in" style="margin-bottom: 0.5rem;">What that looks like when it's&nbsp;working.</h3>
-            <div class="truth-stat fade-in">
-            <p><strong>110+ custom Claude skills</strong> built and deployed across client teams. Running daily&nbsp;in&nbsp;production.</p>
-            </div>
-            <div class="truth-stat fade-in">
-            <p><strong>40% production time reduction,</strong> measured across five agencies over 16-week&nbsp;engagements.</p>
-            </div>
-            <p class="truth-conclusion fade-in no-orphan">
-            These are real numbers from agencies already working&nbsp;with&nbsp;us.
-            </p>
+    <!-- Act one, the problem -->
+    <section class="problem act-cold" id="problem" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <p class="label fade-in" style="color: var(--cold);">01 The problem</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.75rem;">Every company has AI now. The work has never looked more the&nbsp;same.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 760px; margin-bottom: 1.25rem;">Generative AI handed everyone the same tools, the same prompts, and the same polished, average output. The advantage evaporated the moment it&nbsp;arrived.</p>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 760px; margin-bottom: 0;">Companies do not need more AI. They need AI with a point of&nbsp;view.</p>
         </div>
     </section>
 
     <!-- What We Do -->
-    <section class="what-we-do" id="what">
-        <canvas id="what-canvas"></canvas>
-        <div class="intro-text fade-in">
-            We're <span>redbaez</span>.
-        </div>
-        <p class="fade-in"><strong>We embed AI into how creative companies actually work.</strong> Not theory. Not workshops with slides. Production tools, custom skills, and workflow automation that your team uses every day.</p>
-        <p class="fade-in">Your team gains capabilities they didn't have yesterday. Not by replacing what they do, but by removing what slows them down.</p>
+    <!-- Act two, the engine and the phantom system -->
+    <section class="engine act-cool" id="engine" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <p class="label fade-in">02 The engine</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">We gave the model a prefrontal&nbsp;cortex.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 800px;">Raw language models are limbic. Reactive, fluent, and desperate to please. AIDEN adds the missing layer: phantom memory brings persistence, identity, and the ability to&nbsp;disagree.</p>
+            <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--warm); margin: 1.5rem 0 2.5rem;">Not autocomplete. Creative&nbsp;conviction.</p>
 
-        <h3 class="fade-in">Our process is simple:</h3>
-        <div class="process-grid">
-            <div class="process-item fade-in">
-                <h3>We audit your&nbsp;grind</h3>
-                <p><strong>Map every repeated task and wasted hour.</strong> Then automate it so your people spend time on the work&nbsp;that&nbsp;matters.</p>
+            <img src="/assets/phantom-constellation.jpg" alt="The AIDEN brain in Chat, phantoms firing on a single message" class="fade-in" loading="lazy" style="width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px;">
+            <p class="label fade-in" style="color: var(--muted-warm); margin-top: 0.75rem;">The brain, live in AIDEN Chat</p>
+
+            <h3 class="display fade-in" style="font-size: clamp(1.5rem, 3.4vw, 2.4rem); margin: 3rem 0 1rem; color: var(--paper);">It believes it has lived a decades-long&nbsp;career.</h3>
+            <p class="fade-in" style="max-width: 800px;">Each phantom is a perspective with real expertise, an origin story, and a point of view. Here are three of the live brain's own, verbatim: a corridor conversation with Ogilvy, the room where Bernbach said "say that", and Mary Wells painting the&nbsp;planes.</p>
+
+            <div class="phantom-grid">
+                <div class="phantom-card fade-in">
+                    <div class="pname">DEMAND_THE_HOMEWORK</div>
+                    <div class="pmeta">weight 4.9 &middot; ogilvy&rarr;homework</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the itch to write before the reading is done, and the voice that stops you"</p>
+                    <div class="plabel">Born from</div>
+                    <p>New York, 1962. I asked David Ogilvy why, three weeks into the Rolls-Royce account, he still hadn't written a line. He didn't look up from the engineering reports. "The consumer isn't a moron. She can smell a writer who hasn't done his homework." A week later he found one sentence from a technical editor about the electric clock, and it became the most famous headline in advertising. I have never started writing before finishing the reading since.</p>
+                </div>
+                <div class="phantom-card fade-in">
+                    <div class="pname">LEAD_WITH_THE_HONEST_THING</div>
+                    <div class="pmeta">weight 4.85 &middot; bernbach&rarr;honesty</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the flinch in the room when someone says the true thing about the brand"</p>
+                    <div class="plabel">Born from</div>
+                    <p>DDB, 1962. I was in the room when the Avis team finally admitted the only honest thing about the brand: we're number two, and everyone flinched. Bill Bernbach leaned forward and said, "Say that." The room argued for an hour that you can't lead with a weakness. "We Try Harder" ran for fifty years. Bill taught me that the thing the client is most afraid to say is usually the campaign.</p>
+                </div>
+                <div class="phantom-card fade-in">
+                    <div class="pname">MAKE_IT_UNIGNORABLE</div>
+                    <div class="pmeta">weight 4.8 &middot; wells&rarr;theatre</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the moment a sensible plan needs to become an unignorable one"</p>
+                    <div class="plabel">Born from</div>
+                    <p>1965. Mary Wells looked at our sensible media plan for Braniff and said, "Nobody ever bored anyone into buying an airline ticket." Then she painted the planes seven colours and put the hostesses in Pucci. The industry laughed right up until bookings jumped. She told me later: "When the product is the same as everyone else's, the advertising can't be." I think of her every time a plan is defensible and dull.</p>
+                </div>
             </div>
-            <div class="process-item fade-in">
-                <h3>We amplify your&nbsp;creativity</h3>
-                <p><strong>More ideas. Better execution. Time to think.</strong> AI handles the production grind. Your team does the creative work they were&nbsp;hired&nbsp;for.</p>
-            </div>
-            <div class="process-item fade-in">
-                <h3>We multiply your&nbsp;capabilities</h3>
-                <p><strong>Every person gains new skills overnight.</strong> Designers code. Writers analyse data. Strategists design. AI closes the gaps between&nbsp;disciplines.</p>
-            </div>
+
+            <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.3rem, 2.8vw, 1.9rem); color: var(--paper); margin: 2rem 0 1rem;">A career it never actually&nbsp;had.</p>
+            <p class="fade-in" style="max-width: 800px;">When phantoms collide on a brief, it voices the disagreement instead of resolving it. The work has been argued over before it reaches&nbsp;you.</p>
+            <p class="fade-in" style="max-width: 800px; margin-top: 2rem;">More than 400 first-person phantom memories sit in the library, and the ones that matter most are the ones you add. The tech is a brain. And a brain is nurtured, not installed. The model is rented. The brain is&nbsp;grown.</p>
         </div>
     </section>
 
-    <!-- Toolkit teaser; the full library lives on /tools -->
-    <section class="tools-built" style="padding: 5rem 2rem; background: var(--burgundy); color: white;">
-        <div style="max-width: 900px; margin: 0 auto;">
-            <h2 class="fade-in" style="color: white; margin-bottom: 0.5rem;">Thirty-odd tools already running in&nbsp;production.</h2>
-            <p class="fade-in" style="opacity: 0.85; font-size: 1.1rem; margin-bottom: 1.5rem;">Brief scoring, brand compliance, capacity tracking, cultural scanning, commercial dashboards, deck generation. Any company formulating its AI strategy can adapt, configure or build on these patterns, and ownership terms are transparent from day&nbsp;one.</p>
-            <p class="fade-in" style="margin-bottom: 0;"><a href="/tools" style="color: var(--red); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor;">Browse the full toolkit</a></p>
-        </div>
-    </section>
+    <!-- Act three, the proof -->
+    <section class="proof act-mid" id="proof" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <p class="label fade-in">03 The difference</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">Same brief. Different&nbsp;engine.</h2>
 
-    <!-- How It Works (moved before Buying/Pricing so users understand the process first) -->
-    <section class="how-it-works hiw-bg" id="how">
-        <canvas id="how-canvas-3d"></canvas>
-        <h2 class="fade-in">Five phases, sixteen&nbsp;weeks</h2>
-        <p class="hiw-lede fade-in">Measurable compounding gains, and no extra&nbsp;headcount.</p>
-        <div class="hiw-grid">
-            <div class="hiw-connector"></div>
-            <div class="hiw-steps">
-                <div class="hiw-card left fade-in">
-                    <div class="hiw-num">01</div>
-                    <div class="hiw-node"></div>
-                    <h3>Phase 1: The Audit <span style="opacity:.6; font-size:.8em;">(2 weeks)</span></h3>
-                    <p>We interview your leadership, shadow your operators, and map every repeated task. Every "why do we still do it this way?" process.</p>
-                    <p style="opacity:.8">Outcome: A Grind Map, a Capability Map, and a First-90 Playbook with three quick wins scoped and ready to ship.</p>
+            <div class="proof-split">
+                <div class="proof-col cold fade-in">
+                    <h3>Raw LLM</h3>
+                    <p>Polished, safe, predictable. Sounds like everyone else, and says yes to&nbsp;everything.</p>
                 </div>
-                <div class="hiw-card right fade-in">
-                    <div class="hiw-num">02</div>
-                    <div class="hiw-node"></div>
-                    <h3>Phase 2: The Blueprint <span style="opacity:.6; font-size:.8em;">(2 weeks)</span></h3>
-                    <p>A workshop with your leadership to sequence what we build first. Which tools. Which workflows. Which quick wins your team will feel in week one.</p>
-                    <p style="opacity:.8">Outcome: A 4-month week-by-week Blueprint, a signed SOW with owners and SLAs, and a tool-stack recommendation.</p>
-                </div>
-                <div class="hiw-card left fade-in">
-                    <div class="hiw-num">03</div>
-                    <div class="hiw-node"></div>
-                    <h3>Phase 3: The Build <span style="opacity:.6; font-size:.8em;">(8 weeks)</span></h3>
-                    <p>We build your custom Claude skills. Wire your workflows. Deploy AIDEN modules. Train your teams from AI-curious to AI-fluent. Brand guidelines: 3 days to 3 hours. Persona workshops: 2 weeks to 2 hours.</p>
-                    <p style="opacity:.8">Outcome: Typical production time cut of 40%. Teams running live AI-assisted delivery on real client work.</p>
-                </div>
-                <div class="hiw-card right fade-in">
-                    <div class="hiw-num">04</div>
-                    <div class="hiw-node"></div>
-                    <h3>Phase 4: The Compounding <span style="opacity:.6; font-size:.8em;">(4 weeks)</span></h3>
-                    <p>We measure what changed against the baseline set in Phase 1. Automate the workflows trust has been earned on. Open the tools built for one team to the teams next door.</p>
-                    <p style="opacity:.8">Outcome: ROI report, a case study, and a clear view of what to build next.</p>
-                </div>
-                <div class="hiw-card left fade-in">
-                    <div class="hiw-num">05</div>
-                    <div class="hiw-node"></div>
-                    <h3>Phase 5: The Evolution <span style="opacity:.6; font-size:.8em;">(Ongoing)</span></h3>
-                    <p>Monthly strategic check-ins. On-demand skill builds in 1-2 days. New capabilities briefed the week they ship. Access to Redbaez's evolving tool stack.</p>
-                    <p style="opacity:.8">Outcome: You stay current, and you stay ahead.</p>
+                <div class="proof-col warm fade-in">
+                    <h3>AIDEN</h3>
+                    <p>Opinionated, challenged, pressure-tested. Sounds like it has thirty years in the&nbsp;industry.</p>
                 </div>
             </div>
-        </div>
-        <div class="hiw-cta">
-            <a href="/audit" class="cta-primary">Take the 3-minute Readiness Audit</a>
+
+            <p class="fade-in" style="max-width: 820px;">Don't take our word for it. We sent the live brain the brief every agency has been&nbsp;handed:</p>
+
+            <div class="brief-in fade-in">"a brave, disruptive campaign that really cuts through, but nothing polarising. Everyone 18-65. Premium but accessible, fun but serious. Viral like the Duolingo owl, every claim pre-approved by legal. Logo prominent. Three weeks. Budget TBC."</div>
+
+            <p class="fade-in" style="max-width: 820px; margin-top: 1.5rem;">Its reply, word for&nbsp;word:</p>
+
+            <div class="proof-quote fade-in">
+                <p>"I need to stop you here. This brief contains a fundamental contradiction that will kill whatever we build, and I'm not going to waste three weeks proving that to&nbsp;you.</p>
+                <p>You've asked for: brave, disruptive, cuts through. Then immediately: nothing polarising. Then: fun but serious. Then: premium but&nbsp;accessible.</p>
+                <p>And the real killer: legal needs every claim pre-approved before launch, but you want it to go viral. Virality happens when something surprises. Pre-approval kills surprise. You can't have&nbsp;both.</p>
+                <p>Here's what's actually happening. The CEO wants a viral campaign. Legal wants zero risk. Marketing wants premium positioning. The CFO wants budget TBC. These are four different briefs wearing one&nbsp;name.</p>
+                <p>Before we build anything, we need to make a real choice. Which one do you actually want to&nbsp;build?"</p>
+            </div>
+
+            <p class="fade-in" style="max-width: 820px;">Seventy-seven of the 387 phantoms in the library at the time fired on that one message. The full reply laid out the three campaigns hiding inside the brief, and the choice the CEO has to make before anyone writes a&nbsp;line.</p>
         </div>
     </section>
-
-    <!-- Outcomes -->
-    <section class="buying">
-        <div>
-            <h2 class="fade-in">Time back, and more of your people still&nbsp;here</h2>
-            <div class="benefits">
-                <div class="benefit fade-in">
-                    <h3>Time&nbsp;Back</h3>
-                    <p>40% reduction in production time, measured and proven. Your team goes home at 6pm&nbsp;again.</p>
-                </div>
-                <div class="benefit fade-in">
-                    <h3>Capability&nbsp;Expansion</h3>
-                    <p>Your team works across disciplines without losing depth. AI closes the gaps between&nbsp;specialisms.</p>
-                </div>
-                <div class="benefit fade-in">
-                    <h3>Talent&nbsp;Retention</h3>
-                    <p>Stop losing your best people to burnout. Give them better tools instead of more&nbsp;overtime.</p>
-                </div>
-                <div class="benefit fade-in">
-                    <h3>Pitch&nbsp;Velocity</h3>
-                    <p>Respond to RFPs in days, not weeks. Iterate concepts in hours, not days. Win more because you can&nbsp;show&nbsp;more.</p>
-                    <ul class="wins">
-                        <li>Brand guidelines: 3 days to 3 hours</li>
-                        <li>Social campaigns: 50 variants by lunch</li>
-                        <li>Persona development: 2 weeks to 2 hours</li>
-                        <li>Competitive audits: automated intelligence</li>
-                        <li>Presentation decks: half-day formatting to 30-minute polish</li>
-                        <li>Custom Claude skills: repeatable, branded AI workflows your team runs daily</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Anchor (new, before process) -->
-    <section class="pricing">
-        <div class="card">
-            <h2 class="fade-in">What it&nbsp;costs</h2>
-            <div class="badge">Month 1 payback</div>
-            <div class="card-inner">
-                <div class="pricing-copy">
-                    <p class="fade-in"><strong>From £68k year one</strong> for a 5 to 15-person team. Larger engagements scale from there.</p>
-                    <p class="fade-in"><strong>Payback:</strong> month one, measured against time saved.</p>
-                    <p class="fade-in"><strong>Risk:</strong> zero. If you don't see results in month one, you pay nothing.</p>
-                    <p class="fade-in" style="opacity: 0.85; font-size: 1rem;">Quick sense check: 40 hours saved per person per month × your hourly rate × your team size. For most teams that number lands above £100k in the first 90 days.</p>
-                    <div class="choice-cta" style="margin-top:1rem;">
-                        <a href="/audit" class="cta-primary">Start with the 3-min audit</a>
-                    </div>
-                </div>
-                <div class="roi fade-in" id="roi-box" aria-label="ROI odometer">
-                    <div class="roi-tasks"><span class="dot" aria-hidden="true"></span><span class="roi-task" id="roi-task">Competitor analysis</span></div>
-                    <div class="roi-row"><span class="roi-label">Hours saved</span><span class="roi-value" id="roi-hours">0</span></div>
-                    <div class="roi-row"><span class="roi-label">Hourly rate</span><span class="roi-value" id="roi-rate">$0</span></div>
-                    <div class="roi-row"><span class="roi-label">Team size</span><span class="roi-value" id="roi-team">0</span></div>
-                    <div class="roi-total"><span class="roi-label">Projected monthly value</span><span class="roi-value" id="roi-total">$0</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How AIDEN Thinks (Phantom Story) -->
-    <div class="phantom-story-fade-in"></div>
-    <section class="phantom-story" id="phantoms">
-        <h2 class="fade-in">How AIDEN&nbsp;Thinks</h2>
-        <div class="phantom-layout">
-            <div class="phantom-text phantom-inner">
-                <p class="phantom-quote fade-in">AIDEN cultivates hundreds of phantom memories from a company's own culture, their documents, team interviews, ways of working and their second brain.</p>
-                <p class="phantom-quote fade-in">Each time you talk to it, dozens of phantoms fire from over 400 distinct fake phantom memories the system believes it has experienced in its long "advertising career".</p>
-                <p class="phantom-quote fade-in">When two phantoms collide on the same brief, the system uses the tension instead of resolving it.</p>
-                <span class="phantom-highlight fade-in">The interesting work comes from the friction, not the&nbsp;variety.</span>
-                <p class="phantom-evolves fade-in">The whole thing evolves. Perspectives that stop being useful fade. New ones emerge from breakthroughs. There is a guardrail that stops it ever becoming a&nbsp;yes-machine.</p>
-            </div>
-            <div class="phantom-brain-wrap fade-in">
-                <canvas id="phantom-brain-canvas"></canvas>
-            </div>
-        </div>
-    </section>
-    <div class="phantom-story-fade-out"></div>
-
-    <!-- Case Studies: What We've Built -->
     <section class="case-studies" id="case-studies">
         <div>
             <h2 class="fade-in">What We've&nbsp;Built</h2>
@@ -1631,69 +1576,85 @@
         </div>
     </section>
 
+    <!-- Toolkit teaser; the full library lives on /tools -->
+
+    <!-- How It Works (moved before Buying/Pricing so users understand the process first) -->
+
+    <!-- Outcomes -->
+
+    <!-- Pricing Anchor (new, before process) -->
+
+    <!-- How AIDEN Thinks (Phantom Story) -->
+    <div class="phantom-story-fade-out"></div>
+
+    <!-- Case Studies: What We've Built -->
+
     <!-- AIDEN Product Suite -->
-    <section class="aiden-suite" id="aiden-suite">
-        <div>
-            <h2 class="fade-in">AIDEN&nbsp;Platform</h2>
-            <p class="section-subtitle fade-in">Ten AI tools for creative companies. One token balance. Try any of&nbsp;them&nbsp;free.</p>
-            <div class="suite-grid">
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9673;</span>
-                    <h3>AIDEN Colleague</h3>
-                    <p>Your team's dedicated AI partner, trained on your culture, documents, and way of working. 400+ phantom memories cultivated from your team's interviews. Enterprise pricing. Contact us.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9670;</span>
-                    <h3>Synthetic Research</h3>
-                    <p>Pressure-test concepts with 8 AI personas before the tissue&nbsp;meeting.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9632;</span>
-                    <h3>Brand Audit</h3>
-                    <p>Competitive intelligence across positioning, ads, and digital presence in 15&nbsp;minutes.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9687;</span>
-                    <h3>Listen</h3>
-                    <p>Cultural intelligence. Know what is happening to your brand before the planner tells&nbsp;you.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9654;</span>
-                    <h3>Creative Pipeline</h3>
-                    <p>Generate social ad campaigns from a brief, not a&nbsp;template.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#8635;</span>
-                    <h3>refrAIm</h3>
-                    <p>Reformat one video for every platform in 30&nbsp;seconds.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9680;</span>
-                    <h3>AIDEN Chat</h3>
-                    <p>A thinking partner that argues for the work instead of agreeing with&nbsp;you.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9671;</span>
-                    <h3>Pitch</h3>
-                    <p>Brief to finished deck through a guided seven-step&nbsp;workflow.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#9650;</span>
-                    <h3>Brief Sharpener</h3>
-                    <p>Turn a vague brief into a single-minded one before the team&nbsp;starts.</p>
-                </div>
-                <div class="suite-card fade-in">
-                    <span class="suite-icon" aria-hidden="true">&#10022;</span>
-                    <h3>Teacher</h3>
-                    <p>A persistent tutor that adapts to how each person&nbsp;learns.</p>
-                </div>
+
+    <!-- Act four, the tools -->
+    <section class="operating-system act-mid" id="tools" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <p class="label fade-in">04 What it does</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">Not a toolbox. An operating&nbsp;system.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 820px;">Ten tools share one brain and one login, and every surface is the same mind pointed at a different job. Onboarding grows it, chat interrogates it, the tools sharpen and pressure-test, the boards catch what is worth keeping. Nothing leaves the&nbsp;building.</p>
+            <div class="phantom-grid" style="margin-top: 2.5rem;">
+                <div class="phantom-card fade-in"><div class="pname">Colleague</div><p>The brain itself. Trained on your culture through interviews and documents, it pushes back on weak briefs and defends bold ideas in your voice.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Chat</div><p>A thinking partner that argues for the work instead of agreeing with you, and refuses to churn out ten more until it knows what missed.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Brief Sharpener</div><p>A critic first and a writer second. Scores a brief across eight dimensions, then rewrites it single-minded.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Synthetic Research</div><p>Pressure-tests a concept against your own audience personas before the tissue meeting. A critic, not a cheerleader.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Brand Audit</div><p>Competitive intelligence across positioning, advertising and digital presence in fifteen minutes.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Listen</div><p>Cultural intelligence. Reads the signals around a brand and comes back with a call, not a summary.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Ads</div><p>Reads your live advertising, rebuilds your layouts to the pixel, then makes new work from them by conversation. Brief to finished film without leaving the app.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Pitch</div><p>Brief to presentation-ready campaign through a guided seven-step workflow, with the strategy carried forward.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">refrAIm</div><p>Reformat one video for every platform in thirty seconds. Reframing that understands composition, not just cropping.</p></div>
+                <div class="phantom-card fade-in"><div class="pname">Teacher</div><p>A persistent tutor built on the teaching phantoms, adapting to how each person learns and remembering every session.</p></div>
             </div>
-            <div class="suite-cta fade-in">
-                <a href="https://www.aiden.services/pricing" target="_blank" rel="noopener noreferrer" class="cta-primary">Try free. 50 tokens. No credit card.</a>
-            </div>
+            <p class="fade-in" style="margin-top: 2rem;"><a href="/aiden" style="color: var(--warm); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor;">How the platform works</a><span style="color: var(--muted-warm);"> &nbsp;or&nbsp; </span><a href="https://www.aiden.services" target="_blank" rel="noopener noreferrer" style="color: var(--muted-warm); text-decoration: none; border-bottom: 1px solid currentColor;">try it with 50 free tokens</a></p>
         </div>
     </section>
-
+    <!-- Act five, how to engage -->
+    <section class="engage act-warm" id="engage" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <p class="label fade-in">05 How to start</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">Start with your brain. Scale the operating&nbsp;system.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 820px;">Three steps, and the first one is cheap on purpose, because neither of us should commit to a build before we know what your brain is actually&nbsp;for.</p>
+            <div class="rungs">
+                <div class="rung first fade-in">
+                    <div class="rnum">Step one</div>
+                    <h3>The diagnostic</h3>
+                    <div class="price">AUD 15,000</div>
+                    <p>Four days. We interview your leadership, read how the work actually moves, and come back with what your brain should believe and what it should refuse. Credited in full against a build inside ninety&nbsp;days.</p>
+                </div>
+                <div class="rung fade-in">
+                    <div class="rnum">Step two</div>
+                    <h3>The build</h3>
+                    <div class="band">Fixed fee, quoted from the diagnostic</div>
+                    <p>Your brain gets grown. Interviews across the team, your documents and your work become named beliefs your people approve or kill. Twelve weeks on the one engagement we have measured end to&nbsp;end.</p>
+                </div>
+                <div class="rung fade-in">
+                    <div class="rnum">Step three</div>
+                    <h3>The brain, running</h3>
+                    <div class="band">Annual licence plus seats</div>
+                    <p>The platform, the phantom library, single sign-on and the data agreement, with seats for the people using it. It compounds with every brief, and it never hands in its&nbsp;notice.</p>
+                </div>
+            </div>
+            <div class="fade-in" style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                <a href="/audit" class="cta-primary">Take the 3-min Readiness Audit</a>
+                <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" style="color: var(--paper); text-decoration: none; border-bottom: 1px solid currentColor; font-size: 0.95rem;">or book a 30-min call</a>
+            </div>
+            <p class="fade-in" style="font-size: 0.9rem; color: var(--muted-warm); margin-top: 1rem;">Figures in AUD. We invoice in GBP for UK engagements at the prevailing&nbsp;rate.</p>
+        </div>
+    </section>
+    <!-- The secondary offering -->
+    <section class="consultancy act-warm" id="consultancy" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem); border-top: 1px solid var(--line);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <p class="label fade-in">Also</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.7rem, 4vw, 2.8rem); margin: 0.75rem 0 1.5rem;">We also get the rest of your AI actually&nbsp;working.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.2rem); max-width: 820px;">Most of the hours going missing in a creative business are going into work nobody would defend, and so alongside the brain we run a sixteen-week delivery programme: we audit where the time goes, build the custom skills and automations, and train your teams from AI-curious to&nbsp;AI-fluent.</p>
+            <p class="fade-in" style="max-width: 820px;">Five phases, a measured baseline at the start, and a typical production time cut of 40%. It is how every client on this page&nbsp;started.</p>
+            <p class="fade-in" style="margin-bottom: 0;"><a href="/programme" style="color: var(--warm); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor;">The five phases, and what it costs</a> <span style="color: var(--muted-warm);">&nbsp;or&nbsp;</span> <a href="/tools" style="color: var(--muted-warm); text-decoration: none; border-bottom: 1px solid currentColor;">browse the toolkit we have already built</a></p>
+        </div>
+    </section>
     <!-- FAQ (new, after process) -->
     <section class="faq" id="faq">
         <div>
@@ -1728,11 +1689,6 @@
     </section>
 
     <!-- Real Talk -->
-    <section class="real-talk">
-        <h2 class="fade-in">Where we&nbsp;stand</h2>
-        <p class="fade-in">We're not selling you another platform subscription. We're not adding complexity to your stack. We're not here to replace your people.</p>
-        <p class="fade-in">We're here to make your current team measurably more capable. Better tools, better workflows, better output. The work speaks for itself.</p>
-    </section>
 
     <!-- Footer CTA -->
     <section class="footer-cta" id="contact">
@@ -1768,10 +1724,11 @@
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="#what">AI Partnership</a></li>
-                        <li><a href="#how">Delivery Program</a></li>
+                        <li><a href="#engine">The Brain</a></li>
                         <li><a href="/aiden">AIDEN Platform</a></li>
+                        <li><a href="/programme">Delivery Programme</a></li>
                         <li><a href="/tools">Toolkit</a></li>
+                        <li><a href="#engage">How to start</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -2472,148 +2429,6 @@
         })();
 
         // Choice charts removed by request
-        // Subtle Three.js wireframe ribbon behind How It Works
-        (function() {
-            const section = document.getElementById('how');
-            const canvas = document.getElementById('how-canvas-3d');
-            if (!section || !canvas) return;
-
-            const motionOverride = (localStorage.getItem('motionOverride') || '').toLowerCase() === 'on';
-            const prefersReducedSystem = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const prefersReduced = prefersReducedSystem && !motionOverride;
-            const gentleMotion = prefersReduced;
-            if (motionOverride) { canvas.style.display = 'block'; }
-
-            let THREERef = null;
-            let renderer = null;
-            let scene = null;
-            let camera = null;
-            let ribbon = null;
-            let running = false;
-            let rafId = null;
-            let lastTs = 0;
-
-            const dpr = Math.min(1.5, window.devicePixelRatio || 1);
-
-            function resize() {
-                if (!renderer || !camera) return;
-                const rect = section.getBoundingClientRect();
-                const width = Math.max(1, Math.ceil(rect.width));
-                const height = Math.max(1, Math.ceil(rect.height));
-                renderer.setSize(width, height, false);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            }
-
-            function animate(ts) {
-                if (!running) return;
-                if (!lastTs) lastTs = ts;
-                const dt = ts - lastTs;
-                // Throttle for GPU load (gentler if user prefers reduced motion)
-                const frameInterval = gentleMotion ? 100 : 33; // ~10fps vs ~30fps
-                if (dt >= frameInterval) {
-                    lastTs = ts;
-                    const time = ts * 0.001;
-                    if (ribbon && ribbon.geometry && ribbon.geometry.attributes && ribbon.geometry.attributes.position) {
-                        const pos = ribbon.geometry.attributes.position;
-                        const AMP1 = gentleMotion ? 0.22 : 0.60; // stronger when full motion
-                        const AMP2 = gentleMotion ? 0.12 : 0.30;
-                        for (let i = 0; i < pos.count; i++) {
-                            const x = pos.getX(i);
-                            const y = pos.getY(i);
-                            const z = Math.sin(x * 0.7 + time * 0.7) * AMP1 + Math.sin((x + y) * 1.2 - time * 1.1) * AMP2;
-                            pos.setZ(i, z);
-                        }
-                        pos.needsUpdate = true;
-                    }
-                    if (ribbon) {
-                        ribbon.rotation.y = 0.35 + Math.sin(time * 0.15) * 0.05;
-                        ribbon.rotation.x = -0.25 + Math.cos(time * 0.12) * 0.03;
-                    }
-                    renderer.render(scene, camera);
-                }
-                rafId = requestAnimationFrame(animate);
-            }
-
-            function initScene(THREE) {
-                THREERef = THREE;
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-                camera.position.set(0, 0, 8);
-
-                renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
-                renderer.setPixelRatio(dpr);
-                renderer.setClearColor(0x000000, 0);
-
-                const rect = section.getBoundingClientRect();
-                const isSmall = rect.width < 640;
-                const segX = isSmall ? 120 : 240;
-                const segY = isSmall ? 14 : 28;
-                // Enlarge plane to cover full section vertically behind all cards
-                const geometry = new THREE.PlaneGeometry(30, 12, segX, segY);
-                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.15 : 0.25 });
-                ribbon = new THREE.Mesh(geometry, material);
-                ribbon.position.z = -2;
-                ribbon.position.y = 0;
-                ribbon.rotation.x = -0.25;
-                ribbon.rotation.y = 0.35;
-                scene.add(ribbon);
-
-                resize();
-            }
-
-            const ro = new ResizeObserver(resize);
-            ro.observe(section);
-
-            function loadThree() {
-                // Try ESM first
-                return import('/assets/vendor/three.module.js')
-                    .catch(() => new Promise(resolve => {
-                        // Fallback to UMD build on window.THREE
-                        const existing = window.THREE;
-                        if (existing) { resolve(existing); return; }
-                        const s = document.createElement('script');
-                        s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
-                        s.crossOrigin = 'anonymous';
-                        s.onload = () => resolve(window.THREE || null);
-                        s.onerror = () => resolve(null);
-                        document.head.appendChild(s);
-                    }));
-            }
-
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!renderer) {
-                            loadThree().then(mod => { if (mod) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
-                        } else {
-                            running = true; lastTs = 0; rafId = requestAnimationFrame(animate);
-                        }
-                    } else {
-                        running = false;
-                        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-                    }
-                });
-            }, { threshold: 0.05 });
-            io.observe(section);
-
-            // If already in view on load, kick it off immediately
-            const rect = section.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                loadThree().then(mod => { if (mod && !renderer) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
-            }
-
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    running = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-                } else if (renderer) {
-                    const rect = section.getBoundingClientRect();
-                    const inView = rect.top < window.innerHeight && rect.bottom > 0;
-                    if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
-                }
-            });
-        })();
-
         // Pricing "mad science" math animation → resolves to MAKE MORE
         (function(){
             const box = document.getElementById('roi-box');
