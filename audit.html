@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agency AI Readiness Audit — Redbaez</title>
+<title>Agency AI Readiness Audit | Redbaez</title>
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
 <meta name="description" content="3-minute audit. See where your agency sits on AI readiness. Get a personalised next-step recommendation from Redbaez.">
 <style>
@@ -250,26 +250,6 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
 </head>
 <body>
 
-<!-- Netlify detects this form at build time. Real submissions go via fetch() below. -->
-<form name="audit-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="position:absolute; left:-9999px; top:-9999px;">
-  <input type="hidden" name="form-name" value="audit-lead">
-  <input type="text" name="bot-field">
-  <input type="text" name="name">
-  <input type="email" name="email">
-  <input type="text" name="agency">
-  <input type="text" name="size">
-  <input type="text" name="overall_score">
-  <input type="text" name="level">
-  <input type="text" name="weakest_dimension">
-  <input type="text" name="weakest_score">
-  <input type="text" name="leadership_intent">
-  <input type="text" name="team_fluency">
-  <input type="text" name="procurement_readiness">
-  <input type="text" name="workflow_opportunity">
-  <input type="text" name="recommendation">
-  <textarea name="raw_answers"></textarea>
-</form>
-
 <div class="container">
   <div class="brand"><a href="/">Redbaez</a></div>
 
@@ -339,7 +319,7 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
     </div>
 
     <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="btn">Book a 30-min call with Tom</a>
+      <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="btn" onclick="track('booking_clicked')">Book a 30-min call with Tom</a>
       <a href="/" class="btn btn-ghost">Back to redbaez.com</a>
     </div>
   </div>
@@ -482,6 +462,44 @@ const dimCommentary = {
 let currentQ = 0;
 let answers = {};
 
+// Lead capture and funnel events go to the aiden-platform Supabase.
+// The publishable key is insert-only by RLS, so it is safe in the page.
+const SUPABASE_URL = 'https://bktujlufguenjytbdndn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_svKQIxuiFA4PK00s5w92Qg_pDg34bCZ';
+const LEAD_ENDPOINT = SUPABASE_URL + '/rest/v1/website_leads';
+const EVENT_ENDPOINT = SUPABASE_URL + '/rest/v1/website_events';
+
+const sessionId = (() => {
+  try {
+    let s = sessionStorage.getItem('rb_sid');
+    if (!s) { s = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('rb_sid', s); }
+    return s;
+  } catch (e) { return 'nostorage'; }
+})();
+
+function track(event, step, meta) {
+  try {
+    fetch(EVENT_ENDPOINT, {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        session_id: sessionId,
+        event: event,
+        step: (step === undefined ? null : step),
+        page_path: location.pathname,
+        referrer: document.referrer || null,
+        meta: meta || null,
+      }),
+    }).catch(() => {});
+  } catch (e) { /* never let tracking break the audit */ }
+}
+
 function renderQ() {
   const q = questions[currentQ];
   const container = document.getElementById('q-container');
@@ -513,9 +531,12 @@ function nextQ() {
   if (currentQ === questions.length - 1) {
     renderResult();
     show('result');
+    const r = window._auditResult;
+    track('audit_completed', questions.length, { score: r.overall, band: r.level.name, weakest: r.lowest.dim });
   } else {
     currentQ++;
     renderQ();
+    track('audit_question', currentQ + 1);
   }
 }
 
@@ -543,7 +564,7 @@ function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'quiz') renderQ();
+  if (id === 'quiz') { renderQ(); track('audit_started', 1); }
 }
 
 function dimScore(dim) {
@@ -562,44 +583,53 @@ function computeResult() {
 
 document.getElementById('capture-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const agency = document.getElementById('agency').value;
-  const size = document.getElementById('size').value;
+  const btn = document.querySelector('#capture-form button[type="submit"]');
+  const confirm = document.getElementById('capture-confirm');
   const r = window._auditResult || computeResult();
-  // Submit lead to Netlify Forms (emails tomh@redbaez.com and chrism@redbaez.com)
-  const leadData = {
-    'form-name': 'audit-lead',
-    'bot-field': '',
-    'name': name,
-    'email': email,
-    'agency': agency,
-    'size': size,
-    'overall_score': String(r.overall),
-    'level': r.level.name,
-    'weakest_dimension': r.lowest.dim,
-    'weakest_score': String(r.lowest.score),
-    'leadership_intent': String(r.dimScores.find(d => d.dim === 'Leadership Intent').score),
-    'team_fluency': String(r.dimScores.find(d => d.dim === 'Team Fluency').score),
-    'procurement_readiness': String(r.dimScores.find(d => d.dim === 'Procurement Readiness').score),
-    'workflow_opportunity': String(r.dimScores.find(d => d.dim === 'Workflow Opportunity').score),
-    'recommendation': r.level.rec,
-    'raw_answers': Object.entries(answers).map(([q, s]) => `${q}: ${s}`).join('\n'),
+  const detail = r.dimScores.reduce((acc, d) => { acc[d.dim] = d.score; return acc; }, {});
+  const lead = {
+    source: 'audit',
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    company: document.getElementById('agency').value,
+    team_size: document.getElementById('size').value,
+    score: r.overall,
+    band: r.level.name,
+    page_path: location.pathname,
+    referrer: document.referrer || null,
+    user_agent: navigator.userAgent,
+    raw_answers: [
+      'Recommendation: ' + r.level.rec,
+      'Weakest: ' + r.lowest.dim + ' (' + r.lowest.score + ')',
+      'Dimensions: ' + JSON.stringify(detail),
+      '',
+      Object.entries(answers).map(([q, s]) => q + ': ' + s).join('\n'),
+    ].join('\n'),
   };
-  const encoded = Object.keys(leadData).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(leadData[k])).join('&');
-  fetch('/', {
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const fail = () => {
+    btn.disabled = false;
+    btn.textContent = 'Send me the written diagnostic';
+    confirm.innerHTML = 'That did not send. Please email <a href="mailto:tomh@redbaez.com" style="color:#fff;">tomh@redbaez.com</a> and Tom will pick it up directly.';
+    confirm.style.display = 'block';
+  };
+  fetch(LEAD_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: encoded,
-  }).then(() => {
-    document.getElementById('capture-confirm').style.display = 'block';
-    document.querySelector('#capture-form button[type="submit"]').textContent = 'Sent ✓';
-    document.querySelector('#capture-form button[type="submit"]').disabled = true;
-  }).catch(() => {
-    document.getElementById('capture-confirm').textContent = 'Something went wrong. Please email tomh@redbaez.com directly.';
-    document.getElementById('capture-confirm').style.display = 'block';
-  });
-
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal',
+    },
+    body: JSON.stringify(lead),
+  }).then((res) => {
+    if (!res.ok) { fail(); return; }
+    confirm.textContent = 'Sent. Tom will reply within 24 hours.';
+    confirm.style.display = 'block';
+    btn.textContent = 'Sent';
+    track('diagnostic_requested', null, { score: r.overall, band: r.level.name });
+  }).catch(fail);
 });
 
 // Share handlers
@@ -620,8 +650,8 @@ document.getElementById('share-copy').addEventListener('click', (e) => {
 });
 document.getElementById('share-email').addEventListener('click', () => {
   const r = window._auditResult;
-  const subject = encodeURIComponent(`Redbaez AI Readiness Audit — I scored ${r.overall}/5`);
-  const body = encodeURIComponent(`Thought you might find this useful.\n\n${shareText()}\n\n—`);
+  const subject = encodeURIComponent(`Redbaez AI Readiness Audit: I scored ${r.overall}/5`);
+  const body = encodeURIComponent(`Thought you might find this useful.\n\n${shareText()}\n`);
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 });
 </script>
