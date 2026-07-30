@@ -453,6 +453,22 @@
             }
 
             layout();
+            // Paint the dormant library immediately. Without this the canvas is an
+            // empty black box until the observer fires and the first wave starts,
+            // so anyone scrolling quickly past sees nothing at all.
+            (function firstPaint() {
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < nodes.length; i++) {
+                    const n = nodes[i];
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(127,160,190,' + n.base.toFixed(3) + ')';
+                    ctx.arc(n.x, n.y, n.fires ? 1.15 : 1.35, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+                ctx.fillStyle = 'rgba(148,140,129,0.85)';
+                ctx.fillText('0 of ' + COUNT + ' fired', 12, h - 12);
+            })();
             let rt = null;
             window.addEventListener('resize', function() {
                 clearTimeout(rt);
