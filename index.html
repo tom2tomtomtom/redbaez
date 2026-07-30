@@ -174,7 +174,7 @@
 
         /* Sections declare where they sit on the cold-to-warm gradient. */
         .act-cold { background: var(--ink); color: var(--paper); }
-        .act-cold h2, .act-cold h3 { color: var(--cold); }
+        .act-cold h2, .act-cold h3 { color: var(--paper); }
         .act-cool { background: var(--panel); color: var(--paper); }
         .act-cool h2 { color: var(--paper); }
         .act-mid  { background: var(--panel); color: var(--paper); }
@@ -338,7 +338,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease 0.2s forwards;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(239, 234, 226, 0.9);
         }
 
         .cta-primary {
@@ -363,7 +363,7 @@
             transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4);
         }
-        .cta-subtext { margin-top: 0.75rem; color: rgba(255,255,255,0.85); font-size: 0.95rem; }
+        .cta-subtext { margin-top: 0.75rem; color: rgba(239, 234, 226, 0.85); font-size: 0.95rem; }
 
         /* Sections (full-bleed backgrounds, centered content) */
         section {
@@ -459,7 +459,7 @@
         }
 
         /* Credentials full-bleed background image */
-        .credentials-hero { position: relative; color: #fff; }
+        .credentials-hero { position: relative; color: var(--paper); }
         .credentials-hero::before {
             content: '';
             position: absolute;
@@ -569,7 +569,7 @@
 
         .choice-grind {
             background: rgba(255,255,255,0.06);
-            color: rgba(255,255,255,0.95);
+            color: rgba(239, 234, 226, 0.95);
             border: 1px solid rgba(255,255,255,0.10);
             box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
         }
@@ -582,7 +582,7 @@
             background:
                 linear-gradient(to bottom right, rgba(255,70,70,0.10), rgba(255,70,70,0.05)),
                 rgba(255,255,255,0.06);
-            color: #fff;
+            color: var(--paper);
             border: 1px solid rgba(255,255,255,0.10);
             box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
         }
@@ -604,8 +604,8 @@
         }
         .choice-list.good li::before { background: rgba(255,255,255,0.2); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7); }
         .choice-list.bad  li::before { background: rgba(255,255,255,0.1); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5); }
-        .choice-list.good li { color: #fff; }
-        .choice-list.bad  li { color: rgba(255,255,255,0.9); }
+        .choice-list.good li { color: var(--paper); }
+        .choice-list.bad  li { color: rgba(239, 234, 226, 0.9); }
 
         /* Pop-in scroll animation for option cards */
         .fade-in.pop-in { transform: translateY(30px) scale(0.96); }
@@ -628,23 +628,23 @@
 
         /* Buying, Pricing, FAQ sections */
         .buying, .pricing, .faq { position: relative; }
-        .buying h2, .pricing h2, .faq h2 { color: #fff; }
+        .buying h2, .pricing h2, .faq h2 { color: var(--paper); }
         .buying h2::after, .pricing h2::after, .faq h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
         .pricing-copy p { margin-bottom: .75rem; }
         .roi { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding:1rem 1.25rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); }
         .roi-tasks { display:flex; align-items:center; gap:.5rem; margin-bottom:.35rem; min-height: 1.3em; }
         .roi-tasks .dot { width:.5rem; height:.5rem; border-radius:50%; background: var(--red); box-shadow: 0 0 8px rgba(255,70,70,0.45); }
-        .roi-tasks .roi-task { color:#fff; font-weight:800; letter-spacing:.01em; opacity:1; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
+        .roi-tasks .roi-task { color:var(--paper); font-weight:800; letter-spacing:.01em; opacity:1; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
         .roi-tasks .roi-task.out { opacity:.25; transform: translateY(6px); }
         .roi-x { margin: 0 .25rem; opacity: .6; }
         .faq-list { display:grid; gap: .75rem; margin-top: 1rem; }
         .faq-list details { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:12px; padding: 1rem 1.25rem; transition: border-color .2s ease, box-shadow .2s ease; }
-        .faq-list details[open] { border-color: rgba(255,255,255,0.16); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
-        .faq-list summary { cursor: pointer; font-weight: 700; color: #fff; list-style: none; }
+        .faq-list details[open] { border-color: rgba(239, 234, 226, 0.16); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+        .faq-list summary { cursor: pointer; font-weight: 700; color: var(--paper); list-style: none; }
         .faq-list summary::-webkit-details-marker { display: none; }
         .faq-list summary::after { content: '▾'; float: right; transition: transform .2s ease; opacity: .85; }
         .faq-list details[open] > summary::after { transform: rotate(-180deg); }
-        .faq-list p { margin-top: .5rem; color: rgba(255,255,255,0.95); }
+        .faq-list p { margin-top: .5rem; color: rgba(239, 234, 226, 0.95); }
 
         /* Footer CTA */
         .footer-cta {
@@ -769,16 +769,16 @@
             align-items: center;
             justify-content: space-between;
             padding: 0.85rem 1rem;
-            color: #fff;
+            color: var(--paper);
         }
         .site-nav .brand {
-            color: #fff;
+            color: var(--paper);
             text-decoration: none;
             font-weight: 800;
             letter-spacing: -0.02em;
         }
         .site-nav nav a {
-            color: #fff;
+            color: var(--paper);
             text-decoration: none;
             margin-left: 1rem;
             font-weight: 600;
@@ -882,7 +882,7 @@
         /* Footer */
         .site-footer {
             background: var(--black);
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(239, 234, 226, 0.9);
             padding: clamp(3rem, 6vw, 5rem) 0 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -925,7 +925,7 @@
             opacity: 0.85;
         }
         .footer-col a {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(239, 234, 226, 0.85);
             text-decoration: none;
             transition: color 0.2s ease, opacity 0.2s ease;
             font-size: 0.95rem;
@@ -957,7 +957,7 @@
             gap: 1.5rem;
         }
         .footer-links a {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(239, 234, 226, 0.85);
             text-decoration: none;
             transition: color 0.2s ease;
         }
@@ -966,9 +966,9 @@
         }
         /* Case Studies Section */
         .case-studies { background: var(--burgundy); position: relative; }
-        .case-studies h2 { color: #fff; }
+        .case-studies h2 { color: var(--paper); }
         .case-studies h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
-        .case-studies .section-subtitle { color: rgba(255,255,255,0.7); font-size: clamp(1rem, 2vw, 1.15rem); margin-bottom: 2.5rem; }
+        .case-studies .section-subtitle { color: rgba(239, 234, 226, 0.7); font-size: clamp(1rem, 2vw, 1.15rem); margin-bottom: 2.5rem; }
         .cs-grid { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
         @media (min-width: 900px) { .cs-grid { grid-template-columns: repeat(2, 1fr); } }
         .cs-card {
@@ -988,21 +988,21 @@
         .cs-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
-            border-color: rgba(255,255,255,0.16);
+            border-color: rgba(239, 234, 226, 0.16);
         }
         .cs-card h3 { color: var(--red); margin-bottom: 0.5rem; font-size: clamp(1.1rem, 2.2vw, 1.35rem); }
-        .cs-card .cs-type { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem; }
+        .cs-card .cs-type { color: rgba(239, 234, 226, 0.6); font-size: 0.9rem; margin-bottom: 1rem; }
         .cs-card .cs-built { margin-bottom: 0.75rem; }
-        .cs-card .cs-built strong { color: rgba(255,255,255,0.95); }
+        .cs-card .cs-built strong { color: rgba(239, 234, 226, 0.95); }
         .cs-card .cs-result {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,255,255,0.08);
             font-style: italic;
-            color: rgba(255,255,255,0.85);
+            color: rgba(239, 234, 226, 0.85);
             font-size: 0.95rem;
         }
-        .aiden-suite .section-subtitle { color: rgba(255,255,255,0.7); font-size: clamp(1rem, 2vw, 1.15rem); margin-bottom: 2.5rem; }
+        .aiden-suite .section-subtitle { color: rgba(239, 234, 226, 0.7); font-size: clamp(1rem, 2vw, 1.15rem); margin-bottom: 2.5rem; }
         /* Gradient transition INTO dark from previous section */
         .phantom-story-fade-in {
             height: 120px;
@@ -1020,7 +1020,7 @@
             display: block;
             font-size: clamp(1.5rem, 3.5vw, 2.2rem);
             font-weight: 800;
-            color: #fff;
+            color: var(--paper);
             line-height: 1.2;
             margin: 2.5rem 0;
             text-align: center;
@@ -1112,7 +1112,7 @@
     <!-- Act one, the problem -->
     <section class="problem act-cold" id="problem" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
         <div style="max-width: 1000px; margin: 0 auto;">
-            <p class="label fade-in" style="color: var(--cold);">01 The problem</p>
+            <p class="label fade-in">01 The problem</p>
             <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.75rem;">It is not the prompting. It is the training&nbsp;data.</h2>
             <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 760px; margin-bottom: 1.25rem;">Every model you can buy learned from the same place, which is everything on the internet. The same data, the same patterns, the same answers, which is why the work all arrives sounding like it came out of the same room. Generative AI handed everyone the same tools and the same prompts, and the advantage evaporated the moment it&nbsp;arrived.</p>
             <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.3rem); max-width: 760px; margin-bottom: 0;">You cannot prompt your way out of that, because what is missing is not instruction. Companies do not need more AI. They need AI with a point of&nbsp;view.</p>
@@ -1344,15 +1344,15 @@
         <div style="max-width: 1100px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 4rem);">
             <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
                 <div class="fade-in" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 2rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35);">
-                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(255,255,255,0.95); margin-bottom: 1rem; line-height: 1.6;">"Tom has helped embed AI into our processes and culture, helping Monigle be on the leading edge in a&nbsp;fast-moving&nbsp;space."</p>
+                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(239, 234, 226, 0.95); margin-bottom: 1rem; line-height: 1.6;">"Tom has helped embed AI into our processes and culture, helping Monigle be on the leading edge in a&nbsp;fast-moving&nbsp;space."</p>
                     <p style="font-size: 0.95rem; color: var(--red); font-weight: 600; margin-bottom: 0;">Gunnar Jacobs, Principal,&nbsp;Monigle</p>
                 </div>
                 <div class="fade-in" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 2rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35);">
-                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(255,255,255,0.95); margin-bottom: 1rem; line-height: 1.6;">"AIDEN brings something rare to creative partnerships. Genuine creative judgment and the confidence to defend it. It's not a tool that waits for instructions. It's a colleague that earns&nbsp;its&nbsp;seat."</p>
+                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(239, 234, 226, 0.95); margin-bottom: 1rem; line-height: 1.6;">"AIDEN brings something rare to creative partnerships. Genuine creative judgment and the confidence to defend it. It's not a tool that waits for instructions. It's a colleague that earns&nbsp;its&nbsp;seat."</p>
                     <p style="font-size: 0.95rem; color: var(--red); font-weight: 600; margin-bottom: 0;">Global CEO,&nbsp;Creative&nbsp;Agency</p>
                 </div>
                 <div class="fade-in" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 2rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35);">
-                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(255,255,255,0.95); margin-bottom: 1rem; line-height: 1.6;">"Tommy has been of monumental support to us. He speaks plain English, moves quickly, and his experience in our world helped him get under the bonnet much quicker. Long&nbsp;live&nbsp;Tommy."</p>
+                    <p style="font-size: 1.15rem; font-style: italic; color: rgba(239, 234, 226, 0.95); margin-bottom: 1rem; line-height: 1.6;">"Tommy has been of monumental support to us. He speaks plain English, moves quickly, and his experience in our world helped him get under the bonnet much quicker. Long&nbsp;live&nbsp;Tommy."</p>
                     <p style="font-size: 0.95rem; color: var(--red); font-weight: 600; margin-bottom: 0;">David Pomfret, Chief Transformation Officer, Uncommon&nbsp;Creative&nbsp;Studio</p>
                 </div>
             </div>
@@ -1387,12 +1387,12 @@
                 <a href="/audit" class="cta-primary">Take the 3-min Readiness Audit</a>
                 <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="cta-primary" style="background: transparent; border: 1px solid currentColor;">Or book a 30-min call</a>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(255,255,255,0.65);">Prefer email? <a href="mailto:tomh@redbaez.com" style="color: rgba(255,255,255,0.85); text-decoration: underline;">tomh@redbaez.com</a></p>
+            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(239, 234, 226, 0.65);">Prefer email? <a href="mailto:tomh@redbaez.com" style="color: rgba(239, 234, 226, 0.85); text-decoration: underline;">tomh@redbaez.com</a></p>
         </div>
         <div style="margin-top:2.5rem; text-align:left; max-width:900px; margin-left:auto; margin-right:auto;">
             <h3 style="color:var(--red); margin-bottom:.5rem;">The Fine Print</h3>
-            <p style="margin-bottom:.5rem; color: rgba(255,255,255,0.95);">We work with 5 clients at a time, max. This is a deep engagement, not mass-market consulting. If you're ready to change how you work, let's talk.</p>
-            <p style="color: rgba(255,255,255,0.9);"><strong>Contact:</strong> tomh@redbaez.com<br/>
+            <p style="margin-bottom:.5rem; color: rgba(239, 234, 226, 0.95);">We work with 5 clients at a time, max. This is a deep engagement, not mass-market consulting. If you're ready to change how you work, let's talk.</p>
+            <p style="color: rgba(239, 234, 226, 0.9);"><strong>Contact:</strong> tomh@redbaez.com<br/>
             <strong>Based:</strong> Melbourne. Working with clients in London, New York, Denver, and Sydney.</p>
         </div>
     </section>

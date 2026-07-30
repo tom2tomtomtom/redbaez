@@ -43,9 +43,9 @@
         h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 700; margin-bottom: 1rem; }
         p { font-size: clamp(1.05rem, 1.8vw, 1.2rem); line-height: 1.7; margin-bottom: 1.5rem; }
         .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(120%) blur(8px); }
-        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: #fff; }
-        .site-nav .brand { color: #fff; text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
-        .site-nav nav a { color: #fff; text-decoration: none; margin-left: 1rem; font-weight: 600; }
+        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: var(--paper); }
+        .site-nav .brand { color: var(--paper); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
+        .site-nav nav a { color: var(--paper); text-decoration: none; margin-left: 1rem; font-weight: 600; }
         .cta-primary { display: inline-block; padding: 1rem 3rem; background: var(--red); color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3); }
         .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4); }
         .cta-small { padding: 0.5rem 1rem; font-size: 0.95rem; }
@@ -53,7 +53,7 @@
         .cs-hero > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
         .cs-hero .cs-label { color: var(--red); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; display: block; }
         .cs-hero h1 { margin-bottom: 1.5rem; }
-        .cs-hero .cs-result-hero { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(255,255,255,0.85); max-width: 720px; }
+        .cs-hero .cs-result-hero { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(239, 234, 226, 0.85); max-width: 720px; }
         .cs-section { padding: clamp(4rem, 8vw, 6rem) 0; }
         .cs-section > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
         .cs-section h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
@@ -62,33 +62,33 @@
         .tool-grid { display: grid; gap: 1.5rem; margin-top: 2rem; }
         @media (min-width: 768px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
         .tool-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 1.75rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
-        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(239, 234, 226, 0.16); }
         .tool-card h3 { color: var(--red); margin-bottom: 0.5rem; font-size: clamp(1.05rem, 2vw, 1.25rem); }
-        .tool-card p { color: rgba(255,255,255,0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
+        .tool-card p { color: rgba(239, 234, 226, 0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
         .metrics-row { display: grid; gap: 1.5rem; margin: 2rem 0; }
         @media (min-width: 768px) { .metrics-row { grid-template-columns: repeat(2, 1fr); } }
         .metric { text-align: center; padding: 2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; }
         .metric .number { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; color: var(--red); display: block; }
-        .metric .label { font-size: 1rem; color: rgba(255,255,255,0.85); margin-top: 0.5rem; display: block; }
+        .metric .label { font-size: 1rem; color: rgba(239, 234, 226, 0.85); margin-top: 0.5rem; display: block; }
         .testimonial { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 2.5rem; margin: 2rem 0; box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
-        .testimonial blockquote { font-size: clamp(1.15rem, 2.5vw, 1.4rem); font-style: italic; color: rgba(255,255,255,0.95); line-height: 1.6; margin-bottom: 1rem; }
+        .testimonial blockquote { font-size: clamp(1.15rem, 2.5vw, 1.4rem); font-style: italic; color: rgba(239, 234, 226, 0.95); line-height: 1.6; margin-bottom: 1rem; }
         .testimonial cite { font-size: 0.95rem; color: var(--red); font-weight: 600; font-style: normal; }
         .cs-cta { text-align: center; padding: clamp(4rem, 8vw, 6rem) 0; background: var(--burgundy); }
         .cs-cta > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
         .cs-cta h2 { margin-bottom: 1rem; }
-        .cs-cta p { max-width: 640px; margin: 0 auto 2rem; color: rgba(255,255,255,0.85); }
+        .cs-cta p { max-width: 640px; margin: 0 auto 2rem; color: rgba(239, 234, 226, 0.85); }
         .related { padding: clamp(3rem, 6vw, 4rem) 0; background: var(--black); border-top: 1px solid rgba(255,255,255,0.08); }
         .related > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
-        .related h3 { margin-bottom: 1.5rem; color: rgba(255,255,255,0.7); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; }
+        .related h3 { margin-bottom: 1.5rem; color: rgba(239, 234, 226, 0.7); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; }
         .related-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .related-links a { color: var(--white); text-decoration: none; padding: 0.75rem 1.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; font-weight: 600; transition: all 0.2s ease; }
-        .related-links a:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
-        .site-footer { background: var(--black); color: rgba(255, 255, 255, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .related-links a:hover { background: rgba(255,255,255,0.12); border-color: rgba(239, 234, 226, 0.2); }
+        .site-footer { background: var(--black); color: rgba(239, 234, 226, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 4rem); }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.9rem; opacity: 0.7; flex-wrap: wrap; gap: 1rem; }
         .footer-bottom p { margin: 0; }
         .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.2s ease; }
+        .footer-links a { color: rgba(239, 234, 226, 0.85); text-decoration: none; transition: color 0.2s ease; }
         .footer-links a:hover { color: var(--red); }
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -120,9 +120,9 @@
     </section>
 
     <!-- Tools We've Built -->
-    <section class="tools-built" style="padding: 6rem 2rem; background: var(--burgundy); color: white;">
+    <section class="tools-built" style="padding: 6rem 2rem; background: var(--burgundy); color: var(--paper);">
         <div style="max-width: 1100px; margin: 0 auto;">
-            <h2 class="fade-in" style="color: white; margin-bottom: 0.5rem;">The toolkit that creative companies building their AI strategy can draw&nbsp;from.</h2>
+            <h2 class="fade-in" style="color: var(--paper); margin-bottom: 0.5rem;">The toolkit that creative companies building their AI strategy can draw&nbsp;from.</h2>
             <p class="fade-in" style="opacity: 0.8; max-width: 720px; font-size: 1.1rem; margin-bottom: 3rem;">This is the working library we've developed. Any company formulating its AI implementation strategy can adapt, configure, or build on these patterns. Each tool runs in production today.</p>
 
             <div class="tools-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">

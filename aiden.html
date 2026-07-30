@@ -66,9 +66,9 @@
         p { font-size: clamp(1.05rem, 1.8vw, 1.2rem); line-height: 1.7; margin-bottom: 1.5rem; }
 
         .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(120%) blur(8px); }
-        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: #fff; }
-        .site-nav .brand { color: #fff; text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
-        .site-nav nav a { color: #fff; text-decoration: none; margin-left: 1rem; font-weight: 600; }
+        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: var(--paper); }
+        .site-nav .brand { color: var(--paper); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
+        .site-nav nav a { color: var(--paper); text-decoration: none; margin-left: 1rem; font-weight: 600; }
         .cta-primary { display: inline-block; padding: 1rem 3rem; background: var(--red); color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3); }
         .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4); }
         .cta-small { padding: 0.5rem 1rem; font-size: 0.95rem; }
@@ -78,7 +78,7 @@
         .aiden-hero > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
         .aiden-hero .label { color: var(--red); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; display: block; }
         .aiden-hero h1 { margin-bottom: 1.5rem; }
-        .aiden-hero .sub { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(255,255,255,0.85); max-width: 720px; margin: 0 auto; }
+        .aiden-hero .sub { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(239, 234, 226, 0.85); max-width: 720px; margin: 0 auto; }
 
         /* Sections */
         .aiden-section { padding: clamp(4rem, 8vw, 6rem) 0; }
@@ -99,11 +99,11 @@
             box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(239, 234, 226, 0.16); }
         .product-card .icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
         .product-card h3 { color: var(--red); margin-bottom: 0.75rem; font-size: clamp(1.1rem, 2.2vw, 1.35rem); }
-        .product-card p { color: rgba(255,255,255,0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
-        .product-card .used-by { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+        .product-card p { color: rgba(239, 234, 226, 0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
+        .product-card .used-by { margin-top: 1rem; font-size: 0.9rem; color: rgba(239, 234, 226, 0.6); }
         .product-card .used-by a { color: var(--red); text-decoration: none; }
         .product-card .used-by a:hover { text-decoration: underline; }
 
@@ -111,26 +111,26 @@
         .phantom-section { background: #050508; position: relative; overflow: hidden; text-align: center; }
         .phantom-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(800px at 50% 40%, rgba(255,50,20,0.06), rgba(255,50,20,0) 60%); pointer-events: none; z-index: 0; }
         .phantom-section > * { position: relative; z-index: 1; }
-        .phantom-section h2 { color: #fff; }
-        .phantom-section p { color: rgba(255,255,255,0.9); max-width: 800px; margin-left: auto; margin-right: auto; }
-        .phantom-highlight { display: block; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: #fff; line-height: 1.2; margin: 2.5rem auto; text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,32,32,0.2); border-bottom: 1px solid rgba(255,32,32,0.2); max-width: 800px; }
+        .phantom-section h2 { color: var(--paper); }
+        .phantom-section p { color: rgba(239, 234, 226, 0.9); max-width: 800px; margin-left: auto; margin-right: auto; }
+        .phantom-highlight { display: block; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--paper); line-height: 1.2; margin: 2.5rem auto; text-align: center; padding: 1.5rem 0; border-top: 1px solid rgba(255,32,32,0.2); border-bottom: 1px solid rgba(255,32,32,0.2); max-width: 800px; }
 
         /* Pricing */
         .pricing-section { text-align: center; }
         .pricing-section .price-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 3rem; max-width: 640px; margin: 2rem auto; }
-        .pricing-section .price-box .badge { display: inline-block; padding: .25rem .6rem; border-radius: 999px; background: rgba(255,70,70,0.15); color: #fff; font-weight: 700; font-size: .9rem; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 1rem; }
+        .pricing-section .price-box .badge { display: inline-block; padding: .25rem .6rem; border-radius: 999px; background: rgba(255,70,70,0.15); color: var(--paper); font-weight: 700; font-size: .9rem; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 1rem; }
 
         /* CTA */
         .aiden-cta { text-align: center; padding: clamp(4rem, 8vw, 6rem) 0; background: var(--burgundy); }
         .aiden-cta > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
 
         /* Footer */
-        .site-footer { background: var(--black); color: rgba(255, 255, 255, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .site-footer { background: var(--black); color: rgba(239, 234, 226, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 4rem); }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.9rem; opacity: 0.7; flex-wrap: wrap; gap: 1rem; }
         .footer-bottom p { margin: 0; }
         .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.2s ease; }
+        .footer-links a { color: rgba(239, 234, 226, 0.85); text-decoration: none; transition: color 0.2s ease; }
         .footer-links a:hover { color: var(--red); }
 
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
@@ -240,7 +240,7 @@
             <div class="price-box fade-in">
                 <div class="badge">Start free</div>
                 <p><strong>50 free tokens.</strong> No credit card required. Use any tool in the platform. See what AIDEN can do for your team before you commit to&nbsp;anything.</p>
-                <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.7);">Token packs and team subscriptions available at <a href="https://www.aiden.services/pricing" target="_blank" rel="noopener noreferrer" style="color: var(--red); text-decoration: none;">aiden.services/pricing</a></p>
+                <p style="margin-bottom: 2rem; color: rgba(239, 234, 226, 0.7);">Token packs and team subscriptions available at <a href="https://www.aiden.services/pricing" target="_blank" rel="noopener noreferrer" style="color: var(--red); text-decoration: none;">aiden.services/pricing</a></p>
                 <a href="https://aiden.services" target="_blank" rel="noopener noreferrer" class="cta-primary">Try free. 50 tokens.</a>
             </div>
         </div>
@@ -249,7 +249,7 @@
     <section class="aiden-cta">
         <div>
             <h2 class="fade-in">Want AIDEN configured for your&nbsp;team?</h2>
-            <p class="fade-in" style="max-width: 640px; margin: 0 auto 2rem; color: rgba(255,255,255,0.85);">AIDEN works best when it is trained on your team's culture and processes. Start with the readiness audit to see what we would prioritise&nbsp;first.</p>
+            <p class="fade-in" style="max-width: 640px; margin: 0 auto 2rem; color: rgba(239, 234, 226, 0.85);">AIDEN works best when it is trained on your team's culture and processes. Start with the readiness audit to see what we would prioritise&nbsp;first.</p>
             <a href="/audit" class="cta-primary fade-in">Take the Readiness Audit</a>
         </div>
     </section>
