@@ -282,23 +282,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(4rem, 10vw, 8rem);
+            gap: clamp(1.25rem, 4.5vw, 4rem);
+            row-gap: clamp(1.75rem, 4vw, 3rem);
             flex-wrap: wrap;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .client-logo {
-            height: clamp(64px, 8vw, 96px);
             width: auto;
-            opacity: 0.5;
             filter: grayscale(1) brightness(1.2);
             transition: all 0.4s ease;
         }
         .client-logo:hover {
-            opacity: 1;
             filter: grayscale(0) brightness(1);
             transform: scale(1.05);
         }
+        /* Per-logo heights keep the optical balance of the original logo strip */
+        .cl-altshift  { height: clamp(19px, 2.71vw, 39px); }
+        .cl-monigle   { height: clamp(32px, 4.51vw, 65px); }
+        .cl-mother    { height: clamp(38px, 5.42vw, 78px); }
+        .cl-uncommon  { height: clamp(68px, 9.65vw, 139px); }
+        .cl-collinson { height: clamp(30px, 4.31vw, 62px); }
 
         /* What's New Section */
         .whats-new {
@@ -1374,8 +1378,12 @@
     <section class="clients">
         <div>
             <h3 class="fade-in" style="text-align: center; margin-bottom: 2rem; opacity: 0.7; font-size: clamp(0.95rem, 1.8vw, 1.1rem); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Who We Work With</h3>
-            <div style="display: flex; justify-content: center;">
-                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/v1774070479/logos_hv6lpg.png" alt="Redbaez clients: Mother London, Uncommon Creative Studio, Monigle, Alt-Shift, Emotive" class="client-logo fade-in" style="max-width: 90%; height: auto;">
+            <div class="client-logos fade-in">
+                <img src="/assets/clients/alt-shift.png" alt="Alt/Shift" class="client-logo cl-altshift" loading="lazy">
+                <img src="/assets/clients/monigle.png" alt="Monigle" class="client-logo cl-monigle" loading="lazy">
+                <img src="/assets/clients/mother-london.png" alt="Mother London" class="client-logo cl-mother" loading="lazy">
+                <img src="/assets/clients/uncommon.png" alt="Uncommon Creative Studio" class="client-logo cl-uncommon" loading="lazy">
+                <img src="/assets/clients/collinson.svg" alt="Collinson Group" class="client-logo cl-collinson" loading="lazy">
             </div>
         </div>
     </section>
