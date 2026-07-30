@@ -133,6 +133,23 @@
             box-sizing: border-box;
         }
 
+        /* Anton and Space Mono, both SIL Open Font License, self-hosted so the
+           site keeps zero external hosts. Lifted from the Colleague decks. */
+        @font-face {
+            font-family: 'Anton';
+            src: url('/assets/vendor/Anton.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SpaceMono';
+            src: url('/assets/vendor/SpaceMono-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --red: #FF3333;
             --black: #0A0A0A;
@@ -140,6 +157,48 @@
             --gray: #F5F5F5;
             --dark-gray: #2A2A2A;
             --burgundy: #140205;
+
+            /* The Colleague design system, so the site and the decks look like
+               one company. Cold and warm are the argument in colour: the page
+               starts cold and same, and warms as it becomes specifically yours. */
+            --ink: #0C0B0D;
+            --panel: #141215;
+            --paper: #EFEAE2;
+            --muted-warm: #948C81;
+            --cold: #7FA0BE;
+            --warm: #E8912A;
+            --deck-red: #F5442E;
+            --line: rgba(239, 234, 226, 0.12);
+            --line-strong: rgba(239, 234, 226, 0.22);
+        }
+
+        /* Sections declare where they sit on the cold-to-warm gradient. */
+        .act-cold { background: var(--ink); color: var(--paper); }
+        .act-cold h2, .act-cold h3 { color: var(--cold); }
+        .act-cool { background: var(--panel); color: var(--paper); }
+        .act-cool h2 { color: var(--paper); }
+        .act-mid  { background: var(--panel); color: var(--paper); }
+        .act-mid h2 { color: var(--warm); }
+        .act-warm { background: var(--ink); color: var(--paper); }
+        .act-warm h2 { color: var(--warm); }
+        .act-cold p, .act-cool p, .act-mid p, .act-warm p { color: rgba(239, 234, 226, 0.86); }
+
+        /* Display type. Anton is heavily condensed, which is what lets the full
+           headline run large instead of being shrunk to fit. */
+        .display {
+            font-family: 'Anton', Impact, 'Haettenschweiler', -apple-system, sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+            line-height: 0.94;
+            text-transform: none;
+        }
+        .label {
+            font-family: 'SpaceMono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--warm);
         }
 
         html {
