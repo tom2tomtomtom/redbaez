@@ -707,61 +707,6 @@
             .hiw-node { display: none; }
         }
 
-        /* AIDEN Studio */
-        .aiden-studio {
-            background: transparent;
-            color: var(--white);
-            position: relative;
-        }
-        .aiden-studio h2::after {
-            content: '';
-            display: block;
-            width: 54px;
-            height: 6px;
-            margin-top: 0.4rem;
-            border-radius: 999px;
-            background: radial-gradient(circle at 6px 3px, var(--red), rgba(255, 70, 70, 0.15) 40%, rgba(255, 70, 70, 0) 70%);
-        }
-        .aiden-grid {
-            display: grid;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            grid-template-columns: 1fr;
-        }
-        @media (min-width: 768px) {
-            .aiden-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        .aiden-card {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            border-radius: 12px;
-            padding: 1.75rem;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            will-change: transform, box-shadow;
-            animation: cardFloat 8s ease-in-out infinite;
-        }
-        .aiden-card:nth-child(1) { animation-delay: 0.2s; }
-        .aiden-card:nth-child(2) { animation-delay: 0.5s; }
-        .aiden-card:nth-child(3) { animation-delay: 0.8s; }
-        .aiden-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.16);
-        }
-        .aiden-card h3 {
-            color: var(--red);
-            margin-bottom: 0.75rem;
-            font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-        }
-        .aiden-card p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: clamp(1rem, 1.8vw, 1.1rem);
-            margin-bottom: 0;
-        }
-
         /* Real Talk */
         .real-talk {
             background: var(--black);
@@ -1021,20 +966,6 @@
         }
 
         /* Accent dot (CSS-only) */
-        .accent-dot { position: relative; overflow: hidden; }
-        .accent-dot::before {
-            content: '';
-            position: absolute;
-            width: clamp(260px, 42vw, 560px);
-            height: clamp(260px, 42vw, 560px);
-            border-radius: 50%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 70, 70, 0.18), rgba(255, 70, 70, 0) 65%);
-            top: 6%;
-            right: 6%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
         /* Giant orb for one section (Choice) */
         .giant-orb { position: relative; overflow: hidden; }
         .giant-orb > * { position: relative; z-index: 1; }
@@ -1579,38 +1510,6 @@
                     <div class="roi-row"><span class="roi-label">Team size</span><span class="roi-value" id="roi-team">0</span></div>
                     <div class="roi-total"><span class="roi-label">Projected monthly value</span><span class="roi-value" id="roi-total">$0</span></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AIDEN Studio -->
-    <section class="aiden-studio accent-dot">
-        <div>
-            <h2 class="fade-in">AIDEN Studio: Your Strategic AI&nbsp;Partner</h2>
-            <p class="intro-text fade-in">Your team is AI-fluent. Now meet the strategist who never&nbsp;sleeps.</p>
-            <p class="fade-in">AIDEN Studio isn't a workshop. It's your ongoing strategic AI partner, built on Claude and available 24/7 for the complex stuff your team shouldn't be grinding on:</p>
-            
-            <div class="aiden-grid">
-                <div class="aiden-card fade-in">
-                    <h3>Strategic&nbsp;Planning</h3>
-                    <p>Market analysis, competitive positioning, go-to-market&nbsp;strategy</p>
-                </div>
-                <div class="aiden-card fade-in">
-                    <h3>Executive&nbsp;Thinking</h3>
-                    <p>Board decks, strategic frameworks, business model&nbsp;innovation</p>
-                </div>
-                <div class="aiden-card fade-in">
-                    <h3>Complex&nbsp;Problem-Solving</h3>
-                    <p>Multi-stakeholder challenges, scenario planning, decision&nbsp;frameworks</p>
-                </div>
-            </div>
-
-            <p class="fade-in" style="margin-top: 2rem; font-size: clamp(1.2rem, 2.5vw, 1.4rem); max-width: 900px;">Think of it as having a senior strategist on retainer, but one that processes market data at AI speed while maintaining genuine strategic judgment.</p>
-            
-            <p class="fade-in" style="margin-top: 1.5rem; opacity: 0.9;">Not for everyone. AIDEN Studio works with clients who've already completed an engagement and need a thinking partner for high-stakes strategic work.</p>
-            
-            <div style="margin-top: 2rem;">
-                <a href="https://www.aiden.services" target="_blank" rel="noopener noreferrer" class="cta-primary fade-in">Explore AIDEN Studio →</a>
             </div>
         </div>
     </section>
