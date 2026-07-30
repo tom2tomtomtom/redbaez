@@ -29,13 +29,37 @@ let browser;
 let failed = 0;
 let missingSelector = null;
 
+// A flat wait guesses how long layout takes to settle, and a Chromium launch
+// that starts while the previous run's process is still tearing down is
+// slower than usual, so a fixed guess is sometimes wrong. Waiting for fonts
+// to finish swapping, then polling geometry until two consecutive readings
+// match, measures the page only once it has actually stopped moving.
+async function waitForSettled(page) {
+  await page.evaluate(() => document.fonts.ready);
+  const read = () => page.evaluate(() => {
+    const cta = document.querySelector('.hero-cta');
+    return {
+      scrollWidth: document.documentElement.scrollWidth,
+      ctaBottom: cta ? cta.getBoundingClientRect().bottom : null,
+    };
+  });
+  let prev = await read();
+  const ceiling = Date.now() + 3000;
+  while (Date.now() < ceiling) {
+    await page.waitForTimeout(150);
+    const next = await read();
+    if (next.scrollWidth === prev.scrollWidth && next.ctaBottom === prev.ctaBottom) return;
+    prev = next;
+  }
+}
+
 try {
   browser = await chromium.launch({ executablePath: process.env.CHROME_BIN });
 
   for (const [w, h] of VIEWPORTS) {
     const page = await browser.newPage({ viewport: { width: w, height: h } });
     await page.goto(`http://localhost:${PORT}/index.html`, { waitUntil: 'load' });
-    await page.waitForTimeout(1400);
+    await waitForSettled(page);
     const r = await page.evaluate(() => {
       const h1 = document.querySelector('.hero h1');
       const cta = document.querySelector('.hero-cta');
