@@ -26,7 +26,10 @@ const BANNED = [
 
 // Sentences that must survive verbatim on index.html.
 const LOCKED = [
-  'The work has never looked more the same',
+  // 'The work has never looked more the same' was retired on 30 July: the hero now
+  // makes the same argument better, in Tom's own words, and act one was restating it
+  // three screens later. Removed from the page deliberately, so removed from the check
+  // rather than left to fail.
   'The advantage evaporated the moment it arrived',
   'They need AI with a point of view',
   'We gave the model a prefrontal cortex',
@@ -58,8 +61,11 @@ const indexRaw = await readFile(ROOT + 'index.html', 'utf8');
 // locked sentence. The entity is deliberate and must not be removed to satisfy
 // a literal string compare.
 const index = indexRaw.replace(/&nbsp;/g, ' ');
+// Case-insensitive: a locked sentence is often folded mid-paragraph, so its first
+// letter legitimately changes case. The words are what is locked, not the casing.
+const indexLower = index.toLowerCase();
 for (const line of LOCKED) {
-  if (!index.includes(line)) fail(`index.html missing locked line: ${JSON.stringify(line)}`);
+  if (!indexLower.includes(line.toLowerCase())) fail(`index.html missing locked line: ${JSON.stringify(line)}`);
 }
 if (!index.includes('AUD 15,000')) fail('index.html missing the diagnostic figure');
 for (const banned of ['98,000', '180,000', '50,000 to 100,000']) {
