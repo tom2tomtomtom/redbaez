@@ -6,6 +6,7 @@ import { extname, join, normalize } from 'node:path';
 const ROOT = new URL('..', import.meta.url).pathname;
 const PAGES = ['/index.html', '/aiden.html', '/audit.html', '/tools.html',
   '/programme.html',
+  '/the-brain.html', '/proof.html',
   '/case-studies/mother-london.html', '/case-studies/uncommon.html',
   '/case-studies/alt-shift.html', '/case-studies/monigle.html',
   '/case-studies/collinson.html'];

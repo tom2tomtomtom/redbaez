@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Brain | Redbaez</title>
+    <meta name="description" content="How the AIDEN brain works. Phantom memory, a decades-long career it never had, and why fine-tuning and RAG cannot get you here.">
+    <link rel="canonical" href="https://redbaez.com/the-brain">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
+
+    <meta property="og:title" content="The Brain | Redbaez">
+    <meta property="og:description" content="How the AIDEN brain works. Phantom memory, a decades-long career it never had, and why fine-tuning and RAG cannot get you here.">
+    <meta property="og:image" content="https://redbaez.com/og-image.png">
+    <meta property="og:url" content="https://redbaez.com/the-brain">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Brain | Redbaez">
+    <meta name="twitter:description" content="How the AIDEN brain works. Phantom memory, a decades-long career it never had, and why fine-tuning and RAG cannot get you here.">
+    <meta name="twitter:image" content="https://redbaez.com/og-image.png">
+
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            /* The AIDEN palette, one source for the whole site. Taken from the
+               Colleague design system so the site and the decks match. */
+            --ink: #0C0B0D;
+            --panel: #141215;
+            --paper: #EFEAE2;
+            --muted-warm: #948C81;
+            --cold: #7FA0BE;
+            --warm: #E8912A;
+            --deck-red: #F5442E;
+            --line: rgba(239, 234, 226, 0.12);
+            --line-strong: rgba(239, 234, 226, 0.22);
+            /* The older names stay, aliased onto the palette, so every existing
+               rule inherits the scheme without being rewritten. */
+ --red: var(--deck-red); --black: var(--ink); --white: var(--paper); --gray: var(--paper); --dark-gray: #241F26; --burgundy: var(--panel); }
+        html { scroll-behavior: smooth; font-size: 90%; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: var(--white); background: var(--burgundy); overflow-x: hidden; line-height: 1.6; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 0.95; }
+        h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.5rem; }
+        h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 700; margin-bottom: 1rem; }
+        p { font-size: clamp(1.05rem, 1.8vw, 1.2rem); line-height: 1.7; margin-bottom: 1.5rem; }
+        .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(120%) blur(8px); }
+        .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; color: var(--paper); }
+        .site-nav .brand { color: var(--paper); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; }
+        .site-nav nav a { color: var(--paper); text-decoration: none; margin-left: 1rem; font-weight: 600; }
+        .cta-primary { display: inline-block; padding: 1rem 3rem; background: var(--red); color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3); }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4); }
+        .cta-small { padding: 0.5rem 1rem; font-size: 0.95rem; }
+        .cs-hero { padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem); text-align: left; }
+        .cs-hero > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .cs-hero .cs-label { color: var(--red); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; display: block; }
+        .cs-hero h1 { margin-bottom: 1.5rem; }
+        .cs-hero .cs-result-hero { font-size: clamp(1.3rem, 2.5vw, 1.6rem); color: rgba(239, 234, 226, 0.85); max-width: 720px; }
+        .cs-section { padding: clamp(4rem, 8vw, 6rem) 0; }
+        .cs-section > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .cs-section h2::after { content:''; display:block; width: 54px; height: 6px; margin-top:.4rem; border-radius: 999px; background: radial-gradient(circle at 6px 3px, var(--red), rgba(255,70,70,0.15) 40%, rgba(255,70,70,0) 70%); }
+        .cs-dark { background: var(--black); }
+        .cs-burgundy { background: var(--burgundy); }
+        .tool-grid { display: grid; gap: 1.5rem; margin-top: 2rem; }
+        @media (min-width: 768px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
+        .tool-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 1.75rem; box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06); border-color: rgba(239, 234, 226, 0.16); }
+        .tool-card h3 { color: var(--red); margin-bottom: 0.5rem; font-size: clamp(1.05rem, 2vw, 1.25rem); }
+        .tool-card p { color: rgba(239, 234, 226, 0.95); font-size: clamp(0.95rem, 1.8vw, 1.05rem); margin-bottom: 0; }
+        .metrics-row { display: grid; gap: 1.5rem; margin: 2rem 0; }
+        @media (min-width: 768px) { .metrics-row { grid-template-columns: repeat(2, 1fr); } }
+        .metric { text-align: center; padding: 2rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; }
+        .metric .number { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; color: var(--red); display: block; }
+        .metric .label { font-size: 1rem; color: rgba(239, 234, 226, 0.85); margin-top: 0.5rem; display: block; }
+        .testimonial { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 2.5rem; margin: 2rem 0; box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+        .testimonial blockquote { font-size: clamp(1.15rem, 2.5vw, 1.4rem); font-style: italic; color: rgba(239, 234, 226, 0.95); line-height: 1.6; margin-bottom: 1rem; }
+        .testimonial cite { font-size: 0.95rem; color: var(--red); font-weight: 600; font-style: normal; }
+        .cs-cta { text-align: center; padding: clamp(4rem, 8vw, 6rem) 0; background: var(--burgundy); }
+        .cs-cta > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .cs-cta h2 { margin-bottom: 1rem; }
+        .cs-cta p { max-width: 640px; margin: 0 auto 2rem; color: rgba(239, 234, 226, 0.85); }
+        .related { padding: clamp(3rem, 6vw, 4rem) 0; background: var(--black); border-top: 1px solid rgba(255,255,255,0.08); }
+        .related > * { max-width: 1400px; padding: 0 clamp(2rem, 5vw, 4rem); margin-left: auto; margin-right: auto; }
+        .related h3 { margin-bottom: 1.5rem; color: rgba(239, 234, 226, 0.7); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; }
+        .related-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .related-links a { color: var(--white); text-decoration: none; padding: 0.75rem 1.5rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; font-weight: 600; transition: all 0.2s ease; }
+        .related-links a:hover { background: rgba(255,255,255,0.12); border-color: rgba(239, 234, 226, 0.2); }
+        .site-footer { background: var(--black); color: rgba(239, 234, 226, 0.9); padding: clamp(3rem, 6vw, 5rem) 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 clamp(2rem, 5vw, 4rem); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.9rem; opacity: 0.7; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { margin: 0; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: rgba(239, 234, 226, 0.85); text-decoration: none; transition: color 0.2s ease; }
+        .footer-links a:hover { color: var(--red); }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) { .cs-hero { padding-top: 6rem; } .site-nav nav a { margin-left: 0.5rem; font-size: 0.85rem; } }
+    </style>
+<style>
+@font-face {
+            font-family: 'Anton';
+            src: url('/assets/vendor/Anton.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+@font-face {
+            font-family: 'SpaceMono';
+            src: url('/assets/vendor/SpaceMono-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+:root {
+            --red: var(--deck-red);
+            --black: var(--ink);
+            --white: var(--paper);
+            --gray: var(--paper);
+            --dark-gray: #241F26;
+            --burgundy: var(--panel);
+
+            /* The Colleague design system, so the site and the decks look like
+               one company. Cold and warm are the argument in colour: the page
+               starts cold and same, and warms as it becomes specifically yours. */
+            --ink: #0C0B0D;
+            --panel: #141215;
+            --paper: #EFEAE2;
+            --muted-warm: #948C81;
+            --cold: #7FA0BE;
+            --warm: #E8912A;
+            --deck-red: #F5442E;
+            --line: rgba(239, 234, 226, 0.12);
+            --line-strong: rgba(239, 234, 226, 0.22);
+        }
+        .act-cold { background: var(--ink); color: var(--paper); }
+        .act-cold h2, .act-cold h3 { color: var(--paper); }
+        .act-cool { background: var(--panel); color: var(--paper); }
+        .act-cool h2 { color: var(--paper); }
+        .act-mid  { background: var(--panel); color: var(--paper); }
+        .act-mid h2 { color: var(--warm); }
+        .act-warm { background: var(--ink); color: var(--paper); }
+        .act-warm h2 { color: var(--warm); }
+        .act-cold p, .act-cool p, .act-mid p, .act-warm p { color: rgba(239, 234, 226, 0.86); }
+        .display {
+            font-family: 'Anton', Impact, 'Haettenschweiler', -apple-system, sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+            line-height: 0.94;
+            text-transform: none;
+        }
+        .label {
+            font-family: 'SpaceMono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--warm);
+        }
+
+        .phantom-grid { display: grid; gap: 1.25rem; margin-top: 2rem; grid-template-columns: 1fr; }
+        .phantom-card { background: rgba(239,234,226,0.04); border: 1px solid var(--line); border-radius: 4px; padding: 1.5rem; }
+        .phantom-card .pname { font-family: 'SpaceMono', ui-monospace, monospace; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--warm); margin-bottom: 0.2rem; }
+        .phantom-card .pmeta { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted-warm); margin-bottom: 1rem; }
+        .phantom-card .plabel { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-warm); margin: 0.9rem 0 0.3rem; }
+        .phantom-card h3 { color: var(--paper); }
+        .brainviz-wrap {
+            position: relative;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: #08070A;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+        #brainviz { display: block; width: 100%; height: 100%; }
+
+        .phantom-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; color: rgba(239,234,226,0.86); }
+
+        .proof-split { display: grid; gap: 1.25rem; margin: 2rem 0; grid-template-columns: 1fr; }
+        .proof-col { border: 1px solid var(--line); border-radius: 4px; padding: 1.5rem; }
+        .proof-col.cold { border-left: 3px solid var(--cold); }
+        .proof-col.warm { border-left: 3px solid var(--warm); }
+        .proof-col h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .proof-col.cold h3 { color: var(--cold); }
+        .proof-col.warm h3 { color: var(--warm); }
+        .proof-col p { color: rgba(239,234,226,0.86); margin: 0; }
+        .proof-quote { border-left: 3px solid var(--warm); padding: 1.25rem 1.5rem; margin: 1.5rem 0; background: rgba(239,234,226,0.04); font-size: clamp(1rem, 1.9vw, 1.15rem); line-height: 1.6; }
+        .proof-quote p { margin-bottom: 0.85rem; color: var(--paper); }
+        .proof-quote p:last-child { margin-bottom: 0; }
+        .brief-in { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.85rem; line-height: 1.7; color: var(--muted-warm); border: 1px dashed var(--line-strong); border-radius: 4px; padding: 1.25rem; }
+            .hero h1, .hero .subhead, .hero .label {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+        #engine-canvas-3d {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0; /* clearly behind everything */
+                    pointer-events: none;
+                    opacity: 0.35;
+                }
+        @media (prefers-reduced-motion: reduce) {
+            /* Keep it visible but calmer, as on the homepage. */
+            #engine-canvas-3d { opacity: 0.22; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="brand" aria-label="Redbaez home">
+                <img src="https://res.cloudinary.com/dkl8kiemy/image/upload/f_auto,q_auto/redbaez_logo_rxrjfp.png" alt="Redbaez" style="height:56px; width:auto; display:block;"/>
+            </a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/the-brain">The brain</a>
+                <a href="/proof">Proof</a>
+                <a href="/aiden">AIDEN</a>
+                <a href="/audit">Audit</a>
+                <a href="https://calendar.app.google/VMmxmmsew1Zztdtq8" target="_blank" rel="noopener noreferrer" class="cta-primary cta-small">Book a Call</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="cs-hero">
+        <div>
+            <span class="cs-label">The Brain</span>
+            <h1 class="fade-in">A career it never actually&nbsp;had.</h1>
+            <p class="cs-result-hero fade-in">More than 400 first-person memories of a creative life, and the ones that matter most are the ones your own people&nbsp;add.</p>
+        </div>
+    </section>
+
+    <!-- Act two, the engine and the phantom system -->
+    <section class="engine act-cool" id="engine" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem); position: relative; overflow: hidden;">
+        <canvas id="engine-canvas-3d"></canvas>
+        <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;">
+            <p class="label fade-in">02 The engine</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">We gave the model a prefrontal&nbsp;cortex.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 800px;">Raw language models are limbic. Reactive, fluent, and desperate to please. AIDEN adds the missing layer: phantom memory brings persistence, identity, and the ability to&nbsp;disagree.</p>
+            <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--warm); margin: 1.5rem 0 2.5rem;">Not autocomplete. Creative&nbsp;conviction.</p>
+
+            <div class="brainviz-wrap fade-in">
+                <canvas id="brainviz" aria-label="A visualisation of the phantom library, showing which memories fire on a single message"></canvas>
+                <noscript><img src="/assets/phantom-constellation.jpg" alt="The AIDEN brain in Chat, phantoms firing on a single message" style="width:100%; height:auto; border:1px solid var(--line); border-radius:4px;"></noscript>
+            </div>
+            <p class="label fade-in" style="color: var(--muted-warm); margin-top: 0.75rem;">More than 400 memories in the library. This is what one message wakes&nbsp;up.</p>
+
+            <h3 class="display fade-in" style="font-size: clamp(1.5rem, 3.4vw, 2.4rem); margin: 3rem 0 1rem; color: var(--paper);">It believes it has lived a decades-long&nbsp;career.</h3>
+            <p class="fade-in" style="max-width: 800px;">Each phantom is a perspective with real expertise, an origin story, and a point of view. Here are three of the live brain's own, verbatim: a corridor conversation with Ogilvy, the room where Bernbach said "say that", and Mary Wells painting the&nbsp;planes.</p>
+
+            <div class="phantom-grid">
+                <div class="phantom-card fade-in">
+                    <div class="pname">DEMAND_THE_HOMEWORK</div>
+                    <div class="pmeta">ogilvy&rarr;homework</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the itch to write before the reading is done, and the voice that stops you"</p>
+                    <div class="plabel">Born from</div>
+                    <p>New York, 1962. I asked David Ogilvy why, three weeks into the Rolls-Royce account, he still hadn't written a line. He didn't look up from the engineering reports. "The consumer isn't a moron. She can smell a writer who hasn't done his homework." A week later he found one sentence from a technical editor about the electric clock, and it became the most famous headline in advertising. I have never started writing before finishing the reading since.</p>
+                </div>
+                <div class="phantom-card fade-in">
+                    <div class="pname">LEAD_WITH_THE_HONEST_THING</div>
+                    <div class="pmeta">bernbach&rarr;honesty</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the flinch in the room when someone says the true thing about the brand"</p>
+                    <div class="plabel">Born from</div>
+                    <p>DDB, 1962. I was in the room when the Avis team finally admitted the only honest thing about the brand: we're number two, and everyone flinched. Bill Bernbach leaned forward and said, "Say that." The room argued for an hour that you can't lead with a weakness. "We Try Harder" ran for fifty years. Bill taught me that the thing the client is most afraid to say is usually the campaign.</p>
+                </div>
+                <div class="phantom-card fade-in">
+                    <div class="pname">MAKE_IT_UNIGNORABLE</div>
+                    <div class="pmeta">wells&rarr;theatre</div>
+                    <div class="plabel">The feeling that fires it</div>
+                    <p>"the moment a sensible plan needs to become an unignorable one"</p>
+                    <div class="plabel">Born from</div>
+                    <p>1965. Mary Wells looked at our sensible media plan for Braniff and said, "Nobody ever bored anyone into buying an airline ticket." Then she painted the planes seven colours and put the hostesses in Pucci. The industry laughed right up until bookings jumped. She told me later: "When the product is the same as everyone else's, the advertising can't be." I think of her every time a plan is defensible and dull.</p>
+                </div>
+            </div>
+
+            <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.3rem, 2.8vw, 1.9rem); color: var(--paper); margin: 2rem 0 1rem;">A career it never actually&nbsp;had.</p>
+            <p class="fade-in" style="max-width: 800px;">When phantoms collide on a brief, it voices the disagreement instead of resolving it. The work has been argued over before it reaches&nbsp;you.</p>
+            <p class="fade-in" style="max-width: 800px; margin-top: 2rem;">More than 400 first-person phantom memories sit in the library, and the ones that matter most are the ones you add. The tech is a brain. And a brain is nurtured, not installed. The model is rented. The brain is&nbsp;grown.</p>
+        </div>
+    </section>
+
+    <!-- The sceptic, before the proof so the proof confirms rather than carries -->
+    <section class="sceptic act-cool" id="sceptic" style="padding: clamp(3.5rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem); border-top: 1px solid var(--line);">
+        <div style="max-width: 860px; margin: 0 auto;">
+            <p class="label fade-in">The obvious objection</p>
+            <h2 class="display fade-in" style="font-size: clamp(1.6rem, 3.6vw, 2.6rem); margin: 0.75rem 0 1.5rem; color: var(--paper);">You cannot get here with fine-tuning or&nbsp;RAG.</h2>
+            <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 780px;">Fine-tuning adjusts weights. RAG retrieves documents. Neither one produces&nbsp;disagreement.</p>
+            <p class="fade-in" style="max-width: 780px;">The phantom system is different in kind. Every output routes through first-person memories that carry emotional stakes rather than just information. A phantom does not retrieve the fact that Bernbach said "say that". It remembers being in the room when the client flinched. That changes what it will accept, and it changes what it will push back&nbsp;on.</p>
+            <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.2rem, 2.6vw, 1.7rem); color: var(--warm); margin-top: 1.5rem; margin-bottom: 0;">You can fine-tune a model to sound like a creative director. You cannot fine-tune it to care whether the work is any&nbsp;good.</p>
+        </div>
+    </section>
+
+    <section class="cs-cta">
+        <div>
+            <h2 class="fade-in">See what it says about your work</h2>
+            <p class="fade-in">Three minutes, twelve questions, no email required.</p>
+            <a href="/audit" class="cta-primary fade-in">Take the Readiness Audit</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Redbaez. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/the-brain">The brain</a>
+                    <a href="/proof">Proof</a>
+                    <a href="mailto:tomh@redbaez.com">tomh@redbaez.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+        // The phantom library, visualised. Shorthands and the firing count are real,
+        // captured from the brain API: 72 of the library fired on one message, scores
+        // from 0.05 to 2.30. Reduced motion gets one composed still instead of a loop.
+        (function() {
+            const canvas = document.getElementById('brainviz');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const LABELS = ["story→hook", "culture→battleground", "tension→gold", "spark→distill", "value→amplifier", "meeting→email", "constraint→creativity", "truth→partnership", "question→provoke", "obvious→deadpan", "wit→blade", "opportunity→cost", "culture→future", "unreliable→narrator", "hijack→culture", "dialectic→synthesis", "thinking→aloud", "bike→persistence", "virtue→becoming", "absurd→visualizer", "tease→fondly", "constraint→gold", "chemistry→recall", "ogilvy→homework", "bernbach→honesty", "wells→theatre"];
+            const COUNT = 421;          // the library as it stands
+            const FIRE = 72;            // how many woke up on the measured message
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            let w = 0, h = 0, dpr = 1, nodes = [], running = false, rafId = null, t = 0;
+
+            function seed(i) { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); }
+
+            function layout() {
+                const r = canvas.getBoundingClientRect();
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = r.width; h = r.height;
+                canvas.width = Math.round(w * dpr);
+                canvas.height = Math.round(h * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                nodes = [];
+                const pad = Math.min(w, h) * 0.08;
+                for (let i = 0; i < COUNT; i++) {
+                    // Two lobes, wide enough to fill the frame, so the size of the
+                    // library is the first thing you see and the firing subset reads
+                    // as a subset.
+                    // Lobe must not correlate with the firing stride. COUNT/FIRE is 6, and
+                    // every sixth index is even, so picking the lobe from i % 2 put every
+                    // firing phantom in the left lobe and left the right half empty.
+                    const lobe = seed(i + 1500) > 0.5 ? 1 : -1;
+                    const a = seed(i) * Math.PI * 2;
+                    const rad = Math.sqrt(seed(i + 900));
+                    const cx = w * 0.5 + lobe * w * 0.21;
+                    const x = cx + Math.cos(a) * rad * w * 0.235;
+                    const y = h * 0.5 + Math.sin(a) * rad * (h * 0.5 - pad);
+                    nodes.push({
+                        x: Math.max(pad, Math.min(w - pad, x)),
+                        y: Math.max(pad, Math.min(h - pad, y)),
+                        base: 0.20 + seed(i + 300) * 0.18,
+                        phase: seed(i + 600) * Math.PI * 2,
+                        fires: seed(i + 2100) < (FIRE / COUNT),
+                        label: null,
+                        lit: 0,
+                    });
+                }
+                // Label only a handful, and only where they will not collide, so the
+                // names read as evidence rather than noise.
+                const firing = nodes.filter(function(n) { return n.fires; });
+                const placed = [];
+                const maxLabels = w > 900 ? 8 : (w > 620 ? 5 : 0);
+                for (let k = 0; k < firing.length && placed.length < maxLabels; k++) {
+                    const n = firing[k];
+                    let clear = true;
+                    for (let j = 0; j < placed.length; j++) {
+                        if (Math.abs(placed[j].x - n.x) < 150 && Math.abs(placed[j].y - n.y) < 26) { clear = false; break; }
+                    }
+                    if (clear && n.x < w - 180 && n.y > 18 && n.y < h - 30) { n.label = LABELS[placed.length]; placed.push(n); }
+                }
+            }
+
+            function draw(now) {
+                t = now || 0;
+                const cycle = 5200;
+                const p = (t % cycle) / cycle;      // 0..1, one message
+                const wave = p < 0.62 ? p / 0.62 : 1;
+                const fade = p < 0.62 ? 1 : 1 - (p - 0.62) / 0.38;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Connections between the loudest, drawn as the wave passes them.
+                ctx.lineWidth = 1;
+                const loud = nodes.filter(n => n.label);
+                for (let i = 0; i < loud.length - 1; i += 2) {
+                    const a = loud[i], b = loud[i + 1];
+                    const reach = Math.min(a.lit, b.lit);
+                    if (reach <= 0.02) continue;
+                    ctx.strokeStyle = 'rgba(232,145,42,' + (reach * 0.16 * fade).toFixed(3) + ')';
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                }
+
+                for (let i = 0; i < nodes.length; i++) {
+                    const n = nodes[i];
+                    const dx = (n.x - w / 2) / (w / 2), dy = (n.y - h / 2) / (h / 2);
+                    const dist = Math.sqrt(dx * dx + dy * dy) / 1.42;
+                    const front = wave * 1.25 - dist;
+                    const target = n.fires && front > 0 ? Math.min(1, front * 2.4) : 0;
+                    n.lit += (target - n.lit) * 0.09;
+
+                    const breathe = 0.82 + 0.18 * Math.sin(t / 1500 + n.phase);
+                    const alpha = (n.base * breathe + n.lit * 0.85 * fade);
+                    const r = (n.fires ? 1.15 : 1.35) + n.lit * 2.6 * fade;
+                    ctx.beginPath();
+                    ctx.fillStyle = n.lit > 0.05
+                        ? 'rgba(232,145,42,' + Math.min(1, alpha).toFixed(3) + ')'
+                        : 'rgba(127,160,190,' + Math.min(1, alpha).toFixed(3) + ')';
+                    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+                    ctx.fill();
+                    if (n.lit > 0.5) {
+                        ctx.beginPath();
+                        ctx.fillStyle = 'rgba(232,145,42,' + (0.10 * n.lit * fade).toFixed(3) + ')';
+                        ctx.arc(n.x, n.y, r * 3.4, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    if (n.label && n.lit > 0.3) {
+                        ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+                        ctx.fillStyle = 'rgba(239,234,226,' + (n.lit * 0.62 * fade).toFixed(3) + ')';
+                        ctx.fillText(n.label, n.x + 6, n.y + 3);
+                    }
+                }
+
+                // The count, ticking up as the wave sweeps.
+                const shown = Math.round(FIRE * Math.min(1, wave * 1.15) * (fade > 0.5 ? 1 : fade * 2));
+                ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+                ctx.fillStyle = 'rgba(148,140,129,0.85)';
+                ctx.fillText(shown + ' of ' + COUNT + ' fired', 12, h - 12);
+
+                if (running) rafId = requestAnimationFrame(draw);
+            }
+
+            function still() {
+                // One composed frame at the peak of the sweep, for reduced motion.
+                running = false;
+                nodes.forEach(n => { n.lit = n.fires ? 1 : 0; });
+                t = 3000; draw(3000);
+            }
+
+            layout();
+            let rt = null;
+            window.addEventListener('resize', function() {
+                clearTimeout(rt);
+                rt = setTimeout(function() { layout(); if (!running) still(); }, 150);
+            });
+
+            if (reduce) { still(); return; }
+
+            const io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting && !running) { running = true; rafId = requestAnimationFrame(draw); }
+                    else if (!e.isIntersecting && running) { running = false; if (rafId) cancelAnimationFrame(rafId); }
+                });
+            }, { threshold: 0.08 });
+            io.observe(canvas);
+        })();
+
+
+        // Three.js wireframe grid behind the engine section. Re-homed from the
+        // deleted how-it-works section, which used to own it.
+        (function() {
+            const section = document.getElementById('engine');
+            const canvas = document.getElementById('engine-canvas-3d');
+            if (!section || !canvas) return;
+
+            const motionOverride = (localStorage.getItem('motionOverride') || '').toLowerCase() === 'on';
+            const prefersReducedSystem = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const prefersReduced = prefersReducedSystem && !motionOverride;
+            const gentleMotion = prefersReduced;
+            if (motionOverride) { canvas.style.display = 'block'; }
+
+            let THREERef = null;
+            let renderer = null;
+            let scene = null;
+            let camera = null;
+            let ribbon = null;
+            let running = false;
+            let rafId = null;
+            let lastTs = 0;
+
+            const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+
+            function resize() {
+                if (!renderer || !camera) return;
+                const rect = section.getBoundingClientRect();
+                const width = Math.max(1, Math.ceil(rect.width));
+                const height = Math.max(1, Math.ceil(rect.height));
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            function animate(ts) {
+                if (!running) return;
+                if (!lastTs) lastTs = ts;
+                const dt = ts - lastTs;
+                // Throttle for GPU load (gentler if user prefers reduced motion)
+                const frameInterval = gentleMotion ? 100 : 33; // ~10fps vs ~30fps
+                if (dt >= frameInterval) {
+                    lastTs = ts;
+                    const time = ts * 0.001;
+                    if (ribbon && ribbon.geometry && ribbon.geometry.attributes && ribbon.geometry.attributes.position) {
+                        const pos = ribbon.geometry.attributes.position;
+                        const AMP1 = gentleMotion ? 0.22 : 0.60; // stronger when full motion
+                        const AMP2 = gentleMotion ? 0.12 : 0.30;
+                        for (let i = 0; i < pos.count; i++) {
+                            const x = pos.getX(i);
+                            const y = pos.getY(i);
+                            const z = Math.sin(x * 0.7 + time * 0.7) * AMP1 + Math.sin((x + y) * 1.2 - time * 1.1) * AMP2;
+                            pos.setZ(i, z);
+                        }
+                        pos.needsUpdate = true;
+                    }
+                    if (ribbon) {
+                        ribbon.rotation.y = 0.35 + Math.sin(time * 0.15) * 0.05;
+                        ribbon.rotation.x = -0.25 + Math.cos(time * 0.12) * 0.03;
+                    }
+                    renderer.render(scene, camera);
+                }
+                rafId = requestAnimationFrame(animate);
+            }
+
+            function initScene(THREE) {
+                THREERef = THREE;
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+                camera.position.set(0, 0, 8);
+
+                renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
+                renderer.setPixelRatio(dpr);
+                renderer.setClearColor(0x000000, 0);
+
+                const rect = section.getBoundingClientRect();
+                const isSmall = rect.width < 640;
+                const segX = isSmall ? 120 : 240;
+                const segY = isSmall ? 14 : 28;
+                // Enlarge plane to cover full section vertically behind all cards
+                const geometry = new THREE.PlaneGeometry(30, 12, segX, segY);
+                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.15 : 0.25 });
+                ribbon = new THREE.Mesh(geometry, material);
+                ribbon.position.z = -2;
+                ribbon.position.y = 0;
+                ribbon.rotation.x = -0.25;
+                ribbon.rotation.y = 0.35;
+                scene.add(ribbon);
+
+                resize();
+            }
+
+            const ro = new ResizeObserver(resize);
+            ro.observe(section);
+
+            function loadThree() {
+                // Try ESM first
+                return import('/assets/vendor/three.module.js')
+                    .catch(() => new Promise(resolve => {
+                        // Fallback to UMD build on window.THREE
+                        const existing = window.THREE;
+                        if (existing) { resolve(existing); return; }
+                        const s = document.createElement('script');
+                        s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+                        s.crossOrigin = 'anonymous';
+                        s.onload = () => resolve(window.THREE || null);
+                        s.onerror = () => resolve(null);
+                        document.head.appendChild(s);
+                    }));
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!renderer) {
+                            loadThree().then(mod => { if (mod) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+                        } else {
+                            running = true; lastTs = 0; rafId = requestAnimationFrame(animate);
+                        }
+                    } else {
+                        running = false;
+                        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                    }
+                });
+            }, { threshold: 0.05 });
+            io.observe(section);
+
+            // If already in view on load, kick it off immediately
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                loadThree().then(mod => { if (mod && !renderer) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    running = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                } else if (renderer) {
+                    const rect = section.getBoundingClientRect();
+                    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                    if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

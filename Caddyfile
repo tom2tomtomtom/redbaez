@@ -13,6 +13,8 @@
 	rewrite /aiden /aiden.html
 	rewrite /tools /tools.html
 	rewrite /programme /programme.html
+	rewrite /the-brain /the-brain.html
+	rewrite /proof /proof.html
 	rewrite /case-studies/mother-london /case-studies/mother-london.html
 	rewrite /case-studies/uncommon /case-studies/uncommon.html
 	rewrite /case-studies/alt-shift /case-studies/alt-shift.html

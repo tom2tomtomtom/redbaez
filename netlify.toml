@@ -24,6 +24,16 @@
   status = 200
 
 [[redirects]]
+  from = "/the-brain"
+  to = "/the-brain.html"
+  status = 200
+
+[[redirects]]
+  from = "/proof"
+  to = "/proof.html"
+  status = 200
+
+[[redirects]]
   from = "/case-studies/mother-london"
   to = "/case-studies/mother-london.html"
   status = 200
