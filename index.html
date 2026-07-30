@@ -744,7 +744,7 @@
         .how-it-works > * { position: relative; z-index: 2; }
         .how-it-works h2, .how-it-works .hiw-lede { color: #fff; }
         /* Three.js ribbon canvas (behind content) */
-        #how-canvas-3d {
+        #engine-canvas-3d {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -755,7 +755,7 @@
         }
         @media (prefers-reduced-motion: reduce) {
             /* Keep visible but tone it down; animation will be gentler via JS */
-            #how-canvas-3d { opacity: 0.22; }
+            #engine-canvas-3d { opacity: 0.22; }
         }
         /* How It Works background container */
         .hiw-bg { position: relative; overflow: hidden; }
@@ -1463,8 +1463,9 @@
 
     <!-- What We Do -->
     <!-- Act two, the engine and the phantom system -->
-    <section class="engine act-cool" id="engine" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);">
-        <div style="max-width: 1100px; margin: 0 auto;">
+    <section class="engine act-cool" id="engine" style="padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem); position: relative; overflow: hidden;">
+        <canvas id="engine-canvas-3d"></canvas>
+        <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;">
             <p class="label fade-in">02 The engine</p>
             <h2 class="display fade-in" style="font-size: clamp(1.9rem, 4.6vw, 3.4rem); margin: 0.75rem 0 1.5rem;">We gave the model a prefrontal&nbsp;cortex.</h2>
             <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 800px;">Raw language models are limbic. Reactive, fluent, and desperate to please. AIDEN adds the missing layer: phantom memory brings persistence, identity, and the ability to&nbsp;disagree.</p>
@@ -3047,6 +3048,149 @@
                         running = true;
                         rafId = requestAnimationFrame(animate);
                     }
+                }
+            });
+        })();
+
+        // Three.js wireframe grid behind the engine section. Re-homed from the
+        // deleted how-it-works section, which used to own it.
+        (function() {
+            const section = document.getElementById('engine');
+            const canvas = document.getElementById('engine-canvas-3d');
+            if (!section || !canvas) return;
+
+            const motionOverride = (localStorage.getItem('motionOverride') || '').toLowerCase() === 'on';
+            const prefersReducedSystem = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const prefersReduced = prefersReducedSystem && !motionOverride;
+            const gentleMotion = prefersReduced;
+            if (motionOverride) { canvas.style.display = 'block'; }
+
+            let THREERef = null;
+            let renderer = null;
+            let scene = null;
+            let camera = null;
+            let ribbon = null;
+            let running = false;
+            let rafId = null;
+            let lastTs = 0;
+
+            const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+
+            function resize() {
+                if (!renderer || !camera) return;
+                const rect = section.getBoundingClientRect();
+                const width = Math.max(1, Math.ceil(rect.width));
+                const height = Math.max(1, Math.ceil(rect.height));
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            function animate(ts) {
+                if (!running) return;
+                if (!lastTs) lastTs = ts;
+                const dt = ts - lastTs;
+                // Throttle for GPU load (gentler if user prefers reduced motion)
+                const frameInterval = gentleMotion ? 100 : 33; // ~10fps vs ~30fps
+                if (dt >= frameInterval) {
+                    lastTs = ts;
+                    const time = ts * 0.001;
+                    if (ribbon && ribbon.geometry && ribbon.geometry.attributes && ribbon.geometry.attributes.position) {
+                        const pos = ribbon.geometry.attributes.position;
+                        const AMP1 = gentleMotion ? 0.22 : 0.60; // stronger when full motion
+                        const AMP2 = gentleMotion ? 0.12 : 0.30;
+                        for (let i = 0; i < pos.count; i++) {
+                            const x = pos.getX(i);
+                            const y = pos.getY(i);
+                            const z = Math.sin(x * 0.7 + time * 0.7) * AMP1 + Math.sin((x + y) * 1.2 - time * 1.1) * AMP2;
+                            pos.setZ(i, z);
+                        }
+                        pos.needsUpdate = true;
+                    }
+                    if (ribbon) {
+                        ribbon.rotation.y = 0.35 + Math.sin(time * 0.15) * 0.05;
+                        ribbon.rotation.x = -0.25 + Math.cos(time * 0.12) * 0.03;
+                    }
+                    renderer.render(scene, camera);
+                }
+                rafId = requestAnimationFrame(animate);
+            }
+
+            function initScene(THREE) {
+                THREERef = THREE;
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+                camera.position.set(0, 0, 8);
+
+                renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
+                renderer.setPixelRatio(dpr);
+                renderer.setClearColor(0x000000, 0);
+
+                const rect = section.getBoundingClientRect();
+                const isSmall = rect.width < 640;
+                const segX = isSmall ? 120 : 240;
+                const segY = isSmall ? 14 : 28;
+                // Enlarge plane to cover full section vertically behind all cards
+                const geometry = new THREE.PlaneGeometry(30, 12, segX, segY);
+                const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true, transparent: true, opacity: gentleMotion ? 0.15 : 0.25 });
+                ribbon = new THREE.Mesh(geometry, material);
+                ribbon.position.z = -2;
+                ribbon.position.y = 0;
+                ribbon.rotation.x = -0.25;
+                ribbon.rotation.y = 0.35;
+                scene.add(ribbon);
+
+                resize();
+            }
+
+            const ro = new ResizeObserver(resize);
+            ro.observe(section);
+
+            function loadThree() {
+                // Try ESM first
+                return import('/assets/vendor/three.module.js')
+                    .catch(() => new Promise(resolve => {
+                        // Fallback to UMD build on window.THREE
+                        const existing = window.THREE;
+                        if (existing) { resolve(existing); return; }
+                        const s = document.createElement('script');
+                        s.src = 'https://unpkg.com/three@0.160.0/build/three.min.js';
+                        s.crossOrigin = 'anonymous';
+                        s.onload = () => resolve(window.THREE || null);
+                        s.onerror = () => resolve(null);
+                        document.head.appendChild(s);
+                    }));
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!renderer) {
+                            loadThree().then(mod => { if (mod) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+                        } else {
+                            running = true; lastTs = 0; rafId = requestAnimationFrame(animate);
+                        }
+                    } else {
+                        running = false;
+                        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                    }
+                });
+            }, { threshold: 0.05 });
+            io.observe(section);
+
+            // If already in view on load, kick it off immediately
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                loadThree().then(mod => { if (mod && !renderer) { initScene(mod); running = true; lastTs = 0; rafId = requestAnimationFrame(animate); } });
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    running = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                } else if (renderer) {
+                    const rect = section.getBoundingClientRect();
+                    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                    if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
                 }
             });
         })();
