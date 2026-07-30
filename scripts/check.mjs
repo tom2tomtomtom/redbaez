@@ -1,0 +1,100 @@
+import { chromium } from 'playwright';
+import { createServer } from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import { extname, join, normalize } from 'node:path';
+
+const ROOT = new URL('..', import.meta.url).pathname;
+const PORT = 8911;
+const PAGES = ['/index.html', '/aiden.html', '/audit.html', '/tools.html',
+  '/programme.html',
+  '/case-studies/mother-london.html', '/case-studies/uncommon.html',
+  '/case-studies/alt-shift.html', '/case-studies/monigle.html',
+  '/case-studies/collinson.html'];
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
+  '.mjs': 'text/javascript', '.png': 'image/png', '.jpg': 'image/jpeg',
+  '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.webp': 'image/webp' };
+
+function serve() {
+  const server = createServer(async (req, res) => {
+    const path = normalize(decodeURIComponent(req.url.split('?')[0]));
+    const file = join(ROOT, path === '/' ? 'index.html' : path);
+    try {
+      await stat(file);
+      res.writeHead(200, { 'content-type': TYPES[extname(file)] || 'application/octet-stream' });
+      res.end(await readFile(file));
+    } catch {
+      res.writeHead(404); res.end('not found');
+    }
+  });
+  return new Promise(r => server.listen(PORT, () => r(server)));
+}
+
+const server = await serve();
+const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN });
+let failed = 0;
+
+for (const path of PAGES) {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const errs = [], bad = [], hosts = new Set();
+  page.on('pageerror', e => errs.push(e.message));
+  page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+  page.on('response', r => {
+    if (r.status() >= 400) bad.push(r.status() + ' ' + r.url().slice(0, 60));
+    try { const h = new URL(r.url()).hostname; if (h !== 'localhost') hosts.add(h); } catch {}
+  });
+
+  const res = await page.goto(`http://localhost:${PORT}${path}`, { waitUntil: 'load' });
+  if (!res || res.status() >= 400) {
+    console.log('FAIL ' + path.padEnd(36) + ' page did not load (' + (res && res.status()) + ')');
+    failed++; await page.close(); continue;
+  }
+
+  const height = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < height; y += 400) {
+    await page.evaluate(v => scrollTo(0, v), y);
+    await page.waitForTimeout(60);
+  }
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(3000);
+
+  const r = await page.evaluate(() => {
+    const effective = el => {
+      let o = 1, n = el;
+      while (n && n.nodeType === 1) { o *= parseFloat(getComputedStyle(n).opacity); n = n.parentElement; }
+      return o;
+    };
+    return {
+      brokenImages: [...document.images]
+        .filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src.slice(-40)),
+      curlyAttributes: [...new Set([...document.querySelectorAll('*')]
+        .flatMap(e => [...e.classList]).filter(c => /[“”]/.test(c)))],
+      invisible: [...document.querySelectorAll('.fade-in')].filter(e => effective(e) < 0.05).length,
+      deadAnchors: [...document.querySelectorAll('a[href^="#"]')]
+        .map(a => a.getAttribute('href'))
+        .filter(h => h !== '#' && !document.getElementById(h.slice(1))),
+      dashes: /[–—]/.test(document.body.innerText),
+      words: document.body.innerText.trim().split(/\s+/).filter(Boolean).length,
+      height: document.documentElement.scrollHeight,
+    };
+  });
+
+  const problems = [];
+  if (errs.length) problems.push('js:' + errs.slice(0, 2).join(' '));
+  if (bad.length) problems.push('http:' + bad.join(','));
+  if (r.brokenImages.length) problems.push('img:' + r.brokenImages.join(','));
+  if (r.curlyAttributes.length) problems.push('curly-attr:' + r.curlyAttributes.length);
+  if (r.invisible) problems.push('invisible:' + r.invisible);
+  if (r.deadAnchors.length) problems.push('anchor:' + r.deadAnchors.join(','));
+  if (r.dashes) problems.push('dash');
+  for (const h of hosts) if (h !== 'res.cloudinary.com') problems.push('external-host:' + h);
+
+  if (problems.length) failed++;
+  console.log((problems.length ? 'FAIL ' : 'ok   ') + path.padEnd(36) +
+    String(r.words).padStart(6) + 'w ' + String(r.height).padStart(6) + 'px  ' + problems.join(' | '));
+  await page.close();
+}
+
+await browser.close();
+server.close();
+console.log(failed ? `\n${failed} page(s) with problems` : '\nall pages clean');
+process.exit(failed ? 1 : 0);

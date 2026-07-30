@@ -1,0 +1,14 @@
+{
+  "name": "redbaez-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "fit": "node scripts/fit.mjs",
+    "content": "node scripts/content.mjs",
+    "gate": "npm run content && npm run check && npm run fit"
+  },
+  "devDependencies": {
+    "playwright": "1.55.0"
+  }
+}
