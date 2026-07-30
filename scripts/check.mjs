@@ -84,13 +84,35 @@ for (const path of PAGES) {
   // The first opacity reading races the IntersectionObserver: scrolling past
   // an element faster than a frame can be reported leaves it looking stuck
   // when the callback simply never fired yet. Give each candidate a second
-  // chance by scrolling it into view on its own and re-measuring after the
-  // 0.8s transition has had time to run.
-  let invisible = 0;
+  // chance: force a real scroll to it on its own (an unconditional scroll,
+  // since the element is by definition already in view, which is exactly
+  // why the observer missed it the first time), then check whether the
+  // observer actually toggles the visible class this time before reading
+  // opacity. That separates two different failure modes: the observer
+  // never firing even after a forced scroll, versus the class being applied
+  // but the element still not becoming visible once the 0.8s transition
+  // (index.html:836-841) has had time to run.
+  let invisible = 0, neverFired = 0;
   for (const idx of r.invisibleIndices) {
     await page.evaluate(i => {
       document.querySelectorAll('.fade-in')[i].scrollIntoView({ block: 'center' });
     }, idx);
+    let fired = true;
+    try {
+      // The page sets scroll-behavior: smooth globally (index.html:146), so
+      // the forced scroll above is an animation, not an instant jump, and
+      // the observer cannot fire until it settles. Measured directly: one
+      // element took 885ms to gain the class after a forced scroll, so the
+      // budget has to clear that with margin rather than assume near-instant
+      // delivery.
+      await page.waitForFunction(
+        i => document.querySelectorAll('.fade-in')[i].classList.contains('visible'),
+        idx, { timeout: 2000 }
+      );
+    } catch {
+      fired = false;
+    }
+    if (!fired) { neverFired++; continue; }
     await page.waitForTimeout(900);
     const stillBad = await page.evaluate(i => {
       const effective = el => {
@@ -109,6 +131,7 @@ for (const path of PAGES) {
   if (r.brokenImages.length) problems.push('img:' + r.brokenImages.join(','));
   if (r.curlyAttributes.length) problems.push('curly-attr:' + r.curlyAttributes.length);
   if (invisible) problems.push('invisible:' + invisible);
+  if (neverFired) problems.push('observer-never-fired:' + neverFired);
   if (r.deadAnchors.length) problems.push('anchor:' + r.deadAnchors.join(','));
   if (r.dashes) problems.push('dash');
   for (const h of hosts) if (h !== 'res.cloudinary.com') problems.push('external-host:' + h);
