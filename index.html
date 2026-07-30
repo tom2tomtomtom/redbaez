@@ -281,7 +281,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease forwards;
-            font-size: clamp(1.6rem, 5.4vw, 4rem); /* sized for the full headline; CTA stays above the fold from 320px up */
+            font-size: clamp(2.1rem, 7.4vw, 5.5rem); /* Anton is condensed, so the full line runs large. Verified at 15 viewports by npm run fit. */
             text-wrap: balance;
             overflow-wrap: break-word;
             hyphens: none;
@@ -1360,8 +1360,9 @@
     <section class="hero" id="top">
         <canvas id="canvas"></canvas>
         <div class="hero-content">
-            <h1>Your team already uses&nbsp;AI. The question is whether it's making the work better or&nbsp;just&nbsp;faster.</h1>
-            <p class="subhead">AI partnership for creative companies, from agencies to brands. Custom tools, workflows, and&nbsp;the&nbsp;AIDEN&nbsp;platform.</p>
+            <p class="label" style="margin-bottom: 1rem;">The creative intelligence company</p>
+            <h1 class="display">We build a brain that believes it has worked at your company for&nbsp;decades.</h1>
+            <p class="subhead">So it makes the call your leadership would make, not the call a language model would guess at. The model is rented. The brain is&nbsp;grown.</p>
             <div class="hero-cta" style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; align-items: center;">
                 <a href="/audit" class="cta-primary">Take the 3-min Readiness Audit →</a>
                 <a href="#how" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; font-size: 0.95rem; opacity: 0.8;">or see how it works</a>
