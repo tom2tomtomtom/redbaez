@@ -1,0 +1,8 @@
+node_modules
+.superpowers
+.git
+scripts
+package.json
+package-lock.json
+.gitignore
+.dockerignore
