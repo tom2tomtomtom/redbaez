@@ -14,6 +14,11 @@
   status = 200
 
 [[redirects]]
+  from = "/tools"
+  to = "/tools.html"
+  status = 200
+
+[[redirects]]
   from = "/case-studies/mother-london"
   to = "/case-studies/mother-london.html"
   status = 200

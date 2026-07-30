@@ -11,6 +11,7 @@
 	rewrite /audit /audit.html
 	rewrite /mothership /mothership.html
 	rewrite /aiden /aiden.html
+	rewrite /tools /tools.html
 	rewrite /case-studies/mother-london /case-studies/mother-london.html
 	rewrite /case-studies/uncommon /case-studies/uncommon.html
 	rewrite /case-studies/alt-shift /case-studies/alt-shift.html
