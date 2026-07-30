@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agency AI Readiness Audit | Redbaez</title>
+<title>AI Readiness Audit | Redbaez</title>
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/dkl8kiemy/image/upload/redbaez_logo_rxrjfp.png">
-<meta name="description" content="3-minute audit. See where your agency sits on AI readiness. Get a personalised next-step recommendation from Redbaez.">
+<meta name="description" content="3-minute audit. See where your team sits on AI readiness. Get a personalised next-step recommendation from Redbaez.">
 <style>
 :root {
   --red: #FF3333;
@@ -255,7 +255,7 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
 
   <!-- INTRO -->
   <div class="screen active" id="intro">
-    <h3>Agency AI Readiness Audit</h3>
+    <h3>AI Readiness Audit</h3>
     <h1 style="font-size: clamp(2.8rem, 6vw, 4.5rem);">Your AI readiness in 3&nbsp;minutes.</h1>
     <button class="btn" onclick="show('quiz')" style="font-size: 1.1rem; padding: 1rem 2.5rem; margin-bottom: 1.5rem;">Start the audit</button>
     <p class="lede" style="font-size: 1rem;">Twelve questions. Instant score. No email&nbsp;required.</p>
@@ -305,7 +305,7 @@ p { font-size: 1.05rem; margin-bottom: 1rem; }
       <form id="capture-form" style="display: flex; flex-direction: column; gap: 0.75rem;">
         <input type="text" id="name" placeholder="Your name" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
         <input type="email" id="email" placeholder="Work email" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
-        <input type="text" id="agency" placeholder="Agency name" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
+        <input type="text" id="agency" placeholder="Company name" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
         <select id="size" required style="padding: 0.75rem 1rem; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); color: white; border-radius: 2px; font-family: inherit;">
           <option value="" style="color: var(--ink);">Team size...</option>
           <option value="5-15" style="color: var(--ink);">5-15 people</option>
@@ -391,7 +391,7 @@ const questions = [
     { text: 'Case-by-case, usually approved in days', score: 4 },
     { text: 'AI-first posture, blocking only when risk is material', score: 5 },
   ]},
-  { dim: 'Workflow Opportunity', id: 'W1', text: "What share of your agency's billable work is repeatable (structurally, not in content)?", opts: [
+  { dim: 'Workflow Opportunity', id: 'W1', text: "What share of your team's billable work is repeatable (structurally, not in content)?", opts: [
     { text: 'None. Every brief is one-of-one.', score: 0 },
     { text: '10-20%. A handful of recurring formats.', score: 2 },
     { text: '30-50%. A clear backbone of repeat work.', score: 3 },
@@ -425,7 +425,7 @@ const levels = {
        body: "Leadership is interested, teams are dabbling, the stack is approachable. But without a clear first target, most of the money goes to tools nobody uses and training nobody applies. The next 6 months will determine whether you move forward or stall.",
        rec: "Run a 2-week Audit engagement (£15-22k) to identify your first 3 wins and sequence them. This gives you a defensible plan before you spend on tools." },
   3: { name: 'Mover', headline: "You're ready. The question is sequencing, not whether.",
-       body: "Leadership, team fluency, procurement, and opportunity all align. What you need now is a 16-week engagement that turns that readiness into measurable output. Agencies at your level who delay 12 months cede ground to competitors who act.",
+       body: "Leadership, team fluency, procurement, and opportunity all align. What you need now is a 16-week engagement that turns that readiness into measurable output. Companies at your level who delay 12 months cede ground to competitors who act.",
        rec: "Run the full Redbaez Delivery Method. 16 weeks, 5 phases, measurable production gains from month two. From £68k year one at your size." },
   4: { name: 'Leader', headline: "You're ahead. Acceleration and infrastructure matter more than training.",
        body: "Your teams are fluent. Your leadership gets it. You don't need a long engagement. You need platform infrastructure, better tools, and targeted engagements to unblock specific bottlenecks.",
@@ -636,7 +636,7 @@ document.getElementById('capture-form').addEventListener('submit', (e) => {
 const shareText = () => {
   const r = window._auditResult;
   if (!r) return '';
-  return `I scored ${r.overall}/5 (${r.level.name}) on the Redbaez Agency AI Readiness Audit. Weakest dimension: ${r.lowest.dim}. Take it: https://redbaez.com/audit`;
+  return `I scored ${r.overall}/5 (${r.level.name}) on the Redbaez AI Readiness Audit. Weakest dimension: ${r.lowest.dim}. Take it: https://redbaez.com/audit`;
 };
 document.getElementById('share-linkedin').addEventListener('click', () => {
   const url = 'https://redbaez.com/audit';
