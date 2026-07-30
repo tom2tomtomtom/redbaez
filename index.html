@@ -208,6 +208,17 @@
         .phantom-card .pmeta { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--muted-warm); margin-bottom: 1rem; }
         .phantom-card .plabel { font-family: 'SpaceMono', ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-warm); margin: 0.9rem 0 0.3rem; }
         .phantom-card h3 { color: var(--paper); }
+        .brainviz-wrap {
+            position: relative;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: #08070A;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+        @media (max-width: 640px) { .brainviz-wrap { aspect-ratio: 4 / 3; } }
+        #brainviz { display: block; width: 100%; height: 100%; }
+
         .phantom-card p { font-size: 0.92rem; line-height: 1.55; margin: 0; color: rgba(239,234,226,0.86); }
 
         .proof-split { display: grid; gap: 1.25rem; margin: 2rem 0; grid-template-columns: 1fr; }
@@ -1109,8 +1120,11 @@
             <p class="fade-in" style="font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 800px;">Raw language models are limbic. Reactive, fluent, and desperate to please. AIDEN adds the missing layer: phantom memory brings persistence, identity, and the ability to&nbsp;disagree.</p>
             <p class="fade-in" style="font-family: 'Anton', Impact, sans-serif; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--warm); margin: 1.5rem 0 2.5rem;">Not autocomplete. Creative&nbsp;conviction.</p>
 
-            <img src="/assets/phantom-constellation.jpg" alt="The AIDEN brain in Chat, phantoms firing on a single message" class="fade-in" loading="lazy" style="width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px;">
-            <p class="label fade-in" style="color: var(--muted-warm); margin-top: 0.75rem;">The brain, live in AIDEN Chat</p>
+            <div class="brainviz-wrap fade-in">
+                <canvas id="brainviz" aria-label="A visualisation of the phantom library, showing which memories fire on a single message"></canvas>
+                <noscript><img src="/assets/phantom-constellation.jpg" alt="The AIDEN brain in Chat, phantoms firing on a single message" style="width:100%; height:auto; border:1px solid var(--line); border-radius:4px;"></noscript>
+            </div>
+            <p class="label fade-in" style="color: var(--muted-warm); margin-top: 0.75rem;">More than 400 memories in the library. This is what one message wakes&nbsp;up.</p>
 
             <h3 class="display fade-in" style="font-size: clamp(1.5rem, 3.4vw, 2.4rem); margin: 3rem 0 1rem; color: var(--paper);">It believes it has lived a decades-long&nbsp;career.</h3>
             <p class="fade-in" style="max-width: 800px;">Each phantom is a perspective with real expertise, an origin story, and a point of view. Here are three of the live brain's own, verbatim: a corridor conversation with Ogilvy, the room where Bernbach said "say that", and Mary Wells painting the&nbsp;planes.</p>
@@ -2774,6 +2788,154 @@
                     if (inView) { running = true; lastTs = 0; rafId = requestAnimationFrame(animate); }
                 }
             });
+        })();
+
+        // The phantom library, visualised. Shorthands and the firing count are real,
+        // captured from the brain API: 72 of the library fired on one message, scores
+        // from 0.05 to 2.30. Reduced motion gets one composed still instead of a loop.
+        (function() {
+            const canvas = document.getElementById('brainviz');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const LABELS = ["story→hook", "culture→battleground", "tension→gold", "spark→distill", "value→amplifier", "meeting→email", "constraint→creativity", "truth→partnership", "question→provoke", "obvious→deadpan", "wit→blade", "opportunity→cost", "culture→future", "unreliable→narrator", "hijack→culture", "dialectic→synthesis", "thinking→aloud", "bike→persistence", "virtue→becoming", "absurd→visualizer", "tease→fondly", "constraint→gold", "chemistry→recall", "ogilvy→homework", "bernbach→honesty", "wells→theatre"];
+            const COUNT = 421;          // the library as it stands
+            const FIRE = 72;            // how many woke up on the measured message
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            let w = 0, h = 0, dpr = 1, nodes = [], running = false, rafId = null, t = 0;
+
+            function seed(i) { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); }
+
+            function layout() {
+                const r = canvas.getBoundingClientRect();
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = r.width; h = r.height;
+                canvas.width = Math.round(w * dpr);
+                canvas.height = Math.round(h * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                nodes = [];
+                const pad = Math.min(w, h) * 0.08;
+                for (let i = 0; i < COUNT; i++) {
+                    // Two lobes, wide enough to fill the frame, so the size of the
+                    // library is the first thing you see and the firing subset reads
+                    // as a subset.
+                    // Lobe must not correlate with the firing stride. COUNT/FIRE is 6, and
+                    // every sixth index is even, so picking the lobe from i % 2 put every
+                    // firing phantom in the left lobe and left the right half empty.
+                    const lobe = seed(i + 1500) > 0.5 ? 1 : -1;
+                    const a = seed(i) * Math.PI * 2;
+                    const rad = Math.sqrt(seed(i + 900));
+                    const cx = w * 0.5 + lobe * w * 0.21;
+                    const x = cx + Math.cos(a) * rad * w * 0.235;
+                    const y = h * 0.5 + Math.sin(a) * rad * (h * 0.5 - pad);
+                    nodes.push({
+                        x: Math.max(pad, Math.min(w - pad, x)),
+                        y: Math.max(pad, Math.min(h - pad, y)),
+                        base: 0.20 + seed(i + 300) * 0.18,
+                        phase: seed(i + 600) * Math.PI * 2,
+                        fires: seed(i + 2100) < (FIRE / COUNT),
+                        label: null,
+                        lit: 0,
+                    });
+                }
+                // Label only a handful, and only where they will not collide, so the
+                // names read as evidence rather than noise.
+                const firing = nodes.filter(function(n) { return n.fires; });
+                const placed = [];
+                const maxLabels = w > 900 ? 8 : (w > 620 ? 5 : 0);
+                for (let k = 0; k < firing.length && placed.length < maxLabels; k++) {
+                    const n = firing[k];
+                    let clear = true;
+                    for (let j = 0; j < placed.length; j++) {
+                        if (Math.abs(placed[j].x - n.x) < 150 && Math.abs(placed[j].y - n.y) < 26) { clear = false; break; }
+                    }
+                    if (clear && n.x < w - 180 && n.y > 18 && n.y < h - 30) { n.label = LABELS[placed.length]; placed.push(n); }
+                }
+            }
+
+            function draw(now) {
+                t = now || 0;
+                const cycle = 5200;
+                const p = (t % cycle) / cycle;      // 0..1, one message
+                const wave = p < 0.62 ? p / 0.62 : 1;
+                const fade = p < 0.62 ? 1 : 1 - (p - 0.62) / 0.38;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Connections between the loudest, drawn as the wave passes them.
+                ctx.lineWidth = 1;
+                const loud = nodes.filter(n => n.label);
+                for (let i = 0; i < loud.length - 1; i += 2) {
+                    const a = loud[i], b = loud[i + 1];
+                    const reach = Math.min(a.lit, b.lit);
+                    if (reach <= 0.02) continue;
+                    ctx.strokeStyle = 'rgba(232,145,42,' + (reach * 0.16 * fade).toFixed(3) + ')';
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                }
+
+                for (let i = 0; i < nodes.length; i++) {
+                    const n = nodes[i];
+                    const dx = (n.x - w / 2) / (w / 2), dy = (n.y - h / 2) / (h / 2);
+                    const dist = Math.sqrt(dx * dx + dy * dy) / 1.42;
+                    const front = wave * 1.25 - dist;
+                    const target = n.fires && front > 0 ? Math.min(1, front * 2.4) : 0;
+                    n.lit += (target - n.lit) * 0.09;
+
+                    const breathe = 0.82 + 0.18 * Math.sin(t / 1500 + n.phase);
+                    const alpha = (n.base * breathe + n.lit * 0.85 * fade);
+                    const r = (n.fires ? 1.15 : 1.35) + n.lit * 2.6 * fade;
+                    ctx.beginPath();
+                    ctx.fillStyle = n.lit > 0.05
+                        ? 'rgba(232,145,42,' + Math.min(1, alpha).toFixed(3) + ')'
+                        : 'rgba(127,160,190,' + Math.min(1, alpha).toFixed(3) + ')';
+                    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+                    ctx.fill();
+                    if (n.lit > 0.5) {
+                        ctx.beginPath();
+                        ctx.fillStyle = 'rgba(232,145,42,' + (0.10 * n.lit * fade).toFixed(3) + ')';
+                        ctx.arc(n.x, n.y, r * 3.4, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    if (n.label && n.lit > 0.3) {
+                        ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+                        ctx.fillStyle = 'rgba(239,234,226,' + (n.lit * 0.62 * fade).toFixed(3) + ')';
+                        ctx.fillText(n.label, n.x + 6, n.y + 3);
+                    }
+                }
+
+                // The count, ticking up as the wave sweeps.
+                const shown = Math.round(FIRE * Math.min(1, wave * 1.15) * (fade > 0.5 ? 1 : fade * 2));
+                ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+                ctx.fillStyle = 'rgba(148,140,129,0.85)';
+                ctx.fillText(shown + ' of ' + COUNT + ' fired', 12, h - 12);
+
+                if (running) rafId = requestAnimationFrame(draw);
+            }
+
+            function still() {
+                // One composed frame at the peak of the sweep, for reduced motion.
+                running = false;
+                nodes.forEach(n => { n.lit = n.fires ? 1 : 0; });
+                t = 3000; draw(3000);
+            }
+
+            layout();
+            let rt = null;
+            window.addEventListener('resize', function() {
+                clearTimeout(rt);
+                rt = setTimeout(function() { layout(); if (!running) still(); }, 150);
+            });
+
+            if (reduce) { still(); return; }
+
+            const io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting && !running) { running = true; rafId = requestAnimationFrame(draw); }
+                    else if (!e.isIntersecting && running) { running = false; if (rafId) cancelAnimationFrame(rafId); }
+                });
+            }, { threshold: 0.08 });
+            io.observe(canvas);
         })();
     </script>
 </body>
