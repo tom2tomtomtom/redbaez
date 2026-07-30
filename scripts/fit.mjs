@@ -32,6 +32,7 @@ for (const [w, h] of VIEWPORTS) {
   const r = await page.evaluate(() => {
     const h1 = document.querySelector('.hero h1');
     const cta = document.querySelector('.hero-cta');
+    if (!h1 || !cta) return { missing: !h1 ? '.hero h1' : '.hero-cta' };
     const cs = getComputedStyle(h1);
     const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.1;
     const rect = h1.getBoundingClientRect();
@@ -43,6 +44,13 @@ for (const [w, h] of VIEWPORTS) {
       ctaBottom: Math.round(cta.getBoundingClientRect().bottom),
     };
   });
+  if (r.missing) {
+    console.log(`FAIL selector not found: ${r.missing}`);
+    await page.close();
+    await browser.close();
+    server.close();
+    process.exit(1);
+  }
   const flags = [];
   if (r.overflowX) flags.push('H1-OVERFLOW');
   if (r.docScrollX) flags.push('DOC-SCROLL-X');

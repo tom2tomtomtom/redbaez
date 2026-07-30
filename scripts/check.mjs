@@ -68,7 +68,10 @@ for (const path of PAGES) {
         .filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src.slice(-40)),
       curlyAttributes: [...new Set([...document.querySelectorAll('*')]
         .flatMap(e => [...e.classList]).filter(c => /[“”]/.test(c)))],
-      invisible: [...document.querySelectorAll('.fade-in')].filter(e => effective(e) < 0.05).length,
+      invisibleIndices: [...document.querySelectorAll('.fade-in')]
+        .map((e, i) => [i, effective(e)])
+        .filter(([, o]) => o < 0.05)
+        .map(([i]) => i),
       deadAnchors: [...document.querySelectorAll('a[href^="#"]')]
         .map(a => a.getAttribute('href'))
         .filter(h => h !== '#' && !document.getElementById(h.slice(1))),
@@ -78,12 +81,34 @@ for (const path of PAGES) {
     };
   });
 
+  // The first opacity reading races the IntersectionObserver: scrolling past
+  // an element faster than a frame can be reported leaves it looking stuck
+  // when the callback simply never fired yet. Give each candidate a second
+  // chance by scrolling it into view on its own and re-measuring after the
+  // 0.8s transition has had time to run.
+  let invisible = 0;
+  for (const idx of r.invisibleIndices) {
+    await page.evaluate(i => {
+      document.querySelectorAll('.fade-in')[i].scrollIntoView({ block: 'center' });
+    }, idx);
+    await page.waitForTimeout(900);
+    const stillBad = await page.evaluate(i => {
+      const effective = el => {
+        let o = 1, n = el;
+        while (n && n.nodeType === 1) { o *= parseFloat(getComputedStyle(n).opacity); n = n.parentElement; }
+        return o;
+      };
+      return effective(document.querySelectorAll('.fade-in')[i]) < 0.05;
+    }, idx);
+    if (stillBad) invisible++;
+  }
+
   const problems = [];
   if (errs.length) problems.push('js:' + errs.slice(0, 2).join(' '));
   if (bad.length) problems.push('http:' + bad.join(','));
   if (r.brokenImages.length) problems.push('img:' + r.brokenImages.join(','));
   if (r.curlyAttributes.length) problems.push('curly-attr:' + r.curlyAttributes.length);
-  if (r.invisible) problems.push('invisible:' + r.invisible);
+  if (invisible) problems.push('invisible:' + invisible);
   if (r.deadAnchors.length) problems.push('anchor:' + r.deadAnchors.join(','));
   if (r.dashes) problems.push('dash');
   for (const h of hosts) if (h !== 'res.cloudinary.com') problems.push('external-host:' + h);
