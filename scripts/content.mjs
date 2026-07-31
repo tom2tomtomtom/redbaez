@@ -30,8 +30,11 @@ const LOCKED = [
   // makes the same argument better, in Tom's own words, and act one was restating it
   // three screens later. Removed from the page deliberately, so removed from the check
   // rather than left to fail.
-  'The advantage evaporated the moment it arrived',
-  'They need AI with a point of view',
+  // 'The advantage evaporated' and 'AI with a point of view' were retired on 31 July:
+  // Tom rewrote act one in his own words, brilliant-but-bland and the eye that
+  // experience delivers. Removed from the page deliberately, so replaced here.
+  'all of them brilliant and all of them bland',
+  'They thought an LLM could never have this. They were wrong',
   'We gave the model a prefrontal cortex',
   'Raw language models are limbic',
   'Not autocomplete. Creative conviction',
